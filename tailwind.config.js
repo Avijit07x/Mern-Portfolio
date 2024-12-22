@@ -54,6 +54,7 @@ export default {
 			animation: {
 				grid: "grid 15s linear infinite",
 				meteor: "meteor 5s linear infinite",
+				bounceSlow: "bounceSlow 3s ease-in-out infinite",
 			},
 			keyframes: {
 				grid: {
@@ -76,6 +77,10 @@ export default {
 						transform: "rotate(215deg) translateX(-500px)",
 						opacity: "0",
 					},
+				},
+				bounceSlow: {
+					"0%, 100%": { transform: "translateY(0)" },
+					"50%": { transform: "translateY(-20px)" },
 				},
 			},
 			screens: {

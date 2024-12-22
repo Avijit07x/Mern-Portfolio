@@ -2,7 +2,7 @@ import { Outlet } from "react-router";
 
 const AdminLayout = () => {
 	return (
-		<div className="bg-white text-white">
+		<div className="h-screen bg-white text-black">
 			<h1>Admin Layout</h1>
 			<Outlet />
 		</div>
