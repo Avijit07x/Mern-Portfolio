@@ -1,6 +1,8 @@
+import { useContext } from "react";
 import { Route, Routes } from "react-router";
 import CheckAuth from "./components/Check-Auth/CheckAuth";
 import AdminLayout from "./components/admin/AdminLayout";
+import AuthContext from "./context/AuthContext";
 import Home from "./routes/Home";
 import NotFound from "./routes/NotFound";
 import Unauthorized from "./routes/Unauthorized";
@@ -9,6 +11,8 @@ import Tools from "./routes/admin/Tools";
 import Login from "./routes/auth/Login";
 
 const App = () => {
+	const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+
 	return (
 		<>
 			<Routes>
@@ -18,7 +22,7 @@ const App = () => {
 				<Route
 					path="/login"
 					element={
-						<CheckAuth>
+						<CheckAuth isAuthenticated={isAuthenticated}>
 							<Login />
 						</CheckAuth>
 					}
@@ -28,7 +32,7 @@ const App = () => {
 				<Route
 					path="/admin"
 					element={
-						<CheckAuth>
+						<CheckAuth isAuthenticated={isAuthenticated}>
 							<AdminLayout />
 						</CheckAuth>
 					}
