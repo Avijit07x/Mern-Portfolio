@@ -55,6 +55,7 @@ export default {
 				grid: "grid 15s linear infinite",
 				meteor: "meteor 5s linear infinite",
 				bounceSlow: "bounceSlow 3s ease-in-out infinite",
+				wave: "wave 4s linear infinite",
 			},
 			keyframes: {
 				grid: {
@@ -81,6 +82,10 @@ export default {
 				bounceSlow: {
 					"0%, 100%": { transform: "translateY(0)" },
 					"50%": { transform: "translateY(-20px)" },
+				},
+				wave: {
+					"0%, 100%": { transform: "translateX(0)" },
+					"50%": { transform: "translateX(-50%)" },
 				},
 			},
 			screens: {

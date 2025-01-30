@@ -7,9 +7,8 @@ const Hero = () => {
 	console.log("hero");
 	return (
 		<div className="relative z-[100] flex h-full w-full flex-col items-center justify-center gap-4 lg:gap-5">
-			<div className="text-lg uppercase tracking-widest lg:text-2xl">
-				<span>HELLO</span>{" "}
-				<span className="animate-bounce text-red-600">👋</span>
+			<div className="text-lg uppercase tracking-widest lg:text-2xl flex justify-center items-center">
+				<span>HELLO</span><span>👋</span>
 				<span>, I'M</span>
 			</div>
 			<BlurIn

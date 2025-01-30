@@ -20,7 +20,7 @@ const App = () => {
 
 				{/* Login */}
 				<Route
-					path="/login"
+					path="/auth/login"
 					element={
 						<CheckAuth isAuthenticated={isAuthenticated}>
 							<Login />
