@@ -69,9 +69,6 @@
 		@apply scroll-smooth;
 	}
 }
-html {
-	scrollbar-width: thin;
-}
 
 body {
 	font-family: "Outfit", serif;

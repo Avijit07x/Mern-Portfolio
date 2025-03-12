@@ -1,11 +1,28 @@
 import { memo } from "react";
 
 const About = ({ aboutRef }) => {
-	console.log("about");
 	return (
 		<div ref={aboutRef} className="relative mt-10">
-			<div className="flex w-full flex-col items-center gap-5 overflow-hidden lg:flex-row lg:px-16">
-				Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel harum facilis consectetur, eum provident eos itaque, praesentium laborum nihil, consequuntur exercitationem voluptate deleniti saepe suscipit cupiditate optio perferendis nobis? Molestiae incidunt est ea facilis ipsum assumenda quos modi, quo atque mollitia soluta! Necessitatibus suscipit sunt dolor magnam earum amet quisquam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, ratione quos? Iure dignissimos quasi sed a ipsam dolor at doloremque sapiente, id cumque, voluptatibus repellat explicabo aperiam! Eius quo sed, quos quae quaerat tenetur laudantium, perferendis earum iusto beatae nesciunt? Quas eaque exercitationem blanditiis praesentium dolores cupiditate! Accusantium magni dignissimos animi ex voluptatibus mollitia expedita? Eligendi exercitationem nam, aliquid veniam dolorum iste nostrum neque deleniti ipsum quibusdam facere corrupti animi officiis cumque, perspiciatis quisquam ratione quia quasi assumenda, inventore explicabo laborum. Dolor, eum saepe ullam qui assumenda ab debitis quis sint recusandae, velit, praesentium eos. Repudiandae temporibus adipisci voluptates maxime?
+			<div className="flex h-[500px] w-full flex-col items-center gap-5 overflow-hidden lg:flex-row lg:px-16">
+			
+				<div className="w-1/2 mx-auto">
+					Hi, I'm Avijit Dey, a passionate Frontend Developer with a strong
+					background in building user-friendly, responsive, and visually
+					appealing web applications. With a BTech in Computer Science and
+					hands-on experience in modern web technologies like React, Next.js,
+					Tailwind CSS, and the MERN stack, I strive to create seamless digital
+					experiences that leave a lasting impact. I don’t just build websites—I
+					craft digital experiences that are fast, dynamic, and tailored to user
+					needs. Whether it's a sleek landing page, a full-fledged eCommerce
+					platform, or a custom web application, I bring ideas to life with
+					precision and creativity. While I work as a Frontend Developer, I also
+					take on freelancing projects part-time, helping businesses and
+					individuals turn their visions into reality. My goal is simple:
+					delivering high-quality, performance-driven solutions that not only
+					look great but function flawlessly. Let’s build something amazing
+					together! If you’re looking for a dedicated developer who can bring
+					fresh ideas to the table, let’s connect!
+				</div>
 			</div>
 		</div>
 	);

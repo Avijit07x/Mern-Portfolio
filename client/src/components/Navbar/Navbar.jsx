@@ -11,7 +11,6 @@ import { Link } from "react-router";
 import { Button } from "../ui/button";
 
 const Navbar = ({ scrollToSection, aboutRef }) => {
-	console.log("navbar");
 	const [open, setOpen] = useState(false);
 	return (
 		<>
