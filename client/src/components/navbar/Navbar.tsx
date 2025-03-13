@@ -8,7 +8,6 @@ import {
 import { Menu } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router";
-import { Button } from "../ui/button";
 
 const Navbar = ({ scrollToSection, aboutRef }: any) => {
 	const [open, setOpen] = useState(false);
@@ -18,14 +17,13 @@ const Navbar = ({ scrollToSection, aboutRef }: any) => {
 				<Link to="/">
 					<img className="w-14 md:w-16" src="/logo.png" alt="logo" />
 				</Link>
-				<Button
+				<button
 					onClick={() => setOpen(true)}
-					variant="ghost"
-					className="w-14 p-0 hover:bg-transparent md:w-16 lg:hidden [&_svg]:size-6 md:[&_svg]:size-7"
+					className="pr-3 hover:bg-transparent lg:hidden"
 				>
 					<Menu className="text-white" />
 					<span className="sr-only">Open menu</span>
-				</Button>
+				</button>
 				<ul className="hidden items-center justify-center lg:flex">
 					<li className="mx-5 text-white">
 						<button
@@ -48,7 +46,7 @@ const Navbar = ({ scrollToSection, aboutRef }: any) => {
 			</nav>
 
 			<Sheet open={open} onOpenChange={setOpen}>
-				<SheetContent className="border-[#01031a] bg-[#01031a]">
+				<SheetContent className="border-[#01031a] bg-[#01031a] px-6">
 					<SheetHeader>
 						<SheetTitle className="hidden">Sidebar</SheetTitle>
 						<SheetDescription className="hidden">
