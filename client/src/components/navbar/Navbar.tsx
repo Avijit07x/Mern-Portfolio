@@ -6,11 +6,11 @@ import {
 	SheetTitle,
 } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
-import { memo, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router";
 import { Button } from "../ui/button";
 
-const Navbar = ({ scrollToSection, aboutRef }) => {
+const Navbar = ({ scrollToSection, aboutRef }: any) => {
 	const [open, setOpen] = useState(false);
 	return (
 		<>
@@ -28,13 +28,21 @@ const Navbar = ({ scrollToSection, aboutRef }) => {
 				</Button>
 				<ul className="hidden items-center justify-center lg:flex">
 					<li className="mx-5 text-white">
-						<button onClick={() => scrollToSection(aboutRef)}>About</button>
+						<button
+							className="cursor-pointer"
+							onClick={() => scrollToSection(aboutRef)}
+						>
+							About
+						</button>
 					</li>
 					<li className="mx-5 text-white">
 						<button>Projects</button>
 					</li>
 					<li className="mx-5 text-white">
 						<button>Contact</button>
+					</li>
+					<li className="mx-5 text-white">
+						<Link to="/resume">Resume</Link>
 					</li>
 				</ul>
 			</nav>
@@ -73,7 +81,7 @@ const Navbar = ({ scrollToSection, aboutRef }) => {
 							}}
 						>
 							<button
-								onClick={() => scrollToSection(projectRef)}
+								// onClick={() => scrollToSection(projectRef)}
 								className="w-full"
 							>
 								Projects
@@ -88,6 +96,15 @@ const Navbar = ({ scrollToSection, aboutRef }) => {
 						>
 							Contact
 						</li>
+						<li
+							className="flex w-full items-center justify-center rounded-xl border border-[#FFFFFF20] py-2 text-white shadow-2xl"
+							style={{
+								backdropFilter: "blur(16px) saturate(180%)",
+								backgroundColor: "rgba(17, 25, 40, 0.75)",
+							}}
+						>
+							<Link to="/resume">Resume</Link>
+						</li>
 					</ul>
 				</SheetContent>
 			</Sheet>
@@ -95,4 +112,4 @@ const Navbar = ({ scrollToSection, aboutRef }) => {
 	);
 };
 
-export default memo(Navbar);
+export default Navbar;
