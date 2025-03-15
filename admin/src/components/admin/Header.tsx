@@ -1,19 +1,13 @@
 import { AlignJustify, LogOut } from "lucide-react";
-import React from "react";
 
 import { logout } from "@/store/authSlice";
 import { useAppDispatch } from "@/store/hooks";
 import { Button } from "../ui/button";
-import { useNavigate } from "react-router";
 
 const Header = ({ setOpen }: { setOpen: any }) => {
 	const dispatch = useAppDispatch();
-	const navigate = useNavigate();
-	const handleLogout = (e: React.MouseEvent<HTMLButtonElement>) => {
-		e.preventDefault();
+	const handleLogout = () => {
 		dispatch(logout());
-		localStorage.removeItem("_token");
-		navigate("/");
 	};
 
 	return (

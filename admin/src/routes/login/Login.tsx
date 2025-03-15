@@ -52,10 +52,10 @@ const Login = () => {
 	};
 
 	return (
-		<div className="flex justify-center items-center min-h-screen bg-gray-100">
+		<div className="flex justify-center items-center h-svh bg-gray-100 ">
 			<Card className="w-full max-w-sm shadow-lg">
 				<CardHeader>
-					<CardTitle className="text-xl text-center font-semibold">
+					<CardTitle className="text-xl text-center font-bold">
 						Admin Login
 					</CardTitle>
 				</CardHeader>
@@ -63,7 +63,12 @@ const Login = () => {
 					<form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 						<div className="space-y-3">
 							<Label htmlFor="email">Email</Label>
-							<Input id="email" type="email" {...register("email")} />
+							<Input
+								id="email"
+								type="email"
+								{...register("email")}
+								placeholder="Email"
+							/>
 							{errors.email && (
 								<p className="text-red-500 text-sm">{errors.email.message}</p>
 							)}
@@ -71,7 +76,12 @@ const Login = () => {
 
 						<div className="space-y-3">
 							<Label htmlFor="password">Password</Label>
-							<Input id="password" type="password" {...register("password")} />
+							<Input
+								id="password"
+								type="password"
+								{...register("password")}
+								placeholder="Password"
+							/>
 							{errors.password && (
 								<p className="text-red-500 text-sm">
 									{errors.password.message}

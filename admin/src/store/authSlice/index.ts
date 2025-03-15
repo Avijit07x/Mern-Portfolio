@@ -93,18 +93,19 @@ const authSlice = createSlice({
 				state.isAuth = false;
 				state.user = null;
 			})
-			.addCase(login.rejected, (state, action: PayloadAction<any>) => {
+			.addCase(login.rejected, (state) => {
 				state.isLoading = false;
-				state.isAuth = action?.payload.success ? action.payload.success : false;
-				state.user = action?.payload.user ? action.payload.user : null;
+				state.isAuth = false;
+				state.user = null;
 			})
 			.addCase(logout.fulfilled, (state) => {
+				localStorage.setItem("_token", "false");
 				state.isLoading = false;
 				state.isAuth = false;
 				state.user = null;
 			})
 			.addCase(logout.pending, (state) => {
-				state.isLoading = true;
+				state.isLoading = false;
 				state.isAuth = false;
 				state.user = null;
 			});
