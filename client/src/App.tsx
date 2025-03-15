@@ -3,6 +3,7 @@ import Home from "./routes/Home";
 import NotFound from "./routes/NotFound";
 
 const App = () => {
+	console.log("test")
 	return (
 		<>
 			<Routes>
