@@ -1,6 +1,5 @@
-# Full Safety Optimized robots.txt
+# SEO Optimized robots.txt
 
-# 1. Allow all search engines to crawl important pages
 User-agent: *
 Disallow: /admin/
 Disallow: /config/
@@ -13,7 +12,7 @@ Disallow: /signup/
 Disallow: /server-status
 Disallow: /api/
 
-# 2. Block crawling of unnecessary file types
+# Prevent crawling of unnecessary file types
 Disallow: /*.php$
 Disallow: /*.sql$
 Disallow: /*.env$
@@ -21,16 +20,20 @@ Disallow: /*.log$
 Disallow: /*.bak$
 Disallow: /*.zip$
 
-# 3. Prevent crawling of dynamic query strings
+# Block query strings
 Disallow: /*?*
 
-# 4. Block bad bots (replace with known malicious bots if any)
-User-agent: BadBot
+# Block bad bots
+User-agent: GPTBot
 Disallow: /
-User-agent: EvilScraper
+User-agent: ChatGPT-User
 Disallow: /
-User-agent: 008
+User-agent: ClaudeBot
+Disallow: /
+User-agent: CCBot
+Disallow: /
+User-agent: Bytespider
 Disallow: /
 
-# 5. Provide sitemap location
+# Provide sitemap location
 Sitemap: https://www.yourwebsite.com/sitemap.xml
