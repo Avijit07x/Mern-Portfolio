@@ -24,8 +24,6 @@ const App = () => {
 			dispatch(checkAuth());
 		}
 	}, [dispatch]);
-	console.log("test")
-	console.log("test")
 
 	if (isLoading) return <Loader />;
 
