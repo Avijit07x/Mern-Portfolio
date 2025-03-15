@@ -25,6 +25,7 @@ const App = () => {
 		}
 	}, [dispatch]);
 	console.log("test")
+	console.log("test")
 
 	if (isLoading) return <Loader />;
 
