@@ -6,7 +6,7 @@ import Sidebar from "./Sidebar";
 const AdminLayout = () => {
 	const [openSidebar, setOpenSidebar] = useState(false);
 	return (
-		<div className="mx-auto flex min-h-screen w-full">
+		<div className="mx-auto flex min-h-svh w-full">
 			{/* admin sidebar */}
 			<Sidebar open={openSidebar} setOpen={setOpenSidebar} />
 			<div className="flex flex-1 flex-col">
