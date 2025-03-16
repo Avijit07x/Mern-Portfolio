@@ -18,7 +18,12 @@ const App = () => {
 	const token = localStorage.getItem("_token");
 
 	useEffect(() => {
-		if (token === "false" || !token) {
+		if (
+			token === "false" ||
+			!token ||
+			token === null ||
+			token === "undefined"
+		) {
 			return;
 		} else {
 			dispatch(checkAuth());

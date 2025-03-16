@@ -55,7 +55,7 @@ const Login = () => {
 		<div className="flex justify-center items-center h-svh bg-gray-100">
 			<Card className="w-full max-sm:flex max-sm:justify-center max-sm:w-full max-sm:h-full max-sm:shadow-none max-sm:rounded-none sm:max-w-sm shadow-lg">
 				<CardHeader>
-					<CardTitle className="text-xl text-center font-bold">
+					<CardTitle className="max-sm:text-2xl text-xl text-center font-bold">
 						Admin Login
 					</CardTitle>
 				</CardHeader>
