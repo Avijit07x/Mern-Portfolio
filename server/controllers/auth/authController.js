@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const {
 	generate_access_token,
-	_access_tokenOptions,
+	access_tokenOptions,
 } = require("../../helpers/JwtGenerate");
 const Admin = require("../../models/Admin");
 
@@ -46,7 +46,6 @@ const registerUser = async (req, res) => {
 // login controller
 const loginUser = async (req, res) => {
 	const { email, password } = req.body;
-	console.log(email, password);
 	if (!(email && password)) {
 		return res.json({ success: false, message: "All fields are required" });
 	}
@@ -71,12 +70,12 @@ const loginUser = async (req, res) => {
 		};
 
 		// create access token
-		const _access_token = generate_access_token(user);
+		const access_token = generate_access_token(user);
 
 		// Set cookie and return response
 		return res
 			.status(200)
-			.cookie("_access_token", _access_token, _access_tokenOptions)
+			.cookie("_access_token", access_token, access_tokenOptions)
 			.json({
 				success: true,
 				user,

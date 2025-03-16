@@ -1,6 +1,6 @@
 import api from "@/utils/api";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-
+import storage from "redux-persist/lib/storage";
 interface IAuthState {
 	isAuth: boolean;
 	user: any;
@@ -77,10 +77,11 @@ const authSlice = createSlice({
 					state.user = action.payload?.success ? action.payload?.user : null;
 				}
 			)
-			.addCase(checkAuth.rejected, (state, action: PayloadAction<any>) => {
-				state.isLoading = action?.payload.success;
-				state.isAuth = action?.payload.success;
-				state.user = action?.payload.user;
+			.addCase(checkAuth.rejected, (state) => {
+				storage.removeItem("persist:root");
+				state.isLoading = false;
+				state.isAuth = false;
+				state.user = null;
 			})
 
 			.addCase(login.fulfilled, (state, action: PayloadAction<AuthPayload>) => {
@@ -100,11 +101,14 @@ const authSlice = createSlice({
 			})
 			.addCase(logout.fulfilled, (state) => {
 				localStorage.setItem("_token", "false");
+				storage.removeItem("persist:root");
 				state.isLoading = false;
 				state.isAuth = false;
 				state.user = null;
 			})
 			.addCase(logout.pending, (state) => {
+				localStorage.setItem("_token", "false");
+				storage.removeItem("persist:root");
 				state.isLoading = false;
 				state.isAuth = false;
 				state.user = null;

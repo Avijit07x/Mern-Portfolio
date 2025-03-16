@@ -7,7 +7,7 @@ const generate_access_token = (user) => {
 	});
 };
 
-const _access_tokenOptions = {
+const access_tokenOptions = {
 	httpOnly: true,
 	secure: process.env.NODE_ENV === "production",
 	sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
@@ -16,5 +16,5 @@ const _access_tokenOptions = {
 
 module.exports = {
 	generate_access_token,
-	_access_tokenOptions,
+	access_tokenOptions,
 };
