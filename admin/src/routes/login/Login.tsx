@@ -52,8 +52,8 @@ const Login = () => {
 	};
 
 	return (
-		<div className="flex justify-center items-center h-svh bg-gray-100 ">
-			<Card className="w-full max-w-sm shadow-lg">
+		<div className="flex justify-center items-center h-svh bg-gray-100">
+			<Card className="w-full max-sm:flex max-sm:justify-center max-sm:w-full max-sm:h-full max-sm:shadow-none max-sm:rounded-none sm:max-w-sm shadow-lg">
 				<CardHeader>
 					<CardTitle className="text-xl text-center font-bold">
 						Admin Login
@@ -68,6 +68,7 @@ const Login = () => {
 								type="email"
 								{...register("email")}
 								placeholder="Email"
+								className="py-5"
 							/>
 							{errors.email && (
 								<p className="text-red-500 text-sm">{errors.email.message}</p>
@@ -81,6 +82,7 @@ const Login = () => {
 								type="password"
 								{...register("password")}
 								placeholder="Password"
+								className="py-5"
 							/>
 							{errors.password && (
 								<p className="text-red-500 text-sm">
@@ -95,7 +97,7 @@ const Login = () => {
 
 						<Button
 							type="submit"
-							className="w-full bg-blue-500 hover:bg-blue-500/90 disabled:bg-blue-300"
+							className="w-full py-5 bg-blue-500 hover:bg-blue-500/90 disabled:bg-blue-300"
 							disabled={isLoading}
 						>
 							{isLoading ? (
