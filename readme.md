@@ -38,7 +38,7 @@ Make sure you have the following installed:
 ### Steps to Run the Project
 #### 1. Clone the repository
 ```sh
-git clone https://github.com/your-username/your-portfolio.git
+git clone https://github.com/Avijit07x/Mern-Portfolio.git
 cd your-portfolio
 ```
 
