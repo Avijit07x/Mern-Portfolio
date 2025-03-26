@@ -32,7 +32,7 @@ const Project = () => {
 						name="search"
 						id="search"
 						placeholder="Search projects"
-						className="h-9 sm:w-72 lg:w-80 xl:w-96 rounded-full"
+						className="h-9 sm:w-72 lg:w-80 xl:w-96 rounded-full border border-gray-400"
 						onChange={handleSearchProduct}
 					/>
 				</div>

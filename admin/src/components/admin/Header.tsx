@@ -11,7 +11,7 @@ const Header = ({ setOpen }: { setOpen: any }) => {
 	};
 
 	return (
-		<header className="sticky top-0 z-50 flex items-center justify-between border-b bg-background px-4 py-3">
+		<header className="sticky top-0 z-50 flex items-center justify-between border-b border-b-slate-300 bg-[#eff1f5] px-4 py-3">
 			<button
 				onClick={() => setOpen(true)}
 				className="bg-transparent sm:block lg:hidden p-0"

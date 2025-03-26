@@ -55,9 +55,9 @@ const MenuItems = ({ setOpen }: any) => {
 					}}
 					className={`${
 						location.pathname === menuItem.path
-							? "bg-muted text-foreground"
-							: "text-muted-foreground"
-					} flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2.5 hover:bg-muted hover:text-foreground`}
+							? "bg-muted/80 text-black"
+							: "text-white"
+					} flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2.5 hover:bg-muted/80 hover:text-black`}
 				>
 					{menuItem.icon}
 					<span className="text-sm font-medium">{menuItem.label}</span>
@@ -72,28 +72,28 @@ const Sidebar = ({ open, setOpen }: SidebarProps) => {
 	return (
 		<>
 			<Sheet open={open} onOpenChange={setOpen}>
-				<SheetContent side="left" className="w-64 px-5">
+				<SheetContent side="left" className="w-64 px-5 bg-[#0b3954]">
 					<div className="flex h-full flex-col">
 						<SheetHeader className="border-b">
 							<SheetTitle
 								onClick={() => navigate("/")}
-								className="mb-5 mt-5 flex gap-2"
+								className="mb-5 mt-5 flex gap-2 text-white"
 							>
 								<ChartNoAxesCombined size={25} />
-								<span className="text-xl font-bold">Admin Panel</span>
+								<span className="text-xl font-bold ">Admin Panel</span>
 							</SheetTitle>
 						</SheetHeader>
 						<MenuItems setOpen={setOpen} />
 					</div>
 				</SheetContent>
 			</Sheet>
-			<aside className="sticky top-0 z-50 hidden h-screen w-64 select-none flex-col border-r bg-background p-6 lg:flex">
+			<aside className="sticky top-0 z-50 hidden h-screen w-64 select-none flex-col border-r bg-[#0b3954] p-6 lg:flex">
 				<div
 					onClick={() => navigate("/")}
-					className="flex cursor-pointer items-center gap-2"
+					className="flex cursor-pointer items-center gap-2 text-white"
 				>
 					<ChartNoAxesCombined size={25} />
-					<h1 className="text-xl font-bold">Admin Panel</h1>
+					<h1 className="text-xl font-bold ">Admin Panel</h1>
 				</div>
 				<MenuItems setOpen={setOpen} />
 			</aside>
