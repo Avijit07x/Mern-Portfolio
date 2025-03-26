@@ -32,12 +32,12 @@ const Project = () => {
 						name="search"
 						id="search"
 						placeholder="Search projects"
-						className="h-9 sm:w-72 lg:w-80 xl:w-96 rounded-full border border-gray-400"
+						className="h-9 sm:w-72 lg:w-80 xl:w-96 rounded-full border border-[#2b2b30] text-white selection:bg-amber-700 "
 						onChange={handleSearchProduct}
 					/>
 				</div>
 				<Button
-					className="rounded-full bg-blue-600 text-sm hover:bg-blue-600/90"
+					className="rounded-full bg-blue-600/70 text-sm hover:bg-blue-600/90"
 					onClick={handleOpenCreateProductsDialog}
 				>
 					Add Project

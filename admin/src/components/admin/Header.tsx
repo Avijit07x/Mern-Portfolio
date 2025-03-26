@@ -11,21 +11,17 @@ const Header = ({ setOpen }: { setOpen: any }) => {
 	};
 
 	return (
-		<header className="sticky top-0 z-50 flex items-center justify-between border-b border-b-slate-300 bg-[#eff1f5] px-4 py-3">
+		<header className="sticky top-0 z-50 flex items-center justify-between border-b border-b-[#1e1e20] bg-[#121214] px-4 py-3">
 			<button
 				onClick={() => setOpen(true)}
 				className="bg-transparent sm:block lg:hidden p-0"
 			>
-				<AlignJustify className="size-6 text-black" />
+				<AlignJustify className="size-6 text-white" />
 				<span className="sr-only">Toggle Menu</span>
 			</button>
 
 			<div className="flex flex-1 justify-end">
-				<Button
-					variant="destructive"
-					className="gap-2 rounded-full text-sm"
-					onClick={handleLogout}
-				>
+				<Button className="gap-2 rounded-full text-sm bg-[#ff2056]/70 hover:bg-[#ff2056]/50" onClick={handleLogout}>
 					<LogOut className="size-4" /> <span>Logout</span>
 				</Button>
 			</div>

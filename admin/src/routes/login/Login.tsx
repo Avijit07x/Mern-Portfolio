@@ -52,10 +52,10 @@ const Login = () => {
 	};
 
 	return (
-		<div className="flex justify-center items-center h-svh bg-gray-100">
-			<Card className="w-full max-sm:flex max-sm:justify-center max-sm:w-full max-sm:h-full max-sm:shadow-none max-sm:rounded-none sm:max-w-sm shadow-lg">
+		<div className="flex justify-center items-center h-svh bg-[#1f1f22]">
+			<Card className="w-full max-sm:flex max-sm:justify-center max-sm:w-full text-white max-sm:h-full max-sm:shadow-none max-sm:rounded-none sm:max-w-sm shadow-lg bg-[#232327] border-none">
 				<CardHeader>
-					<CardTitle className="max-sm:text-2xl text-xl text-center font-bold">
+					<CardTitle className="max-sm:text-2xl text-xl text-center font-bold ">
 						Admin Login
 					</CardTitle>
 				</CardHeader>
@@ -68,7 +68,7 @@ const Login = () => {
 								type="email"
 								{...register("email")}
 								placeholder="Email"
-								className="py-5"
+								className="py-5 border-[#2b2b30] text-white selection:bg-amber-700 "
 							/>
 							{errors.email && (
 								<p className="text-red-500 text-sm">{errors.email.message}</p>
@@ -82,7 +82,7 @@ const Login = () => {
 								type="password"
 								{...register("password")}
 								placeholder="Password"
-								className="py-5"
+								className="py-5 border-[#2b2b30] text-white selection:bg-amber-700  "
 							/>
 							{errors.password && (
 								<p className="text-red-500 text-sm">
@@ -97,7 +97,7 @@ const Login = () => {
 
 						<Button
 							type="submit"
-							className="w-full py-5 bg-blue-500 hover:bg-blue-500/90 disabled:bg-blue-300"
+							className="w-full py-5 bg-blue-500/60 hover:bg-blue-500/90 disabled:bg-blue-300"
 							disabled={isLoading}
 						>
 							{isLoading ? (
@@ -110,7 +110,7 @@ const Login = () => {
 							)}
 						</Button>
 					</form>
-					<div className="rounded-lg mt-3 bg-red-400 p-3 text-sm font-semibold text-white text-center">
+					<div className="rounded-lg mt-3 bg-[#ff2056]/60 p-3 text-sm font-semibold text-white text-center">
 						<p>
 							This is a secured page. <br />
 							Leave this page if you are not the <br /> administrator.

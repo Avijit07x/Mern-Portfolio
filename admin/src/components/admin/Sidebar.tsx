@@ -55,11 +55,19 @@ const MenuItems = ({ setOpen }: any) => {
 					}}
 					className={`${
 						location.pathname === menuItem.path
-							? "bg-muted/80 text-black"
+							? "bg-[#272729] text-white"
 							: "text-white"
-					} flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2.5 hover:bg-muted/80 hover:text-black`}
+					} flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2.5 hover:bg-[#272729] `}
 				>
-					{menuItem.icon}
+					<span
+						className={`${
+							location.pathname === menuItem.path
+								? "text-[#8946ff]"
+								: "text-gray-400"
+						}`}
+					>
+						{menuItem.icon}
+					</span>
 					<span className="text-sm font-medium">{menuItem.label}</span>
 				</div>
 			))}
@@ -72,14 +80,14 @@ const Sidebar = ({ open, setOpen }: SidebarProps) => {
 	return (
 		<>
 			<Sheet open={open} onOpenChange={setOpen}>
-				<SheetContent side="left" className="w-64 px-5 bg-[#0b3954]">
+				<SheetContent side="left" className="w-64 px-5 bg-[#18181a]">
 					<div className="flex h-full flex-col">
 						<SheetHeader className="border-b">
 							<SheetTitle
 								onClick={() => navigate("/")}
 								className="mb-5 mt-5 flex gap-2 text-white"
 							>
-								<ChartNoAxesCombined size={25} />
+								<ChartNoAxesCombined size={25} className="text-[#8946ff]" />
 								<span className="text-xl font-bold ">Admin Panel</span>
 							</SheetTitle>
 						</SheetHeader>
@@ -87,12 +95,12 @@ const Sidebar = ({ open, setOpen }: SidebarProps) => {
 					</div>
 				</SheetContent>
 			</Sheet>
-			<aside className="sticky top-0 z-50 hidden h-screen w-64 select-none flex-col border-r bg-[#0b3954] p-6 lg:flex">
+			<aside className="sticky top-0 z-50 hidden h-screen w-64 select-none flex-col border-r border-r-[#1e1e20] bg-[#18181a] p-6 lg:flex">
 				<div
 					onClick={() => navigate("/")}
 					className="flex cursor-pointer items-center gap-2 text-white"
 				>
-					<ChartNoAxesCombined size={25} />
+					<ChartNoAxesCombined size={25} className="text-[#8946ff]" />
 					<h1 className="text-xl font-bold ">Admin Panel</h1>
 				</div>
 				<MenuItems setOpen={setOpen} />
