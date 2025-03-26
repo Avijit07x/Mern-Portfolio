@@ -3,6 +3,7 @@ import {
 	ChartNoAxesCombined,
 	Laptop,
 	LayoutDashboard,
+	X,
 } from "lucide-react";
 import { useLocation, useNavigate } from "react-router";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
@@ -57,7 +58,7 @@ const MenuItems = ({ setOpen }: any) => {
 						location.pathname === menuItem.path
 							? "bg-[#272729] text-white"
 							: "text-white"
-					} flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2.5 hover:bg-[#272729] `}
+					} flex cursor-pointer items-center gap-2 rounded-lg px-3 py-2.5 hover:bg-[#272729]`}
 				>
 					<span
 						className={`${
@@ -80,28 +81,42 @@ const Sidebar = ({ open, setOpen }: SidebarProps) => {
 	return (
 		<>
 			<Sheet open={open} onOpenChange={setOpen}>
-				<SheetContent side="left" className="w-64 px-5 bg-[#18181a]">
-					<div className="flex h-full flex-col">
-						<SheetHeader className="border-b">
+				<SheetContent
+					side="left"
+					className="w-64 border-r-0 bg-[#18181a] px-5 [&>button]:hidden"
+				>
+					<div className="relative flex h-full flex-col">
+						{/* Custom Close Button */}
+						<button
+							onClick={() => setOpen(false)}
+							className="absolute top-3 right-0 rounded-md text-gray-400 hover:bg-gray-700 hover:text-white"
+						>
+							<X size={20} />
+						</button>
+
+						<SheetHeader className="mt-2 border-b">
 							<SheetTitle
 								onClick={() => navigate("/")}
-								className="mb-5 mt-5 flex gap-2 text-white"
+								className="mt-5 mb-5 flex cursor-pointer gap-2 text-white"
 							>
 								<ChartNoAxesCombined size={25} className="text-[#8946ff]" />
-								<span className="text-xl font-bold ">Admin Panel</span>
+								<span className="text-xl font-bold">Admin Panel</span>
 							</SheetTitle>
 						</SheetHeader>
+
 						<MenuItems setOpen={setOpen} />
 					</div>
 				</SheetContent>
 			</Sheet>
-			<aside className="sticky top-0 z-50 hidden h-screen w-64 select-none flex-col border-r border-r-[#1e1e20] bg-[#18181a] p-6 lg:flex">
+
+			{/* Sidebar for larger screens */}
+			<aside className="sticky top-0 z-50 hidden h-screen w-64 flex-col border-r border-r-[#1e1e20] bg-[#18181a] p-6 select-none lg:flex">
 				<div
 					onClick={() => navigate("/")}
 					className="flex cursor-pointer items-center gap-2 text-white"
 				>
 					<ChartNoAxesCombined size={25} className="text-[#8946ff]" />
-					<h1 className="text-xl font-bold ">Admin Panel</h1>
+					<h1 className="text-xl font-bold">Admin Panel</h1>
 				</div>
 				<MenuItems setOpen={setOpen} />
 			</aside>

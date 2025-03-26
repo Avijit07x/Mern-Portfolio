@@ -124,7 +124,9 @@
 	width: 88px;
 	height: 12px;
 	--_g: no-repeat radial-gradient(farthest-side, #000 94%, #0000);
-	background: var(--_g) 25% 0, var(--_g) 75% 0;
+	background:
+		var(--_g) 25% 0,
+		var(--_g) 75% 0;
 	background-size: 12px 12px;
 	position: relative;
 	animation: l24-0 1s linear infinite;
@@ -143,20 +145,30 @@
 @keyframes l24-0 {
 	0%,
 	24% {
-		background-position: 25% 0, 75% 0;
+		background-position:
+			25% 0,
+			75% 0;
 	}
 	40% {
-		background-position: 25% 0, 85% 0;
+		background-position:
+			25% 0,
+			85% 0;
 	}
 	50%,
 	72% {
-		background-position: 25% 0, 75% 0;
+		background-position:
+			25% 0,
+			75% 0;
 	}
 	90% {
-		background-position: 15% 0, 75% 0;
+		background-position:
+			15% 0,
+			75% 0;
 	}
 	100% {
-		background-position: 25% 0, 75% 0;
+		background-position:
+			25% 0,
+			75% 0;
 	}
 }
 @keyframes l24-1 {

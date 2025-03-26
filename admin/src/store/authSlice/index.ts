@@ -43,7 +43,7 @@ export const login = createAsyncThunk(
 		} catch (error: any) {
 			return error.response.data;
 		}
-	}
+	},
 );
 
 export const logout = createAsyncThunk("auth/logout", async () => {
@@ -75,7 +75,7 @@ const authSlice = createSlice({
 					state.isLoading = false;
 					state.isAuth = action.payload?.success;
 					state.user = action.payload?.success ? action.payload?.user : null;
-				}
+				},
 			)
 			.addCase(checkAuth.rejected, (state) => {
 				storage.removeItem("persist:root");

@@ -12,7 +12,7 @@ const AdminLayout = () => {
 			<div className="flex flex-1 flex-col">
 				{/* admin header */}
 				<Header setOpen={setOpenSidebar} />
-				<main className="flex flex-1 flex-col bg-[#121214] p-4 md:p-6 text-white">
+				<main className="flex flex-1 flex-col bg-[#121214] p-4 text-white md:p-6">
 					<Outlet />
 				</main>
 			</div>

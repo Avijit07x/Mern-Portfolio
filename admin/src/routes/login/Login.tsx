@@ -52,10 +52,10 @@ const Login = () => {
 	};
 
 	return (
-		<div className="flex justify-center items-center h-svh bg-[#1f1f22]">
-			<Card className="w-full max-sm:flex max-sm:justify-center max-sm:w-full text-white max-sm:h-full max-sm:shadow-none max-sm:rounded-none sm:max-w-sm shadow-lg bg-[#232327] border-none">
+		<div className="flex h-svh items-center justify-center bg-[#1f1f22]">
+			<Card className="w-full border-none bg-[#232327] text-white shadow-lg max-sm:flex max-sm:h-full max-sm:w-full max-sm:justify-center max-sm:rounded-none max-sm:shadow-none sm:max-w-sm">
 				<CardHeader>
-					<CardTitle className="max-sm:text-2xl text-xl text-center font-bold ">
+					<CardTitle className="text-center text-xl font-bold max-sm:text-2xl">
 						Admin Login
 					</CardTitle>
 				</CardHeader>
@@ -68,10 +68,10 @@ const Login = () => {
 								type="email"
 								{...register("email")}
 								placeholder="Email"
-								className="py-5 border-[#2b2b30] text-white selection:bg-amber-700 "
+								className="border-[#2b2b30] py-5 text-white selection:bg-amber-700"
 							/>
 							{errors.email && (
-								<p className="text-red-500 text-sm">{errors.email.message}</p>
+								<p className="text-sm text-red-500">{errors.email.message}</p>
 							)}
 						</div>
 
@@ -82,22 +82,22 @@ const Login = () => {
 								type="password"
 								{...register("password")}
 								placeholder="Password"
-								className="py-5 border-[#2b2b30] text-white selection:bg-amber-700  "
+								className="border-[#2b2b30] py-5 text-white selection:bg-amber-700"
 							/>
 							{errors.password && (
-								<p className="text-red-500 text-sm">
+								<p className="text-sm text-red-500">
 									{errors.password.message}
 								</p>
 							)}
 						</div>
 
 						{error && (
-							<p className="text-red-500 text-center text-sm">{error}</p>
+							<p className="text-center text-sm text-red-500">{error}</p>
 						)}
 
 						<Button
 							type="submit"
-							className="w-full py-5 bg-blue-500/60 hover:bg-blue-500/90 disabled:bg-blue-300"
+							className="w-full bg-blue-500/60 py-5 hover:bg-blue-500/90 disabled:bg-blue-300"
 							disabled={isLoading}
 						>
 							{isLoading ? (
@@ -110,7 +110,7 @@ const Login = () => {
 							)}
 						</Button>
 					</form>
-					<div className="rounded-lg mt-3 bg-[#ff2056]/60 p-3 text-sm font-semibold text-white text-center">
+					<div className="mt-3 rounded-lg bg-[#ff2056]/60 p-3 text-center text-sm font-semibold text-white">
 						<p>
 							This is a secured page. <br />
 							Leave this page if you are not the <br /> administrator.
