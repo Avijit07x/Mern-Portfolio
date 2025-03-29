@@ -7,6 +7,7 @@ import {
 	SheetHeader,
 	SheetTitle,
 } from "@/components/ui/sheet";
+import { Plus, X } from "lucide-react";
 import { useState } from "react";
 
 const Project = () => {
@@ -17,7 +18,7 @@ const Project = () => {
 	const handleSearchProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchedText(e.target.value);
 	};
-	// open create product dialog
+	// open create project dialog
 	const handleOpenCreateProductsDialog = () => {
 		setOpenCreateProductsDialog(true);
 	};
@@ -37,10 +38,11 @@ const Project = () => {
 					/>
 				</div>
 				<Button
-					className="rounded-full bg-blue-600/70 text-sm hover:bg-blue-600/90"
+					className="cursor-pointer bg-blue-600/90 text-sm hover:bg-blue-600/70 md:rounded-full"
 					onClick={handleOpenCreateProductsDialog}
 				>
-					Add Project
+					<Plus size={20} />
+					<span className="hidden md:block">Add New</span>
 				</Button>
 			</div>
 
@@ -48,19 +50,30 @@ const Project = () => {
 				open={openCreateProductsDialog}
 				onOpenChange={setOpenCreateProductsDialog}
 			>
-				<SheetContent side="right" className="overflow-auto">
-					<SheetHeader>
-						<SheetTitle className="text-xl font-semibold">
-							Add Product
-						</SheetTitle>
-					</SheetHeader>
-					{/* <ImageUpload
-						imageFile={imageFile}
-						setImageFile={setImageFile}
-						uploadedImageUrl={uploadedImageUrl}
-						setUploadedImageUrl={setUploadedImageUrl}
-					/> */}
-					<AddProjectsForm />
+				<SheetContent
+					side="right"
+					className="overflow-auto border-0 bg-[#18181a] px-4 [&>button]:hidden"
+				>
+					<div className="text-white">
+						<SheetHeader className="flex flex-row items-center justify-between px-0">
+							<SheetTitle className="text-xl font-bold text-white">
+								Add Tool
+							</SheetTitle>
+							<button
+								onClick={() => setOpenCreateProductsDialog(false)}
+								className="cursor-pointer"
+							>
+								<X size={20} />
+							</button>
+						</SheetHeader>
+						{/* <ImageUpload
+							imageFile={imageFile}
+							setImageFile={setImageFile}
+							uploadedImageUrl={uploadedImageUrl}
+							setUploadedImageUrl={setUploadedImageUrl}
+						/> */}
+						<AddProjectsForm />
+					</div>
 				</SheetContent>
 			</Sheet>
 		</div>

@@ -1,5 +1,3 @@
-// CheckAuth.tsx
-
 import { useAppSelector } from "@/store/hooks";
 import { Navigate, useLocation } from "react-router";
 

@@ -5,6 +5,7 @@ import {
 	LayoutDashboard,
 	X,
 } from "lucide-react";
+import { JSX } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
 
@@ -17,7 +18,7 @@ interface MenuItem {
 	id: string;
 	label: string;
 	path: string;
-	icon: any;
+	icon: JSX.Element;
 }
 
 const adminSidebarMenuItems: MenuItem[] = [

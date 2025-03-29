@@ -7,7 +7,7 @@ const {
 	getProducts,
 	deleteProduct,
 	updateProduct,
-} = require("../../controllers/admin/ProductController");
+} = require("../../controllers/admin/ProjectController");
 const authMiddleware = require("../../middlewares/authMiddleware");
 
 const router = express.Router();

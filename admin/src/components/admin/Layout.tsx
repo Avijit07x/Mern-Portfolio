@@ -4,7 +4,7 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 
 const AdminLayout = () => {
-	const [openSidebar, setOpenSidebar] = useState(false);
+	const [openSidebar, setOpenSidebar] = useState<boolean>(false);
 	return (
 		<div className="mx-auto flex min-h-svh w-full">
 			{/* admin sidebar */}

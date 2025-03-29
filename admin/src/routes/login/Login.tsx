@@ -97,7 +97,7 @@ const Login = () => {
 
 						<Button
 							type="submit"
-							className="w-full bg-blue-500/60 py-5 hover:bg-blue-500/90 disabled:bg-blue-300"
+							className="w-full bg-blue-500/60 py-5 hover:bg-blue-500/90 disabled:bg-blue-300 cursor-pointer"
 							disabled={isLoading}
 						>
 							{isLoading ? (
