@@ -28,9 +28,9 @@ app.use(
 	})
 );
 
+app.use(limiter);
 app.use(cookieParser());
 app.use(express.json({ limit: "10mb" }));
-app.use(limiter);
 app.use(compression());
 
 // DB Connection

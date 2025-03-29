@@ -17,6 +17,7 @@
 		"@reduxjs/toolkit": "^2.6.1",
 		"@tailwindcss/vite": "^4.0.14",
 		"axios": "^1.8.3",
+		"babel-plugin-react-compiler": "^19.0.0-beta-aeaed83-20250323",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
 		"lucide-react": "^0.479.0",

@@ -9,6 +9,7 @@ const authMiddleware = async (req, res, next) => {
 			.status(401)
 			.json({ success: false, message: "Unauthenticated: No token" });
 	}
+
 	try {
 		const decoded = jwt.verify(token, process.env.TOKEN_KEY);
 
@@ -25,6 +26,7 @@ const authMiddleware = async (req, res, next) => {
 				.status(401)
 				.json({ success: false, message: "Unauthenticated: Invalid user" });
 		}
+
 		req.user = decoded.user;
 
 		next();

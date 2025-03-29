@@ -47,7 +47,7 @@ const Login = () => {
 			}
 		} catch (err: any) {
 			console.log("Error:", err);
-			setError(err?.message || "Login failed!");
+			setError("Login failed!");
 		}
 	};
 

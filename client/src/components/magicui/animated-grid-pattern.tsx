@@ -1,3 +1,5 @@
+
+
 import { motion } from "motion/react";
 import {
 	ComponentPropsWithoutRef,
@@ -36,24 +38,36 @@ export function AnimatedGridPattern({
 	...props
 }: AnimatedGridPatternProps) {
 	const id = useId();
-	const containerRef = useRef(null);
+	const containerRef = useRef<SVGSVGElement | null>(null);
 	const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-	const [squares, setSquares] = useState(() => generateSquares(numSquares));
 
-	function getPos() {
+	// Ensure getPos is defined before it's used
+	function getPos(
+		dimensions: { width: number; height: number },
+		width: number,
+		height: number,
+	): [number, number] {
 		return [
 			Math.floor((Math.random() * dimensions.width) / width),
 			Math.floor((Math.random() * dimensions.height) / height),
 		];
 	}
 
-	// Adjust the generateSquares function to return objects with an id, x, and y
-	function generateSquares(count: number) {
+	function generateSquares(
+		count: number,
+		dimensions: { width: number; height: number },
+		width: number,
+		height: number,
+	) {
 		return Array.from({ length: count }, (_, i) => ({
 			id: i,
-			pos: getPos(),
+			pos: getPos(dimensions, width, height),
 		}));
 	}
+
+	const [squares, setSquares] = useState(() =>
+		generateSquares(numSquares, dimensions, width, height),
+	);
 
 	// Function to update a single square's position
 	const updateSquarePosition = (id: number) => {
@@ -62,19 +76,19 @@ export function AnimatedGridPattern({
 				sq.id === id
 					? {
 							...sq,
-							pos: getPos(),
-					  }
-					: sq
-			)
+							pos: getPos(dimensions, width, height),
+						}
+					: sq,
+			),
 		);
 	};
 
-	// Update squares to animate in
+	// Update squares to animate in when dimensions change
 	useEffect(() => {
 		if (dimensions.width && dimensions.height) {
-			setSquares(generateSquares(numSquares));
+			setSquares(generateSquares(numSquares, dimensions, width, height));
 		}
-	}, [dimensions, numSquares]);
+	}, [dimensions, numSquares, width, height]);
 
 	// Resize observer to update container dimensions
 	useEffect(() => {
@@ -96,7 +110,7 @@ export function AnimatedGridPattern({
 				resizeObserver.unobserve(containerRef.current);
 			}
 		};
-	}, [containerRef]);
+	}, []);
 
 	return (
 		<svg
@@ -104,7 +118,7 @@ export function AnimatedGridPattern({
 			aria-hidden="true"
 			className={cn(
 				"pointer-events-none absolute inset-0 h-full w-full fill-gray-400/30 stroke-gray-400/30",
-				className
+				className,
 			)}
 			{...props}
 		>
@@ -137,7 +151,7 @@ export function AnimatedGridPattern({
 							repeatType: "reverse",
 						}}
 						onAnimationComplete={() => updateSquarePosition(id)}
-						key={`${x}-${y}-${index}`}
+						key={`${x}-${y}-${id}`}
 						width={width - 1}
 						height={height - 1}
 						x={x * width + 1}

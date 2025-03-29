@@ -4,7 +4,7 @@ import Navbar from "@/components/navbar/Navbar";
 import Tools from "@/components/tools/Tools";
 import { cn } from "@/lib/utils";
 import { ReactLenis } from "lenis/react";
-import { memo, useCallback, useRef } from "react";
+import { useCallback, useRef } from "react";
 
 const Home = () => {
 	const aboutRef = useRef<HTMLElement>(null);
@@ -42,4 +42,4 @@ const Home = () => {
 	);
 };
 
-export default memo(Home);
+export default Home;

@@ -14,16 +14,24 @@ const upload = multer({ storage });
 
 // upload image
 const ImageUploadUtil = async (image) => {
-	const result = await cloudinary.uploader.upload(image, {
-		resource_type: "auto",
-	});
-	return result;
+	try {
+		const result = await cloudinary.uploader.upload(image, {
+			resource_type: "auto",
+		});
+		return result;
+	} catch (error) {
+		return error;
+	}
 };
 
 // delete image
 const ImageDeleteUtil = async (imgId) => {
-	const result = await cloudinary.uploader.destroy(imgId);
-	return result;
+	try {
+		const result = await cloudinary.uploader.destroy(imgId);
+		return result;
+	} catch (error) {
+		return error;
+	}
 };
 
 module.exports = { upload, ImageUploadUtil, ImageDeleteUtil };

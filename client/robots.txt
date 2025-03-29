@@ -36,4 +36,4 @@ User-agent: Bytespider
 Disallow: /
 
 # Provide sitemap location
-Sitemap: https://www.yourwebsite.com/sitemap.xml
+Sitemap: https://avijit07x.vercel.app/sitemap.xml
