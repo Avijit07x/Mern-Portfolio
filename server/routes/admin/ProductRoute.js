@@ -1,5 +1,5 @@
 const express = require("express");
-const { upload } = require("../../helpers/Cloudinary");
+
 const {
 	handleImageUpload,
 	handleImageDelete,
@@ -9,13 +9,14 @@ const {
 	updateProduct,
 } = require("../../controllers/admin/ProjectController");
 const authMiddleware = require("../../middlewares/authMiddleware");
+const { upload } = require("../../helpers/Cloudinary");
 
 const router = express.Router();
 
 router.post(
 	"/upload-image",
-	authMiddleware,
 	upload.single("image"),
+	authMiddleware,
 	handleImageUpload
 );
 router.post("/delete-image", authMiddleware, handleImageDelete);

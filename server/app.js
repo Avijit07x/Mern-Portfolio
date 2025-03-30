@@ -28,17 +28,17 @@ app.use(
 	})
 );
 
-app.use(limiter);
 app.use(cookieParser());
 app.use(express.json({ limit: "10mb" }));
 app.use(compression());
+app.use(limiter);
 
 // DB Connection
 connectToDB();
 
 // Routes
 app.use("/api/auth", authRoute);
-app.use("/api/admin/product", productRoute);
+app.use("/api/admin/project", productRoute);
 
 app.get("/", (req, res) => {
 	res.status(200).json("Server is up & running");

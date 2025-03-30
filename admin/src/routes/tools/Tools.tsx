@@ -77,7 +77,7 @@ const Tools = () => {
 							uploadedImageUrl={uploadedImageUrl}
 							setUploadedImageUrl={setUploadedImageUrl}
 						/>
-						<AddToolForm />
+						<AddToolForm uploadedImageUrl={uploadedImageUrl} />
 					</div>
 				</SheetContent>
 			</Sheet>

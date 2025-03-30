@@ -1,18 +1,22 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { toast } from "sonner";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 
-const AddToolForm = () => {
+const AddToolForm = ({ uploadedImageUrl }: any) => {
 	const [toolName, setToolName] = useState<string>("");
 
-	const handleChange = (e: any) => {
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setToolName(e.target.value);
 	};
 
-	const handleSubmit = (e: any) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log(toolName);
+		if (!toolName || !uploadedImageUrl) {
+			toast.error("Please fill all fields");
+			return;
+		}
 	};
 	return (
 		<div>
@@ -31,7 +35,7 @@ const AddToolForm = () => {
 				</div>
 				<Button
 					type="submit"
-					className="mt-4 py-5 w-full cursor-pointer bg-[#8946ff] hover:bg-[#8946ff]/90"
+					className="mt-4 w-full cursor-pointer bg-[#8946ff] py-5 hover:bg-[#8946ff]/90"
 				>
 					Add
 				</Button>

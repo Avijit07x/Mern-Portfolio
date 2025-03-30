@@ -52,9 +52,15 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 			const data = new FormData();
 			data.append("image", imageFile);
 			const response = await api.post(
-				`${import.meta.env.VITE_SERVER_URL}/admin/product/upload-image`,
+				`${import.meta.env.VITE_SERVER_URL}admin/project/upload-image`,
 				data,
+				{
+					headers: {
+						"Content-Type": "multipart/form-data",
+					},
+				},
 			);
+			console.log("response", response);
 			if (response.data) {
 				console.log("Image uploaded successfully");
 				setUploadedImageUrl(response.data.result);
@@ -70,7 +76,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 		if (!uploadedImageUrl || typeof uploadedImageUrl === "string") return;
 		try {
 			const response = await api.post(
-				`${import.meta.env.VITE_SERVER_URL}admin/product/delete-image`,
+				`${import.meta.env.VITE_SERVER_URL}admin/project/delete-image`,
 				{ id: uploadedImageUrl.public_id },
 			);
 			if (response.data.success) {
@@ -96,7 +102,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 		<div className="mx-auto mt-4 w-full max-w-md">
 			<Label className="my-4 block font-semibold">Upload Image</Label>
 			<div
-				className="rounded-md border-2 border-dashed border-muted-foreground/50 "
+				className="border-muted-foreground/50 rounded-md border-2 border-dashed"
 				onDragOver={!imageFile ? handleDragOver : undefined}
 				onDrop={!imageFile ? handleDrop : undefined}
 			>
@@ -125,7 +131,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 				) : (
 					<div className="flex items-center justify-between gap-1 p-4">
 						<div className="flex items-center gap-1">
-							<FileIcon className="text-white size-7" />
+							<FileIcon className="size-7 text-white" />
 							<p className="line-clamp-1 max-w-[152px] text-sm font-medium">
 								{imageFile.name}
 							</p>

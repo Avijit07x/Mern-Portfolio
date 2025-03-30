@@ -42,7 +42,7 @@ const addProduct = async (req, res) => {
 	try {
 		const newProduct = new Product(data);
 		await newProduct.save();
-	
+
 		res.status(200).json({ success: true, message: "Product added" });
 	} catch (error) {
 		res.status(500).json({ success: false, message: "Something went wrong" });
@@ -53,12 +53,9 @@ const addProduct = async (req, res) => {
 
 const getProducts = async (req, res) => {
 	try {
-		
-
 		// if not, fetch from database
 		const productsFromDB = await Product.find({});
 
-	
 		return res.status(200).json({ success: true, products: productsFromDB });
 	} catch (err) {
 		return res
@@ -108,7 +105,7 @@ const updateProduct = async (req, res) => {
 		findProduct.totalStock = totalStock || findProduct.totalStock;
 
 		await findProduct.save();
-		
+
 		res.status(200).json({ success: true, message: "Product updated" });
 	} catch (error) {
 		res.status(500).json({ success: false, message: "Something went wrong" });
@@ -138,7 +135,7 @@ const deleteProduct = async (req, res) => {
 
 		// delete product
 		await Product.findByIdAndDelete(id);
-		
+
 		res.status(200).json({ success: true, message: "Product deleted" });
 	} catch (error) {
 		res.status(500).json({ success: false, message: "Something went wrong" });

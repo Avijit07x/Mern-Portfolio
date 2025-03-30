@@ -7,31 +7,27 @@ const authMiddleware = async (req, res, next) => {
 	if (!token) {
 		return res
 			.status(401)
-			.json({ success: false, message: "Unauthenticated: No token" });
+			.json({ success: false, message: "Unauthenticated: No token provided" });
 	}
 
 	try {
 		const decoded = jwt.verify(token, process.env.TOKEN_KEY);
 
-		if (!decoded) {
-			return res
-				.status(401)
-				.json({ success: false, message: "Unauthenticated: Invalid token" });
-		}
-
-		const admin = await Admin.findById(decoded.user.id);
-
+		const admin = await Admin.findById(decoded.user?.id);
 		if (!admin) {
 			return res
 				.status(401)
-				.json({ success: false, message: "Unauthenticated: Invalid user" });
+				.json({ success: false, message: "Unauthenticated: Admin not found" });
 		}
 
 		req.user = decoded.user;
 
 		next();
 	} catch (error) {
-		return res.status(401).json({ success: false, message: "Unauthenticated" });
+		return res.status(401).json({
+			success: false,
+			message: "Unauthenticated: Token verification failed",
+		});
 	}
 };
 
