@@ -4,7 +4,8 @@ require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const connectToDB = require("./db/db");
 const authRoute = require("./routes/auth/authRoute");
-const productRoute = require("./routes/admin/ProductRoute");
+const productRoute = require("./routes/admin/ProjectRoute");
+const imageRoute = require("./routes/admin/ImageRoute");
 const helmet = require("helmet");
 const limiter = require("./helpers/RateLimit");
 const compression = require("compression");
@@ -39,6 +40,7 @@ connectToDB();
 // Routes
 app.use("/api/auth", authRoute);
 app.use("/api/admin/project", productRoute);
+app.use("/api/admin/image", imageRoute);
 
 app.get("/", (req, res) => {
 	res.status(200).json("Server is up & running");

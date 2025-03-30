@@ -52,7 +52,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 			const data = new FormData();
 			data.append("image", imageFile);
 			const response = await api.post(
-				`${import.meta.env.VITE_SERVER_URL}admin/project/upload-image`,
+				`${import.meta.env.VITE_SERVER_URL}admin/image/upload-image`,
 				data,
 				{
 					headers: {
@@ -76,7 +76,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 		if (!uploadedImageUrl || typeof uploadedImageUrl === "string") return;
 		try {
 			const response = await api.post(
-				`${import.meta.env.VITE_SERVER_URL}admin/project/delete-image`,
+				`${import.meta.env.VITE_SERVER_URL}admin/image/delete-image`,
 				{ id: uploadedImageUrl.public_id },
 			);
 			if (response.data.success) {
@@ -131,7 +131,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 				) : (
 					<div className="flex items-center justify-between gap-1 p-4">
 						<div className="flex items-center gap-1">
-							<FileIcon className="size-7 text-white" />
+							<FileIcon className="size-5 lg:size-7 text-white" />
 							<p className="line-clamp-1 max-w-[152px] text-sm font-medium">
 								{imageFile.name}
 							</p>

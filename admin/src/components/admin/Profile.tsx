@@ -39,7 +39,7 @@ const Profile = () => {
 					/>
 				</Button>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent className="max-w-64" sideOffset={15} align="end">
+			<DropdownMenuContent className="max-w-64" sideOffset={10} align="end">
 				<DropdownMenuLabel className="flex min-w-0 flex-col">
 					<span className="text-foreground truncate text-sm font-medium">
 						{user?.username}
