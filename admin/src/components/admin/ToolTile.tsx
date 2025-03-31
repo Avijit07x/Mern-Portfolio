@@ -44,7 +44,7 @@ const ToolTile: React.FC<ToolTileProps> = ({
 					src={tool?.image?.url}
 					alt={tool?.name || "Tool"}
 					onError={(e) => (e.currentTarget.src = "/fallback.svg")}
-					className="size-12 object-contain"
+					className="size-8 object-contain md:size-12"
 				/>
 				<p className="font-semibold text-white uppercase">{tool?.name}</p>
 			</div>
@@ -55,7 +55,7 @@ const ToolTile: React.FC<ToolTileProps> = ({
 					className="border-0 bg-[#8b8bb8] hover:bg-[#8b8bb8]/90"
 					onClick={onEdit}
 				>
-					<Pencil className="h-4 w-4" />
+					<Pencil className="size-3 md:size-4" />
 				</Button>
 				<Button
 					variant="destructive"
@@ -63,7 +63,7 @@ const ToolTile: React.FC<ToolTileProps> = ({
 					className="border-0 bg-[#ce2929] hover:bg-[#ce2929]/90"
 					onClick={onDelete}
 				>
-					<Trash className="h-4 w-4" />
+					<Trash className="size-3 md:size-4" />
 				</Button>
 			</div>
 		</Card>

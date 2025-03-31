@@ -112,7 +112,7 @@ const Tools = () => {
 					<div className="loader"></div>
 				</div>
 			) : (
-				<div className="space-y-5 pb-10">
+				<div className="space-y-3 pb-10 md:space-y-5">
 					{tools.map((tool) => (
 						<ToolTile
 							key={tool._id}
