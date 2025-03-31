@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { UploadedImage } from "./ImageUpload";
 
 type AddToolFormProps = {
 	uploadedImageUrl: any;
@@ -15,6 +16,7 @@ type AddToolFormProps = {
 	toolName: string;
 	setToolName: React.Dispatch<React.SetStateAction<string>>;
 	currentEditedTool: string | null;
+	setUploadedImageUrl: React.Dispatch<React.SetStateAction<UploadedImage | "">>;
 };
 
 const AddToolForm: React.FC<AddToolFormProps> = ({
@@ -24,6 +26,7 @@ const AddToolForm: React.FC<AddToolFormProps> = ({
 	toolName,
 	setToolName,
 	currentEditedTool,
+	setUploadedImageUrl,
 }) => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const dispatch = useAppDispatch();
@@ -59,6 +62,7 @@ const AddToolForm: React.FC<AddToolFormProps> = ({
 			setIsLoading(false);
 			setToolName("");
 			setImageFile(null);
+			setUploadedImageUrl("");
 			setOpenCreateProductsDialog(false);
 		}
 	};
@@ -99,7 +103,7 @@ const AddToolForm: React.FC<AddToolFormProps> = ({
 			<form onSubmit={currentEditedTool !== null ? handleUpdate : handleSubmit}>
 				{currentEditedTool !== null && (
 					<p className="text-muted-foreground mt-2 text-xs">
-						Note: Once you upload a new image, the old one will be replaced
+						Note: If you upload a new image, the old one will be replaced
 					</p>
 				)}
 				<div className="mt-4 space-y-4">

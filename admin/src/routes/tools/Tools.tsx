@@ -96,6 +96,7 @@ const Tools = () => {
 						/>
 						<AddToolForm
 							uploadedImageUrl={uploadedImageUrl}
+							setUploadedImageUrl={setUploadedImageUrl}
 							setOpenCreateProductsDialog={setOpenCreateProductsDialog}
 							setImageFile={setImageFile}
 							toolName={toolName}
@@ -111,7 +112,7 @@ const Tools = () => {
 					<div className="loader"></div>
 				</div>
 			) : (
-				<div className="xs:grid-cols-2 grid grid-cols-1 gap-4 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-6">
+				<div className="space-y-5 pb-10">
 					{tools.map((tool) => (
 						<ToolTile
 							key={tool._id}

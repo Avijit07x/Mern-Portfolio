@@ -38,14 +38,16 @@ const ToolTile: React.FC<ToolTileProps> = ({
 	};
 
 	return (
-		<Card className="flex w-full flex-col items-center gap-3 border-0 bg-[#18181a] p-4 text-center sm:w-48">
-			<img
-				src={tool?.image?.url}
-				alt={tool?.name || "Tool"}
-				onError={(e) => (e.currentTarget.src = "/fallback.svg")}
-				className="size-15 object-cover"
-			/>
-			<p className="font-semibold text-white uppercase">{tool?.name}</p>
+		<Card className="flex w-full flex-row items-center justify-between gap-3 border-0 bg-[#18181a] p-4 text-center">
+			<div className="flex flex-row items-center gap-3">
+				<img
+					src={tool?.image?.url}
+					alt={tool?.name || "Tool"}
+					onError={(e) => (e.currentTarget.src = "/fallback.svg")}
+					className="size-12 object-contain"
+				/>
+				<p className="font-semibold text-white uppercase">{tool?.name}</p>
+			</div>
 			<div className="flex items-center gap-4">
 				<Button
 					variant="outline"

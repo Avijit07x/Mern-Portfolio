@@ -1,18 +1,18 @@
 const express = require("express");
 
 const {
-	addProduct,
-	getProducts,
-	deleteProduct,
-	updateProduct,
+	addProject,
+	getProjects,
+	deleteProject,
+	updateProject,
 } = require("../../controllers/admin/ProjectController");
 const authMiddleware = require("../../middlewares/authMiddleware");
 
 const router = express.Router();
 
-router.post("/add-product", authMiddleware, addProduct);
-router.get("/get-products", getProducts);
-router.post("/delete-product/:id", authMiddleware, deleteProduct);
-router.put("/update-product", authMiddleware, updateProduct);
+router.post("/add-project", authMiddleware, addProject);
+router.get("/get-projects", getProjects);
+router.post("/delete-project/:id", authMiddleware, deleteProject);
+router.put("/update-project", authMiddleware, updateProject);
 
 module.exports = router;
