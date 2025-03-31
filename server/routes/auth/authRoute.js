@@ -1,10 +1,10 @@
 const express = require("express");
 const {
-	registerUser,
+
 	loginUser,
 	logoutUser,
 } = require("../../controllers/auth/authController");
-const { registerLimiter, loginLimiter } = require("../../helpers/AuthLimit");
+const { loginLimiter } = require("../../helpers/AuthLimit");
 const authMiddleware = require("../../middlewares/authMiddleware");
 
 const router = express.Router();

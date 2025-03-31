@@ -1,5 +1,6 @@
 import AddToolForm from "@/components/admin/AddToolForm";
 import ImageUpload, { UploadedImage } from "@/components/admin/ImageUpload";
+import ToolTile from "@/components/admin/ToolTile";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -8,10 +9,14 @@ import {
 	SheetHeader,
 	SheetTitle,
 } from "@/components/ui/sheet";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { fetchTools } from "@/store/toolSlice";
 import { Plus, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Tools = () => {
+	const { tools, isLoading } = useAppSelector((state) => state.tool);
+	const [toolName, setToolName] = useState<string>("");
 	const [searchedText, setSearchedText] = useState<string>("");
 	const [openCreateProductsDialog, setOpenCreateProductsDialog] =
 		useState<boolean>(false);
@@ -19,14 +24,26 @@ const Tools = () => {
 	const [uploadedImageUrl, setUploadedImageUrl] = useState<UploadedImage | "">(
 		"",
 	);
+	const [currentEditedTool, setCurrentEditedTool] = useState<string | null>(
+		null,
+	);
+	const dispatch = useAppDispatch();
 
+	// handle search
 	const handleSearchProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchedText(e.target.value);
 	};
 	// open create tool dialog
 	const handleOpenCreateProductsDialog = () => {
+		setToolName("");
+		setImageFile(null);
+		setCurrentEditedTool(null);
 		setOpenCreateProductsDialog(true);
 	};
+
+	useEffect(() => {
+		if (tools.length === 0) dispatch(fetchTools());
+	}, [dispatch]);
 
 	return (
 		<div>
@@ -43,7 +60,7 @@ const Tools = () => {
 					/>
 				</div>
 				<Button
-					className="cursor-pointer bg-blue-600/90 text-sm hover:bg-blue-600/70 md:rounded-full"
+					className="cursor-pointer rounded-full bg-blue-600/90 text-sm hover:bg-blue-600/70"
 					onClick={handleOpenCreateProductsDialog}
 				>
 					<Plus size={20} />
@@ -77,10 +94,35 @@ const Tools = () => {
 							uploadedImageUrl={uploadedImageUrl}
 							setUploadedImageUrl={setUploadedImageUrl}
 						/>
-						<AddToolForm uploadedImageUrl={uploadedImageUrl} />
+						<AddToolForm
+							uploadedImageUrl={uploadedImageUrl}
+							setOpenCreateProductsDialog={setOpenCreateProductsDialog}
+							setImageFile={setImageFile}
+							toolName={toolName}
+							setToolName={setToolName}
+							currentEditedTool={currentEditedTool}
+						/>
 					</div>
 				</SheetContent>
 			</Sheet>
+
+			{isLoading ? (
+				<div className="flex min-h-[70vh] items-center justify-center">
+					<div className="loader"></div>
+				</div>
+			) : (
+				<div className="xs:grid-cols-2 grid grid-cols-1 gap-4 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-6">
+					{tools.map((tool) => (
+						<ToolTile
+							key={tool._id}
+							tool={tool}
+							setToolName={setToolName}
+							setOpenCreateProductsDialog={setOpenCreateProductsDialog}
+							setCurrentEditedTool={setCurrentEditedTool}
+						/>
+					))}
+				</div>
+			)}
 		</div>
 	);
 };

@@ -4,7 +4,8 @@ require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const connectToDB = require("./db/db");
 const authRoute = require("./routes/auth/authRoute");
-const productRoute = require("./routes/admin/ProjectRoute");
+const projectRoute = require("./routes/admin/ProjectRoute");
+const toolRoute = require("./routes/admin/ToolRoute");
 const imageRoute = require("./routes/admin/ImageRoute");
 const helmet = require("helmet");
 const limiter = require("./helpers/RateLimit");
@@ -23,14 +24,14 @@ app.use(helmet());
 // Cors
 app.use(
 	cors({
-		origin: process.env.CLIENT_URL,
+		origin: [process.env.CLIENT_URL, process.env.ADMIN_URL],
 		methods: ["GET", "POST", "PUT", "DELETE"],
 		credentials: true,
 	})
 );
 
 app.use(cookieParser());
-app.use(express.json({ limit: "10mb" }));
+app.use(express.json({ limit: "5mb" }));
 app.use(compression());
 app.use(limiter);
 
@@ -39,7 +40,8 @@ connectToDB();
 
 // Routes
 app.use("/api/auth", authRoute);
-app.use("/api/admin/project", productRoute);
+app.use("/api/admin/project", projectRoute);
+app.use("/api/admin/tool", toolRoute);
 app.use("/api/admin/image", imageRoute);
 
 app.get("/", (req, res) => {

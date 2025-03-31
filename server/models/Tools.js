@@ -11,4 +11,4 @@ const ToolsSchema = new mongoose.Schema(
 	{ timestamps: true }
 );
 
-module.exports = mongoose.models.Tools || mongoose.model("Tools", ToolsSchema);
+module.exports = mongoose.models.Tool || mongoose.model("Tool", ToolsSchema);

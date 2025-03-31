@@ -1,5 +1,5 @@
 import api from "@/utils/api";
-import { FileIcon, Loader2, UploadCloud, X } from "lucide-react";
+import { FileIcon, Loader, UploadCloud, X } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -51,16 +51,12 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 		try {
 			const data = new FormData();
 			data.append("image", imageFile);
-			const response = await api.post(
-				`${import.meta.env.VITE_SERVER_URL}admin/image/upload-image`,
-				data,
-				{
-					headers: {
-						"Content-Type": "multipart/form-data",
-					},
+			const response = await api.post("admin/image/upload-image", data, {
+				headers: {
+					"Content-Type": "multipart/form-data",
 				},
-			);
-			console.log("response", response);
+			});
+
 			if (response.data) {
 				console.log("Image uploaded successfully");
 				setUploadedImageUrl(response.data.result);
@@ -74,11 +70,12 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 
 	const deleteImageFromCloudinary = async () => {
 		if (!uploadedImageUrl || typeof uploadedImageUrl === "string") return;
+
 		try {
-			const response = await api.post(
-				`${import.meta.env.VITE_SERVER_URL}admin/image/delete-image`,
-				{ id: uploadedImageUrl.public_id },
-			);
+			setIsLoading(true);
+			const response = await api.post("admin/image/delete-image", {
+				id: uploadedImageUrl.public_id,
+			});
 			if (response.data.success) {
 				setImageFile(null);
 				if (inputRef.current) {
@@ -89,6 +86,8 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 			}
 		} catch (error: any) {
 			console.error(error.response?.data || error.message);
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
@@ -126,12 +125,12 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 					</Label>
 				) : isLoading ? (
 					<div className="flex items-center justify-center gap-1 p-4">
-						<Loader2 className="text-muted-foreground size-6 animate-spin" />
+						<Loader className="text-muted-foreground size-5 animate-spin" />
 					</div>
 				) : (
 					<div className="flex items-center justify-between gap-1 p-4">
 						<div className="flex items-center gap-1">
-							<FileIcon className="size-5 lg:size-7 text-white" />
+							<FileIcon className="size-5 text-white lg:size-7" />
 							<p className="line-clamp-1 max-w-[152px] text-sm font-medium">
 								{imageFile.name}
 							</p>

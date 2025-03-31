@@ -100,7 +100,7 @@ const Sidebar = ({ open, setOpen }: SidebarProps) => {
 								onClick={() => navigate("/")}
 								className="mt-5 mb-5 flex cursor-pointer gap-2 text-white"
 							>
-								<ChartNoAxesCombined size={25} className="text-[#8946ff]" />
+								<ChartNoAxesCombined size={25} className="text-[#8a46ff]" />
 								<span className="text-xl font-bold">Admin Panel</span>
 							</SheetTitle>
 						</SheetHeader>

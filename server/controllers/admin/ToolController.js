@@ -1,9 +1,89 @@
-const addNewTool = async (req, res) => {};
+const { ImageDeleteUtil } = require("../../helpers/Cloudinary");
+const Tool = require("../../models/Tools");
 
-const updateTool = async (req, res) => {};
+const addTool = async (req, res) => {
+	try {
+		const { name, image } = req.body;
+		if (!name || !image) {
+			return res
+				.status(400)
+				.json({ success: false, message: "All fields are required" });
+		}
+		const newTool = new Tool({ name, image });
+		await newTool.save();
+		res.status(200).json({ success: true, message: "Tool added" });
+	} catch (error) {
+		res.status(500).json({ success: false, message: "Something went wrong" });
+	}
+};
 
-const deleteTool = async (req, res) => {};
+const updateTool = async (req, res) => {
+	try {
+		const { id } = req.params;
+		const { name, image } = req.body;
 
-const getTools = async (req, res) => {};
+		if (!id) {
+			return res
+				.status(400)
+				.json({ success: false, message: "Tool id is required" });
+		}
 
-module.exports = { addNewTool, updateTool, deleteTool, getTools };
+		const tool = await Tool.findById(id);
+
+		if (!tool) {
+			return res
+				.status(404)
+				.json({ success: false, message: "Tool not found" });
+		}
+
+		// Delete old image if a new one is provided
+		if (image?.url && tool.image?.public_id) {
+			await ImageDeleteUtil(tool.image.public_id);
+		}
+
+		// Update fields
+		tool.name = name || tool.name;
+		tool.image = image?.url ? image : tool.image;
+
+		await tool.save();
+
+		res
+			.status(200)
+			.json({ success: true, message: "Tool updated successfully" });
+	} catch (error) {
+		res.status(500).json({ success: false, message: "Something went wrong" });
+	}
+};
+
+const deleteTool = async (req, res) => {
+	try {
+		const { id } = req.params;
+		if (!id) {
+			return res
+				.status(400)
+				.json({ success: false, message: "Tool id is required" });
+		}
+		const tool = await Tool.findById(id);
+		if (!tool) {
+			return res
+				.status(400)
+				.json({ success: false, message: "Tool not found" });
+		}
+		await ImageDeleteUtil(tool.image.public_id);
+		await Tool.findByIdAndDelete(id);
+		res.status(200).json({ success: true, message: "Tool deleted" });
+	} catch (error) {
+		res.status(500).json({ success: false, message: "Something went wrong" });
+	}
+};
+
+const getTools = async (req, res) => {
+	try {
+		const tools = await Tool.find({});
+		res.status(200).json({ success: true, message: "Tools fetched", tools });
+	} catch (error) {
+		res.status(500).json({ success: false, message: "Something went wrong" });
+	}
+};
+
+module.exports = { addTool, updateTool, deleteTool, getTools };
