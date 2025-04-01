@@ -1,5 +1,6 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { GripVertical } from "lucide-react";
 
 type Props = {
 	tool: {
@@ -21,12 +22,20 @@ const ToolItem: React.FC<Props> = ({ tool, index }) => {
 			key={tool._id}
 			ref={setNodeRef}
 			style={style}
-			{...attributes}
-			{...listeners}
-			className="flex cursor-grab items-center gap-2 rounded-md bg-[#464649] p-4 text-white shadow-lg"
+			className="flex items-center justify-between gap-2 rounded-md bg-[#464649] p-4 text-white shadow-lg"
 		>
-			<p>{index + 1}.</p>
-			<p>{tool.name}</p>
+			<div className="flex items-center gap-2 select-none">
+				<p>{index + 1}.</p>
+				<p>{tool.name}</p>
+			</div>
+			<button
+				{...attributes}
+				{...listeners}
+				className="cursor-grab active:cursor-grabbing"
+				data-dnd-kit-drag-handle
+			>
+				<GripVertical className="size-5 text-gray-400" />
+			</button>
 		</div>
 	);
 };
