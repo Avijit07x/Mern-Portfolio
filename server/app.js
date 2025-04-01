@@ -18,10 +18,10 @@ const PORT = process.env.PORT || 8000;
 // Logger
 app.use(morgan("dev"));
 
-// Helmet Security
+// Security Middleware
 app.use(helmet());
 
-// Cors
+// CORS Configuration
 app.use(
 	cors({
 		origin: [process.env.CLIENT_URL, process.env.ADMIN_URL],
@@ -32,10 +32,14 @@ app.use(
 
 app.use(cookieParser());
 app.use(express.json({ limit: "5mb" }));
+
+// Apply Compression Globally
 app.use(compression());
+
+// Rate Limiting
 app.use(limiter);
 
-// DB Connection
+// Database Connection
 connectToDB();
 
 // Routes
@@ -44,10 +48,21 @@ app.use("/api/admin/project", projectRoute);
 app.use("/api/admin/tool", toolRoute);
 app.use("/api/admin/image", imageRoute);
 
+// Health Check Route
 app.get("/", (req, res) => {
 	res.status(200).json("Server is up & running");
 });
 
+// Middleware to handle stream errors
+app.use((err, req, res, next) => {
+	if (err.message.includes("Stream is already ended")) {
+		console.error("Stream error:", err.message);
+		return res.status(500).json({ error: "Internal Server Error" });
+	}
+	next();
+});
+
+// Start Server
 app.listen(PORT, () => {
-	console.log("Server is running on port 8000");
+	console.log(`Server is running on port ${PORT}`);
 });

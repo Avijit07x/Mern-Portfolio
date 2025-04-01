@@ -1,6 +1,6 @@
 import AddToolForm from "@/components/admin/AddToolForm";
 import ImageUpload, { UploadedImage } from "@/components/admin/ImageUpload";
-import ToolTile from "@/components/admin/ToolTile";
+import Reorganize from "@/components/reorganize/Reorganize";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -12,10 +12,11 @@ import {
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { fetchTools } from "@/store/toolSlice";
 import { Plus, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
+const ToolTile = lazy(() => import("@/components/admin/ToolTile"));
 
 const Tools = () => {
-	const { tools, isLoading } = useAppSelector((state) => state.tool);
+	const { tools } = useAppSelector((state) => state.tool);
 	const [toolName, setToolName] = useState<string>("");
 	const [searchedText, setSearchedText] = useState<string>("");
 	const [openCreateProductsDialog, setOpenCreateProductsDialog] =
@@ -43,7 +44,7 @@ const Tools = () => {
 
 	useEffect(() => {
 		if (tools.length === 0) dispatch(fetchTools());
-	}, [dispatch]);
+	}, [dispatch, tools]);
 
 	return (
 		<div>
@@ -57,15 +58,27 @@ const Tools = () => {
 						placeholder="Search tools"
 						className="h-9 rounded-full border border-[#2b2b30] text-white selection:bg-amber-700 sm:w-72 lg:w-80 xl:w-96"
 						onChange={handleSearchProduct}
+						autoComplete="off"
 					/>
 				</div>
-				<Button
-					className="cursor-pointer rounded-full bg-blue-600/90 text-sm hover:bg-blue-600/70"
-					onClick={handleOpenCreateProductsDialog}
-				>
-					<Plus size={20} />
-					<span className="hidden md:block">Add New</span>
-				</Button>
+				<div className="flex items-center gap-2">
+					<Reorganize />
+					<Button
+						className="cursor-pointer rounded-full bg-blue-600/90 text-sm hover:bg-blue-600/70 lg:hidden"
+						onClick={handleOpenCreateProductsDialog}
+						size={"icon"}
+					>
+						<Plus size={20} />
+						<span className="sr-only">Add New</span>
+					</Button>
+					<Button
+						className="hidden cursor-pointer items-center justify-center gap-1.5 rounded-full bg-blue-600/90 text-sm hover:bg-blue-600/70 lg:flex"
+						onClick={handleOpenCreateProductsDialog}
+					>
+						<Plus size={20} />
+						<span>Add New</span>
+					</Button>
+				</div>
 			</div>
 
 			<Sheet
@@ -107,11 +120,13 @@ const Tools = () => {
 				</SheetContent>
 			</Sheet>
 
-			{isLoading ? (
-				<div className="flex min-h-[70vh] items-center justify-center">
-					<div className="loader"></div>
-				</div>
-			) : (
+			<Suspense
+				fallback={
+					<div className="flex min-h-[70vh] items-center justify-center">
+						<div className="loader"></div>
+					</div>
+				}
+			>
 				<div className="space-y-3 pb-10 md:space-y-5">
 					{tools.map((tool) => (
 						<ToolTile
@@ -123,7 +138,7 @@ const Tools = () => {
 						/>
 					))}
 				</div>
-			)}
+			</Suspense>
 		</div>
 	);
 };

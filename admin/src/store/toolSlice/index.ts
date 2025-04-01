@@ -33,6 +33,9 @@ const toolSlice = createSlice({
 		setLoading: (state, action: PayloadAction<boolean>) => {
 			state.isLoading = action.payload;
 		},
+		setTools: (state, action: PayloadAction<any[]>) => {
+			state.tools = action.payload;
+		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(
@@ -45,13 +48,9 @@ const toolSlice = createSlice({
 		builder.addCase(fetchTools.pending, (state) => {
 			state.isLoading = true;
 		});
-		builder.addCase(fetchTools.rejected, (state) => {
-			state.isLoading = false;
-			state.tools = [];
-		});
 	},
 });
 
 export default toolSlice.reducer;
 
-export const { setLoading } = toolSlice.actions;
+export const { setLoading, setTools } = toolSlice.actions;

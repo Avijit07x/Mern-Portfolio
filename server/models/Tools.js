@@ -7,6 +7,7 @@ const ToolsSchema = new mongoose.Schema(
 			url: { type: String, required: true },
 			public_id: { type: String, required: true },
 		},
+		order: { type: Number, default: 0 },
 	},
 	{ timestamps: true }
 );

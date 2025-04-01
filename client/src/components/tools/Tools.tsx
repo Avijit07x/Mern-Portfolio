@@ -20,8 +20,8 @@ const Tools = () => {
 				const response = await axios.get(
 					`${import.meta.env.VITE_SERVER_URL}admin/tool/get-tools`,
 				);
-				const data = response.data;
-				setTools(data.tools);
+				const data = response.data.tools;
+				setTools(data);
 			} catch (error) {
 				console.error("Error fetching tools:", error);
 			}

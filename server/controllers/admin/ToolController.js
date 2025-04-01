@@ -79,11 +79,41 @@ const deleteTool = async (req, res) => {
 
 const getTools = async (req, res) => {
 	try {
-		const tools = await Tool.find({});
+		const tools = await Tool.find().sort({ order: 1 });
 		res.status(200).json({ success: true, message: "Tools fetched", tools });
 	} catch (error) {
 		res.status(500).json({ success: false, message: "Something went wrong" });
 	}
 };
 
-module.exports = { addTool, updateTool, deleteTool, getTools };
+const reorderTools = async (req, res) => {
+	try {
+		const { tools } = req.body;
+
+		if (!tools || !Array.isArray(tools)) {
+			return res
+				.status(400)
+				.json({ success: false, message: "Invalid tools data" });
+		}
+
+		const bulkOperations = tools.map((toolId, index) => ({
+			updateOne: {
+				filter: { _id: toolId },
+				update: { $set: { order: index } },
+			},
+		}));
+
+		await Tool.bulkWrite(bulkOperations);
+
+		res.status(200).json({
+			success: true,
+			message: "Tools reordered successfully",
+			tools: bulkOperations,
+		});
+	} catch (error) {
+		console.error("Reorder Tools Error:", error);
+		res.status(500).json({ success: false, message: "Something went wrong" });
+	}
+};
+
+module.exports = { addTool, updateTool, deleteTool, getTools, reorderTools };

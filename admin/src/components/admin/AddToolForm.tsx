@@ -72,7 +72,7 @@ const AddToolForm: React.FC<AddToolFormProps> = ({
 		e.preventDefault();
 
 		try {
-			// setIsLoading(true);
+			setIsLoading(true);
 			const data = {
 				name: toolName,
 				image: {
@@ -94,6 +94,7 @@ const AddToolForm: React.FC<AddToolFormProps> = ({
 			setIsLoading(false);
 			setToolName("");
 			setImageFile(null);
+			setUploadedImageUrl("");
 			setOpenCreateProductsDialog(false);
 		}
 	};
@@ -116,6 +117,7 @@ const AddToolForm: React.FC<AddToolFormProps> = ({
 						onChange={handleChange}
 						className="border-muted-foreground/50 py-5 selection:bg-blue-500"
 						placeholder="Enter tool name"
+						autoComplete="off"
 					/>
 				</div>
 

@@ -3,11 +3,11 @@ import { Route, Routes } from "react-router";
 import AdminLayout from "./components/admin/Layout";
 import CheckAuth from "./components/auth/CheckAuth";
 import Loader from "./components/loader/Loader";
-import Home from "./routes/home/Home";
-import Login from "./routes/login/Login";
-import NotFound from "./routes/not-found/NotFound";
-import Project from "./routes/projects/Project";
-import Tools from "./routes/tools/Tools";
+import Home from "./pages/home/Home";
+import Login from "./pages/login/Login";
+import NotFound from "./pages/not-found/NotFound";
+import Project from "./pages/projects/Project";
+import Tools from "./pages/tools/Tools";
 import { checkAuth } from "./store/authSlice";
 import { useAppDispatch, useAppSelector } from "./store/hooks";
 
