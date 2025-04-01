@@ -4,15 +4,18 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface IToolState {
 	tools: any[];
 	isLoading: boolean;
+	reorderedTools: any[];
 }
 
 interface ToolPayload {
 	success: boolean;
 	tools: any[];
+	reorderedTools: any[];
 }
 
 const initialState: IToolState = {
 	tools: [],
+	reorderedTools: [],
 	isLoading: false,
 };
 
@@ -36,6 +39,9 @@ const toolSlice = createSlice({
 		setTools: (state, action: PayloadAction<any[]>) => {
 			state.tools = action.payload;
 		},
+		setReorderedTools: (state, action: PayloadAction<any[]>) => {
+			state.reorderedTools = action.payload;
+		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(
@@ -43,6 +49,9 @@ const toolSlice = createSlice({
 			(state, action: PayloadAction<ToolPayload>) => {
 				state.isLoading = false;
 				state.tools = action.payload?.success ? action.payload?.tools : [];
+				state.reorderedTools = action.payload?.success
+					? action.payload?.tools
+					: [];
 			},
 		);
 		builder.addCase(fetchTools.pending, (state) => {
@@ -53,4 +62,4 @@ const toolSlice = createSlice({
 
 export default toolSlice.reducer;
 
-export const { setLoading, setTools } = toolSlice.actions;
+export const { setLoading, setTools, setReorderedTools } = toolSlice.actions;

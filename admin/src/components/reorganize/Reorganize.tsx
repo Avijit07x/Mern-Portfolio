@@ -9,7 +9,7 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { setTools } from "@/store/toolSlice";
+import { fetchTools, setReorderedTools } from "@/store/toolSlice";
 import api from "@/utils/api";
 import {
 	closestCorners,
@@ -35,7 +35,7 @@ import { toast } from "sonner";
 import ToolItem from "./ToolItem";
 
 const Reorganize = () => {
-	const { tools } = useAppSelector((state) => state.tool);
+	const { tools, reorderedTools } = useAppSelector((state) => state.tool);
 	const dispatch = useAppDispatch();
 	const sensors = useSensors(
 		useSensor(MouseSensor),
@@ -51,12 +51,12 @@ const Reorganize = () => {
 
 		if (!over || active.id === over.id) return;
 
-		const oldIndex = tools.findIndex((t) => t._id === active.id);
-		const newIndex = tools.findIndex((t) => t._id === over.id);
+		const oldIndex = reorderedTools.findIndex((t) => t._id === active.id);
+		const newIndex = reorderedTools.findIndex((t) => t._id === over.id);
 
 		if (oldIndex !== -1 && newIndex !== -1) {
-			const newTools = arrayMove(tools, oldIndex, newIndex);
-			dispatch(setTools(newTools));
+			const newTools = arrayMove(reorderedTools, oldIndex, newIndex);
+			dispatch(setReorderedTools(newTools));
 			setIsReordered(true);
 		}
 	};
@@ -68,9 +68,12 @@ const Reorganize = () => {
 		}
 		try {
 			setIsLoading(true);
-			const res = await api.post("admin/tool/reorder-tools", { tools });
+			const res = await api.post("admin/tool/reorder-tools", {
+				tools: reorderedTools,
+			});
 			toast.success(res.data.message);
 			setIsReordered(false);
+			dispatch(fetchTools());
 		} catch (error) {
 			console.log(error);
 		} finally {
@@ -79,9 +82,15 @@ const Reorganize = () => {
 		}
 	};
 
+	const handleClose = (open: boolean) => {
+		setIsOpen(open);
+		setIsReordered(false);
+		dispatch(setReorderedTools(tools));
+	};
+
 	return (
 		<div>
-			<Dialog open={isOpen} onOpenChange={setIsOpen}>
+			<Dialog open={isOpen} onOpenChange={(open) => handleClose(open)}>
 				<DialogTrigger asChild>
 					<Button
 						className="cursor-pointer rounded-full bg-blue-600/90 hover:bg-blue-600/70"
@@ -93,7 +102,7 @@ const Reorganize = () => {
 				</DialogTrigger>
 				<DialogContent className="bg-[#1e1e20] sm:max-w-[425px]">
 					<DialogHeader>
-						<DialogTitle className="text-white">Edit profile</DialogTitle>
+						<DialogTitle className="text-white">Edit Tools</DialogTitle>
 						<DialogDescription>
 							Sort your tools and click save when you're done.
 						</DialogDescription>
@@ -105,13 +114,12 @@ const Reorganize = () => {
 							modifiers={[restrictToVerticalAxis, restrictToWindowEdges]}
 							onDragEnd={handleDragEnd}
 							sensors={sensors}
-							
 						>
 							<SortableContext
-								items={tools.map((tool) => tool._id)}
+								items={reorderedTools.map((tool) => tool._id)}
 								strategy={verticalListSortingStrategy}
 							>
-								{tools.map((tool, index) => (
+								{reorderedTools.map((tool, index) => (
 									<ToolItem key={tool._id} tool={tool} index={index} />
 								))}
 							</SortableContext>

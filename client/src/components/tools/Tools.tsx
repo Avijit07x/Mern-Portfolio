@@ -1,4 +1,5 @@
 import axios from "axios";
+import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 
 type Tool = {
@@ -12,8 +13,28 @@ type Tool = {
 	__v: number;
 };
 
+const containerVariants = {
+	hidden: {
+		opacity: 0,
+
+		transition: { staggerChildren: 0.1 },
+	},
+	visible: {
+		opacity: 1,
+		transition: {
+			staggerChildren: 0.1,
+		},
+	},
+};
+
+const itemVariants = {
+	hidden: { opacity: 0, scale: 0.7 },
+	visible: { opacity: 1, scale: 1 },
+};
+
 const Tools = () => {
 	const [tools, setTools] = useState<Tool[]>([]);
+
 	useEffect(() => {
 		const fetchTools = async () => {
 			try {
@@ -30,39 +51,54 @@ const Tools = () => {
 	}, []);
 
 	return (
-		<div className="py-10">
+		<div className="min-h-[400px] py-10">
 			<div className="flex w-full flex-col items-center gap-5 overflow-hidden">
 				<div className="px-3 text-center lg:w-1/2">
-					<div className="text-3xl font-semibold">
-						<h2 className="w-full text-center text-2xl font-semibold lg:text-3xl">
-							<span className="text-primary"> </span>Languages &amp; Tools
-							<span className="text-primary"></span>
-						</h2>
-					</div>
-					<div className="mt-5 text-sm">
+					<h2 className="w-full text-center text-2xl font-semibold lg:text-3xl">
+						<span className="text-primary"></span>Languages &amp; Tools
+						<span className="text-primary"></span>
+					</h2>
+					<p className="mt-5 text-sm">
 						I am skilled in various languages and tools and have a strong drive
 						to learn new technologies and stay updated with the latest industry
 						trends. Currently, my focus is on deepening my expertise in backend
 						development, exploring new frameworks and technologies to enhance my
 						capabilities.
-					</div>
+					</p>
 				</div>
 			</div>
-			<div className="mx-auto mt-5 flex max-w-screen-2xl flex-wrap items-center justify-center gap-4 lg:mt-10 xl:px-36">
+
+			{/* Parent Container with Stagger Animation */}
+			<motion.div
+				className="mx-auto mt-5 flex max-w-screen-2xl flex-wrap items-center justify-center gap-4 lg:mt-10 xl:px-36"
+				variants={containerVariants}
+				initial="hidden"
+				whileInView="visible"
+				viewport={{ once: false, amount: 0.2 }}
+			>
 				{tools.map((tool) => (
-					<div
+					<motion.div
 						key={tool._id}
 						className="grid size-20 cursor-pointer place-items-center rounded-md border border-white/[0.1] bg-[#0f132e] text-lg drop-shadow-md"
 						title={tool.name}
+						variants={itemVariants}
+						whileHover={{
+							scale: 0.7,
+							transition: { duration: 0.2, damping: 10 },
+						}}
+						whileTap={{
+							scale: 0.7,
+							transition: { duration: 0.2, damping: 10 },
+						}}
 					>
 						<img
 							className="aspect-auto size-11.5 object-contain"
 							src={tool.image.url}
 							alt={tool.name}
 						/>
-					</div>
+					</motion.div>
 				))}
-			</div>
+			</motion.div>
 		</div>
 	);
 };
