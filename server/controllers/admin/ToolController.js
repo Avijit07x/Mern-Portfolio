@@ -96,9 +96,9 @@ const reorderTools = async (req, res) => {
 				.json({ success: false, message: "Invalid tools data" });
 		}
 
-		const bulkOperations = tools.map((toolId, index) => ({
+		const bulkOperations = tools.map((id, index) => ({
 			updateOne: {
-				filter: { _id: toolId },
+				filter: { _id: id },
 				update: { $set: { order: index } },
 			},
 		}));
@@ -108,7 +108,6 @@ const reorderTools = async (req, res) => {
 		res.status(200).json({
 			success: true,
 			message: "Tools reordered successfully",
-			tools: bulkOperations,
 		});
 	} catch (error) {
 		console.error("Reorder Tools Error:", error);

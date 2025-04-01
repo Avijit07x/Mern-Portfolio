@@ -69,7 +69,7 @@ const Reorganize = () => {
 		try {
 			setIsLoading(true);
 			const res = await api.post("admin/tool/reorder-tools", {
-				tools: reorderedTools,
+				tools: reorderedTools.map((t) => t._id),
 			});
 			toast.success(res.data.message);
 			setIsReordered(false);
