@@ -13,8 +13,6 @@ const Home = () => {
 		[aboutRef],
 	);
 
-	console.log("Home");
-
 	return (
 		<ReactLenis root>
 			<div className="mx-auto h-full max-w-screen-2xl text-white">

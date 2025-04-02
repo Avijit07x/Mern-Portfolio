@@ -80,6 +80,7 @@ const deleteTool = async (req, res) => {
 const getTools = async (req, res) => {
 	try {
 		const tools = await Tool.find().sort({ order: 1 });
+
 		res.status(200).json({ success: true, message: "Tools fetched", tools });
 	} catch (error) {
 		res.status(500).json({ success: false, message: "Something went wrong" });
