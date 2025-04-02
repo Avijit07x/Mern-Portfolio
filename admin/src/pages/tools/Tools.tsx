@@ -34,6 +34,7 @@ const Tools = () => {
 	const handleSearchProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchedText(e.target.value);
 	};
+
 	// open create tool dialog
 	const handleOpenCreateProductsDialog = () => {
 		setToolName("");
@@ -64,19 +65,11 @@ const Tools = () => {
 				<div className="flex items-center gap-2">
 					<Reorganize />
 					<Button
-						className="cursor-pointer rounded-full bg-blue-600/90 text-sm hover:bg-blue-600/70 lg:hidden"
-						onClick={handleOpenCreateProductsDialog}
-						size={"icon"}
-					>
-						<Plus size={20} />
-						<span className="sr-only">Add New</span>
-					</Button>
-					<Button
-						className="hidden cursor-pointer items-center justify-center gap-1.5 rounded-full bg-blue-600/90 text-sm hover:bg-blue-600/70 lg:flex"
+						className="cursor-pointer items-center justify-center gap-1.5 rounded-full bg-blue-600/90 text-sm hover:bg-blue-600/70 max-lg:size-9"
 						onClick={handleOpenCreateProductsDialog}
 					>
 						<Plus size={20} />
-						<span>Add New</span>
+						<span className="max-lg:sr-only">Add New</span>
 					</Button>
 				</div>
 			</div>

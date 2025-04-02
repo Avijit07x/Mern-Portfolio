@@ -5,17 +5,20 @@ interface IToolState {
 	tools: any[];
 	isLoading: boolean;
 	reorderedTools: any[];
+	filteredTools: any[];
 }
 
 interface ToolPayload {
 	success: boolean;
 	tools: any[];
 	reorderedTools: any[];
+	filteredTools: any[];
 }
 
 const initialState: IToolState = {
 	tools: [],
 	reorderedTools: [],
+	filteredTools: [],
 	isLoading: false,
 };
 

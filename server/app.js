@@ -11,6 +11,7 @@ const helmet = require("helmet");
 const limiter = require("./helpers/RateLimit");
 const compression = require("compression");
 const morgan = require("morgan");
+const emailRoute = require("./routes/admin/EmailRoute");
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -47,6 +48,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/admin/project", projectRoute);
 app.use("/api/admin/tool", toolRoute);
 app.use("/api/admin/image", imageRoute);
+app.use("/api/admin/email", emailRoute);
 
 // Health Check Route
 app.get("/", (req, res) => {

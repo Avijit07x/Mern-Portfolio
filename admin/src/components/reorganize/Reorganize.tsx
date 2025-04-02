@@ -92,12 +92,9 @@ const Reorganize = () => {
 		<div>
 			<Dialog open={isOpen} onOpenChange={(open) => handleClose(open)}>
 				<DialogTrigger asChild>
-					<Button
-						className="cursor-pointer rounded-full bg-blue-600/90 hover:bg-blue-600/70"
-						size={"icon"}
-					>
+					<Button className="cursor-pointer rounded-full bg-blue-600/90 hover:bg-blue-600/70 max-lg:size-9">
 						<ArrowDownUp className="size-4" />
-						<span className="sr-only">Sort</span>
+						<span className="max-lg:sr-only">Reorganize</span>
 					</Button>
 				</DialogTrigger>
 				<DialogContent className="bg-[#1e1e20] sm:max-w-[425px]">
@@ -108,7 +105,7 @@ const Reorganize = () => {
 						</DialogDescription>
 					</DialogHeader>
 
-					<div className="no-scrollbar h-[300px] space-y-2 overflow-y-auto pb-1">
+					<div className="no-scrollbar h-[315px] space-y-2 overflow-y-auto pb-1">
 						<DndContext
 							collisionDetection={closestCorners}
 							modifiers={[restrictToVerticalAxis, restrictToWindowEdges]}
