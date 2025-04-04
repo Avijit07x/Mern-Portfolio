@@ -28,6 +28,7 @@ const Tools = () => {
 
 	const windowWidth = useWindowWidth();
 
+	console.log({ windowWidth });
 	useEffect(() => {
 		const fetchTools = async () => {
 			try {
@@ -69,7 +70,7 @@ const Tools = () => {
 				</div>
 			) : (
 				<>
-					{windowWidth > 768 ? (
+					{windowWidth >= 1024 ? (
 						<motion.div
 							className="mx-auto mt-5 flex max-w-screen-2xl flex-wrap items-center justify-center gap-4 lg:mt-10 xl:px-36"
 							variants={containerVariants}
