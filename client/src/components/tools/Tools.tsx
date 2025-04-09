@@ -46,7 +46,7 @@ const Tools = () => {
 				</div>
 			</div>
 
-			{!loading ? (
+			{loading ? (
 				<div className="mx-auto mt-5 flex max-w-screen-2xl flex-wrap items-center justify-center gap-4 lg:mt-10 xl:px-36">
 					{Array(27)
 						.fill(0)
