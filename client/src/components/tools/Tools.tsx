@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 
 type Tool = {
@@ -47,9 +46,24 @@ const Tools = () => {
 				</div>
 			</div>
 
-			{loading ? (
-				<div className="flex items-center justify-center gap-2 py-20 text-white">
-					<Loader className="size-4 animate-spin" /> Loading...
+			{!loading ? (
+				<div className="mx-auto mt-5 flex max-w-screen-2xl flex-wrap items-center justify-center gap-4 lg:mt-10 xl:px-36">
+					{Array(27)
+						.fill(0)
+						.map((_, index) => (
+							<div
+								key={index}
+								className="grid size-20 place-items-center rounded-md border border-white/[0.1] bg-[#0f132e] drop-shadow-md"
+							>
+								<img
+									className="h-7 w-7 animate-pulse object-contain"
+									src="/fallback.svg"
+									alt="dummy"
+									width={100}
+									height={100}
+								/>
+							</div>
+						))}
 				</div>
 			) : (
 				<>
@@ -57,11 +71,11 @@ const Tools = () => {
 						{tools.map((tool) => (
 							<div
 								key={tool._id}
-								className="grid size-18 cursor-pointer place-items-center rounded-md border border-white/[0.1] bg-[#0f132e] text-lg drop-shadow-md will-change-transform lg:size-20"
+								className="grid size-20 place-items-center rounded-md border border-white/[0.1] bg-[#0f132e] drop-shadow-md"
 								title={tool.name}
 							>
 								<img
-									className="aspect-auto size-9 object-contain lg:size-11.5"
+									className="aspect-auto size-11.5 object-contain"
 									src={tool.image.url}
 									alt={tool.name}
 									loading="lazy"
