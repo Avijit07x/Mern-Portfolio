@@ -13,8 +13,8 @@ type Tool = {
 };
 
 const containerVariants = {
-	hidden: { opacity: 0, transition: { staggerChildren: 0.07 } },
-	visible: { opacity: 1, transition: { staggerChildren: 0.07 } },
+	hidden: { opacity: 0, transition: { staggerChildren: 0.02 } },
+	visible: { opacity: 1, transition: { staggerChildren: 0.03 } },
 };
 
 const itemVariants = {

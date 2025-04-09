@@ -34,7 +34,7 @@ const Login = () => {
 	});
 
 	const onSubmit = async (data: LoginFormData) => {
-		
+		setIsLoading(true);
 		setError(null);
 		try {
 			const res = await dispatch(login(data)).unwrap();
@@ -43,12 +43,11 @@ const Login = () => {
 				toast.success("Login successful!");
 			} else {
 				toast.error("Login failed!");
-				
 			}
 		} catch (err: any) {
 			console.log("Error:", err);
 			setError("Login failed!");
-		}finally{
+		} finally {
 			setIsLoading(false);
 		}
 	};
@@ -99,7 +98,7 @@ const Login = () => {
 
 						<Button
 							type="submit"
-							className="w-full bg-blue-500/60 py-5 hover:bg-blue-500/90 disabled:bg-blue-300 cursor-pointer"
+							className="w-full cursor-pointer bg-blue-500/60 py-5 hover:bg-blue-500/90 disabled:bg-blue-300"
 							disabled={isLoading}
 						>
 							{isLoading ? (
