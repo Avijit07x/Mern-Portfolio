@@ -21,7 +21,7 @@ type LoginFormData = z.infer<typeof loginSchema>;
 
 const Login = () => {
 	const dispatch = useAppDispatch();
-	const [isLoading, setIsLoading] = useState<boolean>(true);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [error, setError] = useState<string | null>(null);
 	const navigate = useNavigate();
 

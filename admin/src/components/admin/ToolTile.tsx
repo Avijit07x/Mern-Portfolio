@@ -6,14 +6,14 @@ import api from "@/utils/api";
 import { Pencil, Trash } from "lucide-react";
 import { toast } from "sonner";
 
-type ToolTileProps = {
+type Props = {
 	tool: any;
 	setToolName: React.Dispatch<React.SetStateAction<string>>;
 	setOpenCreateProductsDialog: React.Dispatch<React.SetStateAction<boolean>>;
 	setCurrentEditedTool: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
-const ToolTile: React.FC<ToolTileProps> = ({
+const ToolTile: React.FC<Props> = ({
 	tool,
 	setToolName,
 	setOpenCreateProductsDialog,
@@ -44,7 +44,7 @@ const ToolTile: React.FC<ToolTileProps> = ({
 					src={tool?.image?.url}
 					alt={tool?.name || "Tool"}
 					onError={(e) => (e.currentTarget.src = "/fallback.svg")}
-					className="size-8 object-contain md:size-12"
+					className="size-8 object-contain md:size-11"
 				/>
 				<p className="font-semibold text-white uppercase">{tool?.name}</p>
 			</div>

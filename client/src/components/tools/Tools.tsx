@@ -1,5 +1,6 @@
 import { useWindowWidth } from "@react-hook/window-size";
 import axios from "axios";
+import { Loader } from "lucide-react";
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 
@@ -63,23 +64,8 @@ const Tools = () => {
 			</div>
 
 			{loading ? (
-				<div className="mx-auto mt-5 flex max-w-screen-2xl flex-wrap items-center justify-center gap-4 lg:mt-10 xl:px-36">
-					{Array(27)
-						.fill(0)
-						.map((_, index) => (
-							<div
-								key={index}
-								className="grid size-20 place-items-center rounded-md border border-white/[0.1] bg-[#0f132e] drop-shadow-md"
-							>
-								<img
-									className="h-7 w-7 animate-pulse object-contain opacity-90"
-									src="/fallback.svg"
-									alt="dummy"
-									width={100}
-									height={100}
-								/>
-							</div>
-						))}
+				<div className="flex min-h-[400px] items-center justify-center gap-2 text-white">
+					<Loader className="size-4 animate-spin" /> Loading...
 				</div>
 			) : (
 				<>
