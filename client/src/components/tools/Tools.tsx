@@ -57,11 +57,11 @@ const Tools = () => {
 						{tools.map((tool) => (
 							<div
 								key={tool._id}
-								className="grid size-20 cursor-pointer place-items-center rounded-md border border-white/[0.1] bg-[#0f132e] text-lg drop-shadow-md will-change-transform"
+								className="grid size-18 cursor-pointer place-items-center rounded-md border border-white/[0.1] bg-[#0f132e] text-lg drop-shadow-md will-change-transform lg:size-20"
 								title={tool.name}
 							>
 								<img
-									className="aspect-auto size-11.5 object-contain"
+									className="aspect-auto size-9 object-contain lg:size-11.5"
 									src={tool.image.url}
 									alt={tool.name}
 									loading="lazy"
