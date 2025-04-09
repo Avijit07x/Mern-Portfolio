@@ -1,7 +1,6 @@
-import { useWindowWidth } from "@react-hook/window-size";
 import axios from "axios";
 import { Loader } from "lucide-react";
-import { motion } from "motion/react";
+import { domAnimation, LazyMotion, motion } from "motion/react";
 import { useEffect, useState } from "react";
 
 type Tool = {
@@ -26,9 +25,6 @@ const Tools = () => {
 	const [tools, setTools] = useState<Tool[]>([]);
 	const [loading, setLoading] = useState(true);
 
-	const windowWidth = useWindowWidth();
-
-	console.log({ windowWidth });
 	useEffect(() => {
 		const fetchTools = async () => {
 			try {
@@ -70,7 +66,7 @@ const Tools = () => {
 				</div>
 			) : (
 				<>
-					{windowWidth >= 1024 ? (
+					<LazyMotion features={domAnimation}>
 						<motion.div
 							className="mx-auto mt-5 flex max-w-screen-2xl flex-wrap items-center justify-center gap-4 lg:mt-10 xl:px-36"
 							variants={containerVariants}
@@ -90,27 +86,12 @@ const Tools = () => {
 										className="aspect-auto size-11.5 object-contain"
 										src={tool.image.url}
 										alt={tool.name}
+										loading="lazy"
 									/>
 								</motion.div>
 							))}
 						</motion.div>
-					) : (
-						<div className="mx-auto mt-5 flex max-w-screen-2xl flex-wrap items-center justify-center gap-4 lg:mt-10 xl:px-36">
-							{tools.map((tool) => (
-								<div
-									key={tool._id}
-									className="grid size-20 cursor-pointer place-items-center rounded-md border border-white/[0.1] bg-[#0f132e] text-lg drop-shadow-md will-change-transform"
-									title={tool.name}
-								>
-									<img
-										className="aspect-auto size-11.5 object-contain"
-										src={tool.image.url}
-										alt={tool.name}
-									/>
-								</div>
-							))}
-						</div>
-					)}
+					</LazyMotion>
 				</>
 			)}
 		</div>

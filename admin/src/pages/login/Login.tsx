@@ -21,7 +21,7 @@ type LoginFormData = z.infer<typeof loginSchema>;
 
 const Login = () => {
 	const dispatch = useAppDispatch();
-	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [error, setError] = useState<string | null>(null);
 	const navigate = useNavigate();
 
@@ -34,7 +34,7 @@ const Login = () => {
 	});
 
 	const onSubmit = async (data: LoginFormData) => {
-		setIsLoading(true);
+		
 		setError(null);
 		try {
 			const res = await dispatch(login(data)).unwrap();
@@ -43,11 +43,13 @@ const Login = () => {
 				toast.success("Login successful!");
 			} else {
 				toast.error("Login failed!");
-				setIsLoading(false);
+				
 			}
 		} catch (err: any) {
 			console.log("Error:", err);
 			setError("Login failed!");
+		}finally{
+			setIsLoading(false);
 		}
 	};
 
