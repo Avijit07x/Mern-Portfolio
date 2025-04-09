@@ -94,7 +94,7 @@ const Tools = () => {
 							{tools.map((tool) => (
 								<motion.div
 									key={tool._id}
-									className="grid size-20 cursor-pointer place-items-center rounded-md border border-white/[0.1] bg-[#0f132e] text-lg drop-shadow-md will-change-transform"
+									className="grid size-20 cursor-pointer place-items-center rounded-md border border-white/[0.1] bg-[#0f132e] text-lg drop-shadow-md"
 									title={tool.name}
 									variants={itemVariants}
 									whileHover={{ scale: 0.8, transition: { duration: 0.2 } }}
