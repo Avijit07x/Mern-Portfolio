@@ -1,5 +1,5 @@
-const cloudinary = require("cloudinary").v2;
-const multer = require("multer");
+import { v2 as cloudinary } from "cloudinary";
+import multer from "multer";
 
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -9,11 +9,11 @@ cloudinary.config({
 });
 
 // multer config
-const storage = new multer.memoryStorage();
+const storage: multer.StorageEngine = multer.memoryStorage();
 const upload = multer({ storage });
 
 // upload image
-const ImageUploadUtil = async (image) => {
+const ImageUploadUtil = async (image: string) => {
 	const result = await cloudinary.uploader.upload(image, {
 		resource_type: "image",
 	});
@@ -21,9 +21,9 @@ const ImageUploadUtil = async (image) => {
 };
 
 // delete image
-const ImageDeleteUtil = async (imgId) => {
+const ImageDeleteUtil = async (imgId: string) => {
 	const result = await cloudinary.uploader.destroy(imgId);
 	return result;
 };
 
-module.exports = { upload, ImageUploadUtil, ImageDeleteUtil };
+export { ImageDeleteUtil, ImageUploadUtil, upload };

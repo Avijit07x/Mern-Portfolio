@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const ToolsSchema = new mongoose.Schema(
 	{
@@ -12,4 +12,4 @@ const ToolsSchema = new mongoose.Schema(
 	{ timestamps: true }
 );
 
-module.exports = mongoose.models.Tool || mongoose.model("Tool", ToolsSchema);
+export default mongoose.models.Tool || mongoose.model("Tool", ToolsSchema);
