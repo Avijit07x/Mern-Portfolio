@@ -3,7 +3,8 @@ import { Card } from "@/components/ui/card";
 import { useAppDispatch } from "@/store/hooks";
 import { fetchTools } from "@/store/toolSlice";
 import api from "@/utils/api";
-import { Pencil, Trash } from "lucide-react";
+import { Loader, Pencil, Trash } from "lucide-react";
+import { useState } from "react";
 import { toast } from "sonner";
 
 type Props = {
@@ -19,6 +20,8 @@ const ToolTile: React.FC<Props> = ({
 	setOpenCreateProductsDialog,
 	setCurrentEditedTool,
 }) => {
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+
 	const dispatch = useAppDispatch();
 
 	const onEdit = () => {
@@ -29,11 +32,14 @@ const ToolTile: React.FC<Props> = ({
 
 	const onDelete = async () => {
 		try {
+			setIsLoading(true);
 			const res = await api.post(`admin/tool/delete-tool/${tool._id}`);
 			toast.success(res.data.message);
 			dispatch(fetchTools());
 		} catch (error) {
 			console.log(error);
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
@@ -62,8 +68,13 @@ const ToolTile: React.FC<Props> = ({
 					size="icon"
 					className="border-0 bg-[#ce2929] hover:bg-[#ce2929]/90"
 					onClick={onDelete}
+					disabled={isLoading}
 				>
-					<Trash className="size-3 md:size-4" />
+					{isLoading ? (
+						<Loader className="size-3 animate-spin md:size-4" />
+					) : (
+						<Trash className="size-3 md:size-4" />
+					)}
 				</Button>
 			</div>
 		</Card>

@@ -1,25 +1,15 @@
 import { useWindowWidth } from "@react-hook/window-size";
 import axios from "axios";
-import { Loader } from "lucide-react";
-import { motion } from "motion/react";
-import { useEffect, useState } from "react";
 
-type Tool = {
+import { useEffect, useState } from "react";
+import AnimatedTools from "./AnimatedTools";
+import ToolsLoader from "./ToolsLoader";
+
+export type Tool = {
 	_id: string;
 	name: string;
 	image: { url: string; public_id: string };
 	public_id: string;
-	__v: number;
-};
-
-const containerVariants = {
-	hidden: { opacity: 0, transition: { staggerChildren: 0.02 } },
-	visible: { opacity: 1, transition: { staggerChildren: 0.03 } },
-};
-
-const itemVariants = {
-	hidden: { opacity: 0, scale: 0.9 },
-	visible: { opacity: 1, scale: 1 },
 };
 
 const Tools = () => {
@@ -64,35 +54,11 @@ const Tools = () => {
 			</div>
 
 			{loading ? (
-				<div className="flex min-h-[400px] items-center justify-center gap-2 text-white">
-					<Loader className="size-4 animate-spin" /> Loading...
-				</div>
+				<ToolsLoader />
 			) : (
 				<>
-					{windowWidth >= 1024 ? (
-						<motion.div
-							className="mx-auto mt-5 flex max-w-screen-2xl flex-wrap items-center justify-center gap-4 lg:mt-10 xl:px-36"
-							variants={containerVariants}
-							initial="hidden"
-							whileInView="visible"
-							viewport={{ once: true, amount: 0.2 }}
-						>
-							{tools.map((tool) => (
-								<motion.div
-									key={tool._id}
-									className="grid size-20 cursor-pointer place-items-center rounded-md border border-white/[0.1] bg-[#0f132e] text-lg drop-shadow-md"
-									title={tool.name}
-									variants={itemVariants}
-									whileHover={{ scale: 0.8, transition: { duration: 0.2 } }}
-								>
-									<img
-										className="aspect-auto size-11.5 object-contain"
-										src={tool.image.url}
-										alt={tool.name}
-									/>
-								</motion.div>
-							))}
-						</motion.div>
+					{windowWidth >= 1280 ? (
+						<AnimatedTools tools={tools} />
 					) : (
 						<div className="mx-auto mt-5 flex max-w-screen-2xl flex-wrap items-center justify-center gap-4 lg:mt-10 xl:px-36">
 							{tools.map((tool) => (
