@@ -22,7 +22,7 @@ const CLIENT_URL = process.env.CLIENT_URL as string;
 app.use(morgan("dev"));
 
 // Trust Proxy
-app.set("trust proxy", true);
+app.set('trust proxy', 1);
 
 // Security Middleware
 app.use(helmet());
