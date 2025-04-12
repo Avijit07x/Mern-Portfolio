@@ -85,10 +85,8 @@ const loginUser = async (req: Request, res: Response) => {
 				user,
 				message: "Login successful",
 			});
-		return;
 	} catch (error) {
 		res.status(500).json({ success: false, message: "Internal server error" });
-		return;
 	}
 };
 
@@ -103,7 +101,6 @@ const logoutUser = (req: Request, res: Response) => {
 		})
 		.status(200)
 		.json({ success: true, message: "User Logged Out" });
-	return;
 };
 
 export { loginUser, logoutUser };

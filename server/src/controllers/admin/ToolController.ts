@@ -14,10 +14,8 @@ const addTool = async (req: Request, res: Response) => {
 		const newTool = new Tool({ name, image });
 		await newTool.save();
 		res.status(200).json({ success: true, message: "Tool added" });
-		return;
 	} catch (error) {
 		res.status(500).json({ success: false, message: "Something went wrong" });
-		return;
 	}
 };
 
@@ -52,10 +50,8 @@ const updateTool = async (req: Request, res: Response) => {
 		res
 			.status(200)
 			.json({ success: true, message: "Tool updated successfully" });
-		return;
 	} catch (error) {
 		res.status(500).json({ success: false, message: "Something went wrong" });
-		return;
 	}
 };
 
@@ -74,10 +70,8 @@ const deleteTool = async (req: Request, res: Response) => {
 		await ImageDeleteUtil(tool.image.public_id);
 		await Tool.findByIdAndDelete(id);
 		res.status(200).json({ success: true, message: "Tool deleted" });
-		return;
 	} catch (error) {
 		res.status(500).json({ success: false, message: "Something went wrong" });
-		return;
 	}
 };
 
@@ -86,10 +80,8 @@ const getTools = async (req: Request, res: Response) => {
 		const tools = await Tool.find().sort({ order: 1 });
 
 		res.status(200).json({ success: true, message: "Tools fetched", tools });
-		return;
 	} catch (error) {
 		res.status(500).json({ success: false, message: "Something went wrong" });
-		return;
 	}
 };
 
@@ -115,11 +107,9 @@ const reorderTools = async (req: Request, res: Response) => {
 			success: true,
 			message: "Tools reordered successfully",
 		});
-		return;
 	} catch (error) {
 		console.error("Reorder Tools Error:", error);
 		res.status(500).json({ success: false, message: "Something went wrong" });
-		return;
 	}
 };
 

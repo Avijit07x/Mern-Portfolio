@@ -2,7 +2,7 @@ import compression from "compression";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
-import express, { Express, Request, Response } from "express";
+import express, { Express, NextFunction, Request, Response } from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 import connectToDB from "./db/db";
@@ -10,7 +10,10 @@ import { limiter } from "./helpers/RateLimit";
 import imageRoute from "./routes/admin/ImageRoute";
 import toolRoute from "./routes/admin/ToolRoute";
 import authRoute from "./routes/auth/authRoute";
-dotenv.config();
+
+dotenv.config({
+	path: "./.env",
+});
 
 const app: Express = express();
 
@@ -65,7 +68,7 @@ app.use((req: Request, res: Response) => {
 });
 
 // Optional: Global Error Handler
-app.use((err: any, req: Request, res: Response, next: any) => {
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 	console.error("Error:", err.stack);
 	res.status(500).json({ message: "Something went wrong!" });
 });
