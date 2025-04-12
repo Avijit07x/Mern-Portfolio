@@ -22,7 +22,7 @@ const CLIENT_URL = process.env.CLIENT_URL as string;
 app.use(morgan("dev"));
 
 // Trust Proxy
-app.set('trust proxy', 1);
+app.set("trust proxy", 1);
 
 // Security Middleware
 app.use(helmet());
@@ -57,6 +57,17 @@ app.use("/api/admin/image", imageRoute);
 
 app.get("/", (req: Request, res: Response) => {
 	res.status(200).json("Server is up & running");
+});
+
+// 404 Not Found Middleware
+app.use((req: Request, res: Response) => {
+	res.status(404).json({ message: "Route not found" });
+});
+
+// Optional: Global Error Handler
+app.use((err: any, req: Request, res: Response, next: any) => {
+	console.error("Error:", err.stack);
+	res.status(500).json({ message: "Something went wrong!" });
 });
 
 app.listen(PORT, () => {
