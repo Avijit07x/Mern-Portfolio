@@ -1,5 +1,6 @@
 import express, { Response, Router } from "express";
 import { loginUser, logoutUser } from "../../controllers/auth/authController";
+import { loginLimiter } from "../../helpers/RateLimit";
 import authMiddleware, {
 	CustomRequest,
 } from "../../middlewares/authMiddleware";
@@ -7,7 +8,7 @@ import authMiddleware, {
 const router: Router = express.Router();
 
 // router.post("/register", registerLimiter, registerUser);
-router.post("/login", loginUser);
+router.post("/login", loginLimiter, loginUser);
 router.post("/logout", logoutUser);
 router.get(
 	"/check-auth",

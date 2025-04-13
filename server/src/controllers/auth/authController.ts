@@ -6,6 +6,7 @@ import {
 	generate_access_token,
 } from "../../helpers/JwtGenerate";
 import Admin from "../../models/Admin";
+import { loginSchema } from "../../validations/authValidation";
 
 // register
 // const registerUser = async (req: Request, res: Response) => {
@@ -47,10 +48,13 @@ import Admin from "../../models/Admin";
 const loginUser = async (req: Request, res: Response) => {
 	const { email, password } = req.body ?? {};
 
-	if (!(email && password)) {
-		res.json({ success: false, message: "All fields are required" });
+	const { error } = loginSchema.validate({ email, password });
+
+	if (error) {
+		res.status(400).json({ success: false, message: error.details[0].message });
 		return;
 	}
+
 	try {
 		const admin = await Admin.findOne({ email });
 
