@@ -118,12 +118,9 @@
 	}
 	body {
 		@apply bg-[#01031a];
+		font-family: "Outfit", serif;
 	}
 	html {
 		@apply scroll-smooth;
 	}
-}
-
-body {
-	font-family: "Outfit", serif;
 }

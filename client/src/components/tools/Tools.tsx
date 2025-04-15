@@ -44,11 +44,11 @@ const Tools = () => {
 						<span className="text-primary"></span>
 					</h2>
 					<p className="mt-5 text-sm">
-						I am skilled in various languages and tools and have a strong drive
-						to learn new technologies and stay updated with the latest industry
-						trends. Currently, my focus is on deepening my expertise in backend
-						development, exploring new frameworks and technologies to enhance my
-						capabilities.
+						I possess a strong command of various programming languages and
+						tools, coupled with a continuous drive to stay ahead of industry
+						trends. My current focus lies in advancing my backend development
+						skills and exploring emerging frameworks to build scalable,
+						high-performance solutions.
 					</p>
 				</div>
 			</div>

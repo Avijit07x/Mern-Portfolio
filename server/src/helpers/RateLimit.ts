@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { rateLimit } from "express-rate-limit";
 
-const createRateLimiter = (max: number, windowMs: number, message: string) => {
+const createRateLimiter = (max: number, windowMs: number) => {
 	if (process.env.NODE_ENV !== "production") {
 		return (req: Request, res: Response, next: NextFunction) => next();
 	}
@@ -13,25 +13,22 @@ const createRateLimiter = (max: number, windowMs: number, message: string) => {
 		legacyHeaders: false,
 		message: {
 			status: 429,
-			message,
+			message: "Too many requests from this IP, please try again later.",
 		},
 	});
 };
 
 export const limiter = createRateLimiter(
 	100,
-	15 * 60 * 1000, // 15 minutes
-	"Too many requests from this IP, please try again later."
+	15 * 60 * 1000 // 15 minutes
 );
 
 export const registerLimiter = createRateLimiter(
 	10,
-	5 * 60 * 1000, // 5 minutes
-	"Too many register requests. Please try again later."
+	5 * 60 * 1000 // 5 minutes
 );
 
 export const loginLimiter = createRateLimiter(
 	20,
-	5 * 60 * 1000, // 5 minutes
-	"Too many login requests. Please try again later."
+	5 * 60 * 1000 // 5 minutes
 );
