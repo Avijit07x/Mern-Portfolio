@@ -92,7 +92,7 @@ const ToolTile: React.FC<Props> = ({
 				<DialogContent className="bg-[#1e1e20] sm:max-w-[425px]">
 					<DialogHeader>
 						<DialogTitle className="text-white">
-							Are you sure absolutely sure?
+							Are you sure you want to delete this tool?
 						</DialogTitle>
 						<DialogDescription>
 							This action cannot be undone. This will permanently delete your
