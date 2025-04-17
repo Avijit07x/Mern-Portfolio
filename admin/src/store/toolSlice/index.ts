@@ -45,6 +45,9 @@ const toolSlice = createSlice({
 		setReorderedTools: (state, action: PayloadAction<any[]>) => {
 			state.reorderedTools = action.payload;
 		},
+		setFilteredTools: (state, action: PayloadAction<any[]>) => {
+			state.filteredTools = action.payload;
+		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(
@@ -53,6 +56,9 @@ const toolSlice = createSlice({
 				state.isLoading = false;
 				state.tools = action.payload?.success ? action.payload?.tools : [];
 				state.reorderedTools = action.payload?.success
+					? action.payload?.tools
+					: [];
+				state.filteredTools = action.payload?.success
 					? action.payload?.tools
 					: [];
 			},
@@ -65,4 +71,5 @@ const toolSlice = createSlice({
 
 export default toolSlice.reducer;
 
-export const { setLoading, setTools, setReorderedTools } = toolSlice.actions;
+export const { setLoading, setTools, setReorderedTools, setFilteredTools } =
+	toolSlice.actions;

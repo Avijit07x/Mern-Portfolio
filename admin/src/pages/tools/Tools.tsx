@@ -10,13 +10,13 @@ import {
 	SheetTitle,
 } from "@/components/ui/sheet";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { fetchTools } from "@/store/toolSlice";
+import { fetchTools, setFilteredTools } from "@/store/toolSlice";
 import { Plus, X } from "lucide-react";
 import { lazy, Suspense, useEffect, useState } from "react";
 const ToolTile = lazy(() => import("@/components/admin/ToolTile"));
 
 const Tools = () => {
-	const { tools } = useAppSelector((state) => state.tool);
+	const { tools, filteredTools } = useAppSelector((state) => state.tool);
 	const [toolName, setToolName] = useState<string>("");
 	const [searchedText, setSearchedText] = useState<string>("");
 	const [openCreateProductsDialog, setOpenCreateProductsDialog] =
@@ -28,11 +28,19 @@ const Tools = () => {
 	const [currentEditedTool, setCurrentEditedTool] = useState<string | null>(
 		null,
 	);
+
 	const dispatch = useAppDispatch();
 
 	// handle search
 	const handleSearchProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchedText(e.target.value);
+		const filteredTools = tools.filter((tool) =>
+			tool.name.includes(e.target.value.toLowerCase()),
+		);
+		if (filteredTools.length === 0) {
+			return dispatch(setFilteredTools(tools));
+		}
+		dispatch(setFilteredTools(filteredTools));
 	};
 
 	// open create tool dialog
@@ -121,7 +129,7 @@ const Tools = () => {
 				}
 			>
 				<div className="space-y-3 pb-10 md:space-y-5">
-					{tools.map((tool) => (
+					{filteredTools.map((tool) => (
 						<ToolTile
 							key={tool._id}
 							tool={tool}
