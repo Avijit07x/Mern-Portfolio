@@ -8,6 +8,11 @@ type Activity = {
 		start: number;
 		end?: number;
 	};
+	assets?: {
+		large_image?: string;
+		small_image?: string;
+	};
+	application_id?: string;
 };
 
 type LanyardEvent = {
@@ -76,16 +81,26 @@ const DiscordActivity: React.FC = () => {
 	if (!activity) return <p className="text-white">Loading activity...</p>;
 
 	return (
-		<div className="w-fit space-y-2 rounded-lg bg-gray-900 p-4 text-white shadow-lg">
-			<p>
-				🛠 <strong>{activity.details || "No details"}</strong>
-			</p>
-			<p>
-				📂 <strong>{activity.state || "No state info"}</strong>
-			</p>
-			<p>
-				⏱ Active since: <strong>{duration}</strong>
-			</p>
+		<div className="flex w-fit justify-center gap-2.5 rounded-lg bg-gray-900 p-4 text-sm font-medium text-white shadow-lg">
+			<div className="relative size-18">
+				<img
+					className="h-full w-full rounded-md"
+					src={`https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets?.large_image}.png?size=160`}
+					alt=""
+				/>
+				<img
+					className="absolute -right-1.5 -bottom-1.5 z-100 size-7 rounded-full border-3 border-gray-900"
+					src={`https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets?.small_image}.png?size=160`}
+					alt=""
+				/>
+			</div>
+			<div className="space-y-0.5">
+				<p className="text-base font-bold">{activity.name}</p>
+				<p>{activity.details || "No details"}</p>
+				<p>
+					<span className="text-green-800">{duration}</span>
+				</p>
+			</div>
 		</div>
 	);
 };
