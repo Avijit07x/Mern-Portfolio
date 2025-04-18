@@ -114,17 +114,18 @@
 @theme {
 	--breakpoint-xs: 425px;
 }
+
 @layer utilities {
-	
 	.no-scrollbar::-webkit-scrollbar {
 		display: none;
 	}
 
 	.no-scrollbar {
-		-ms-overflow-style: none; 
-		scrollbar-width: none; 
+		-ms-overflow-style: none;
+		scrollbar-width: none;
 	}
 }
+
 .loader {
 	width: 88px;
 	height: 12px;

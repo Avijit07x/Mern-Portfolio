@@ -56,8 +56,15 @@ const Reorganize = () => {
 
 		if (oldIndex !== -1 && newIndex !== -1) {
 			const newTools = arrayMove(reorderedTools, oldIndex, newIndex);
+			const isReorderedTools = tools.map(
+				(item, index) => item === newTools[index],
+			);
+			if (isReorderedTools.includes(false)) {
+				setIsReordered(true);
+			} else {
+				setIsReordered(false);
+			}
 			dispatch(setReorderedTools(newTools));
-			setIsReordered(true);
 		}
 	};
 
@@ -126,7 +133,7 @@ const Reorganize = () => {
 						<Button
 							disabled={isLoading || !isReordered}
 							onClick={handleSave}
-							className="bg-[#8a46ff] hover:bg-[#8a46ff]/90"
+							className="bg-[#8a46ff] select-none hover:bg-[#8a46ff]/90"
 						>
 							Save changes
 						</Button>

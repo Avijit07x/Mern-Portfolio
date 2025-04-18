@@ -1,5 +1,11 @@
+import DiscordActivity from "@/components/admin/DiscordActivity";
+
 const Home = () => {
-	return <div>Home </div>;
+	return (
+		<div>
+			<DiscordActivity />
+		</div>
+	);
 };
 
 export default Home;

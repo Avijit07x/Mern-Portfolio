@@ -28,7 +28,7 @@ const Profile = () => {
 					className="h-auto cursor-pointer p-0 select-none hover:bg-transparent"
 				>
 					<Avatar>
-						<AvatarFallback className="bg-white text-[#8946ff] font-bold text-base">
+						<AvatarFallback className="bg-white text-base font-bold text-[#8946ff]">
 							{user?.username?.charAt(0)}
 						</AvatarFallback>
 					</Avatar>
