@@ -2,12 +2,15 @@ import compression from "compression";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
-import express, { Express, NextFunction, Request, Response } from "express";
+import express, { Express, Request, Response } from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 import connectToDB from "./db/db";
 import { limiter } from "./helpers/RateLimit";
+import { errorHandler } from "./middlewares/errorHandler";
+import { notFound } from "./middlewares/notFound";
 import imageRoute from "./routes/admin/ImageRoute";
+import projectRoute from "./routes/admin/ProjectRoute";
 import toolRoute from "./routes/admin/ToolRoute";
 import authRoute from "./routes/auth/authRoute";
 
@@ -55,7 +58,7 @@ connectToDB();
 app.use("/api/auth", authRoute);
 app.use("/api/admin/tool", toolRoute);
 app.use("/api/admin/image", imageRoute);
-// app.use("/api/admin/project", projectRoute);
+app.use("/api/admin/project", projectRoute);
 // app.use("/api/admin/email", emailRoute);
 
 app.get("/", (req: Request, res: Response) => {
@@ -63,15 +66,10 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 // 404 Not Found Middleware
-app.use((req: Request, res: Response) => {
-	res.status(404).json({ message: "Route not found" });
-});
+app.use(notFound);
 
 // Optional: Global Error Handler
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-	console.error("Error:", err.stack);
-	res.status(500).json({ message: "Something went wrong!" });
-});
+app.use(errorHandler);
 
 app.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}`);

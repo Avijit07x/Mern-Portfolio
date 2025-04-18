@@ -46,7 +46,6 @@ const authMiddleware = async (
 			success: false,
 			message: "Unauthenticated: Token verification failed",
 		});
-		return;
 	}
 };
 

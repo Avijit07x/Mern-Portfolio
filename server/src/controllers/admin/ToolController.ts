@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
+import { Request, RequestHandler, Response } from "express";
 import { ImageDeleteUtil } from "../../helpers/Cloudinary";
 import Tool from "../../models/Tools";
 
-const addTool = async (req: Request, res: Response) => {
+const addTool: RequestHandler = async (req: Request, res: Response) => {
 	try {
 		const { name, image } = req.body ?? {};
 		if (!name || !image) {
@@ -19,7 +19,7 @@ const addTool = async (req: Request, res: Response) => {
 	}
 };
 
-const updateTool = async (req: Request, res: Response) => {
+const updateTool: RequestHandler = async (req: Request, res: Response) => {
 	try {
 		const { id } = req.params ?? {};
 		const { name, image } = req.body ?? {};
@@ -55,7 +55,7 @@ const updateTool = async (req: Request, res: Response) => {
 	}
 };
 
-const deleteTool = async (req: Request, res: Response) => {
+const deleteTool: RequestHandler = async (req: Request, res: Response) => {
 	try {
 		const { id } = req.params ?? {};
 		if (!id) {
@@ -75,7 +75,7 @@ const deleteTool = async (req: Request, res: Response) => {
 	}
 };
 
-const getTools = async (req: Request, res: Response) => {
+const getTools: RequestHandler = async (req: Request, res: Response) => {
 	try {
 		const tools = await Tool.find().sort({ order: 1 });
 
@@ -85,7 +85,7 @@ const getTools = async (req: Request, res: Response) => {
 	}
 };
 
-const reorderTools = async (req: Request, res: Response) => {
+const reorderTools: RequestHandler = async (req: Request, res: Response) => {
 	try {
 		const { tools } = req.body ?? {};
 
