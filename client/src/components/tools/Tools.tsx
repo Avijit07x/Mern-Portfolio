@@ -60,7 +60,7 @@ const Tools = () => {
 					{windowWidth >= 1280 ? (
 						<AnimatedTools tools={tools} />
 					) : (
-						<div className="mx-auto mt-5 flex max-w-screen-2xl flex-wrap items-center justify-center gap-4 sm:px-10 lg:mt-10 xl:px-36">
+						<div className="mx-auto mt-5 flex max-w-screen-2xl px-3 flex-wrap items-center justify-center gap-4 sm:px-10 lg:mt-10 xl:px-36">
 							{tools.map((tool) => (
 								<div
 									key={tool._id}
