@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import ActiveCard from "./ActiveCard";
+import AfkCard from "./AfkCard";
 
-type Activity = {
+export type Activity = {
 	name: string;
 	details?: string;
 	state?: string;
@@ -25,7 +27,7 @@ type LanyardEvent = {
 	};
 };
 
-const DiscordActivity: React.FC = () => {
+const Activity = () => {
 	const [activity, setActivity] = useState<Activity | null>(null);
 	const [duration, setDuration] = useState<string>("");
 
@@ -77,32 +79,24 @@ const DiscordActivity: React.FC = () => {
 		const timer = setInterval(updateDuration, 1000);
 		return () => clearInterval(timer);
 	}, [activity]);
-
-	if (!activity) return <p className="text-white">Loading activity...</p>;
-
 	return (
-		<div className="flex w-fit justify-center gap-2.5 rounded-lg bg-gray-900 p-4 text-sm font-medium text-white shadow-lg">
-			<div className="relative size-18">
-				<img
-					className="h-full w-full rounded-md"
-					src={`https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets?.large_image}.png?size=160`}
-					alt=""
-				/>
-				<img
-					className="absolute -right-1.5 -bottom-1.5 z-100 size-7 rounded-full border-3 border-gray-900"
-					src={`https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets?.small_image}.png?size=160`}
-					alt=""
-				/>
-			</div>
-			<div className="space-y-0.5">
-				<p className="text-base font-bold">{activity.name}</p>
-				<p>{activity.details || "No details"}</p>
-				<p>
-					<span className="text-green-800">{duration}</span>
-				</p>
-			</div>
-		</div>
+		<div className="mx-auto mt-8 flex max-w-screen-2xl flex-col items-center justify-center">
+			<h2 className="text-xl font-semibold text-white">
+				Activity — What I’m up to in real-time (yep, it’s live!)
+			</h2>
+			<p className="mt-1 mb-6 text-sm text-gray-200">
+				Whether I’m writing code, vibing to music, or just staring at my screen
+				pretending to debug — it all shows up here. Trust me 😅, this thing is
+				actually live. 🛰️
+			</p>
+
+			{activity ? (
+				<ActiveCard activity={activity} duration={duration} />
+			) : (
+				<AfkCard />
+			)}
+		</div>	
 	);
 };
 
-export default DiscordActivity;
+export default Activity;

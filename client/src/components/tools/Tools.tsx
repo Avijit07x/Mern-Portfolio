@@ -43,7 +43,7 @@ const Tools = () => {
 						<span className="text-primary"></span>Languages &amp; Tools
 						<span className="text-primary"></span>
 					</h2>
-					<p className="mt-5 text-sm">
+					<p className="mt-5 text-sm text-gray-200">
 						I possess a strong command of various programming languages and
 						tools, coupled with a continuous drive to stay ahead of industry
 						trends. My current focus lies in advancing my backend development
@@ -60,7 +60,7 @@ const Tools = () => {
 					{windowWidth >= 1280 ? (
 						<AnimatedTools tools={tools} />
 					) : (
-						<div className="mx-auto mt-5 flex max-w-screen-2xl flex-wrap items-center justify-center gap-4 lg:mt-10 xl:px-36">
+						<div className="mx-auto mt-5 flex max-w-screen-2xl flex-wrap items-center justify-center gap-4 sm:px-10 lg:mt-10 xl:px-36">
 							{tools.map((tool) => (
 								<div
 									key={tool._id}

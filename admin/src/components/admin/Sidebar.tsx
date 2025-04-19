@@ -84,7 +84,7 @@ const Sidebar = ({ open, setOpen }: SidebarProps) => {
 			<Sheet open={open} onOpenChange={setOpen}>
 				<SheetContent
 					side="left"
-					className="w-64 border-r-0 bg-[#18181a] px-5 [&>button]:hidden"
+					className="w-64 border-r-0 bg-[#18181a] px-5 [&>button]:hidden z-100"
 				>
 					<div className="relative flex h-full flex-col">
 						{/* Custom Close Button */}
