@@ -80,9 +80,9 @@ const Activity = () => {
 		return () => clearInterval(timer);
 	}, [activity]);
 	return (
-		<div className="mx-auto mt-8 flex max-w-screen-2xl flex-col items-center justify-center">
+		<div className="mx-auto mt-8 flex max-w-screen-2xl flex-col items-center justify-center text-center px-3 md:px-10">
 			<h2 className="text-xl font-semibold text-white">
-				Activity — What I’m up to in real-time (yep, it’s live!)
+				Activity — What I’m up to in real-time <br className="md:hidden" /> (yep, it’s live!)
 			</h2>
 			<p className="mt-1 mb-6 text-sm text-gray-200">
 				Whether I’m writing code, vibing to music, or just staring at my screen
