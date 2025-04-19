@@ -1,5 +1,5 @@
 import Activity from "@/components/activity/Activity";
-import Footer from "@/components/footer/footer";
+import Footer from "@/components/footer/Footer";
 import Hero from "@/components/hero/Hero";
 import Navbar from "@/components/navbar/Navbar";
 import Tools from "@/components/tools/Tools";
