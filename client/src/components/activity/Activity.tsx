@@ -34,7 +34,6 @@ const Activity = () => {
 
 	useEffect(() => {
 		const ws = new WebSocket("wss://api.lanyard.rest/socket");
-
 		let heartbeatInterval: NodeJS.Timeout;
 
 		ws.onopen = () => {
@@ -51,14 +50,16 @@ const Activity = () => {
 		ws.onmessage = (event) => {
 			const data: LanyardEvent = JSON.parse(event.data);
 
-			// If heartbeat interval is sent by server
+			// Handle heartbeat
 			if (data.op === 1 && data.d?.heartbeat_interval) {
 				heartbeatInterval = setInterval(() => {
-					ws.send(JSON.stringify({ op: 3 }));
+					if (ws.readyState === WebSocket.OPEN) {
+						ws.send(JSON.stringify({ op: 3 }));
+					}
 				}, data.d.heartbeat_interval);
 			}
 
-			// On receiving activity update
+			// Handle activity
 			if (data.t === "INIT_STATE" || data.t === "PRESENCE_UPDATE") {
 				const latestActivity = data.d.activities.find(
 					(activity: Activity) =>
@@ -66,6 +67,10 @@ const Activity = () => {
 				);
 				setActivity(latestActivity ?? null);
 			}
+		};
+
+		ws.onclose = () => {
+			clearInterval(heartbeatInterval);
 		};
 
 		return () => {
