@@ -33,49 +33,63 @@ const Activity = () => {
 	const [duration, setDuration] = useState<string>("");
 
 	useEffect(() => {
-		const ws = new WebSocket("wss://api.lanyard.rest/socket");
+		let ws: WebSocket;
 		let heartbeatInterval: NodeJS.Timeout;
+		let reconnectTimeout: NodeJS.Timeout;
 
-		ws.onopen = () => {
-			ws.send(
-				JSON.stringify({
-					op: 2,
-					d: {
-						subscribe_to_id: "486217717238726656",
-					},
-				}),
-			);
-		};
+		const connect = () => {
+			ws = new WebSocket("wss://api.lanyard.rest/socket");
 
-		ws.onmessage = (event) => {
-			const data: LanyardEvent = JSON.parse(event.data);
-
-			// Handle heartbeat
-			if (data.op === 1 && data.d?.heartbeat_interval) {
-				heartbeatInterval = setInterval(() => {
-					if (ws.readyState === WebSocket.OPEN) {
-						ws.send(JSON.stringify({ op: 3 }));
-					}
-				}, data.d.heartbeat_interval);
-			}
-
-			// Handle activity
-			if (data.t === "INIT_STATE" || data.t === "PRESENCE_UPDATE") {
-				const latestActivity = data.d.activities.find(
-					(activity: Activity) =>
-						activity.application_id === "383226320970055681",
+			ws.onopen = () => {
+				ws.send(
+					JSON.stringify({
+						op: 2,
+						d: {
+							subscribe_to_id: "486217717238726656",
+						},
+					}),
 				);
-				setActivity(latestActivity ?? null);
-			}
+			};
+
+			ws.onmessage = (event) => {
+				const data: LanyardEvent = JSON.parse(event.data);
+
+				// Heartbeat
+				if (data.op === 1 && data.d?.heartbeat_interval) {
+					clearInterval(heartbeatInterval);
+					heartbeatInterval = setInterval(() => {
+						if (ws.readyState === WebSocket.OPEN) {
+							ws.send(JSON.stringify({ op: 3 }));
+						}
+					}, data.d.heartbeat_interval);
+				}
+
+				// Activity
+				if (data.t === "INIT_STATE" || data.t === "PRESENCE_UPDATE") {
+					const latestActivity = data.d.activities.find(
+						(activity: Activity) =>
+							activity.application_id === "383226320970055681",
+					);
+					setActivity(latestActivity ?? null);
+				}
+			};
+
+			ws.onclose = () => {
+				clearInterval(heartbeatInterval);
+				reconnectTimeout = setTimeout(connect, 5000);
+			};
+
+			ws.onerror = () => {
+				ws.close(); // Force close so that onclose triggers reconnect
+			};
 		};
 
-		ws.onclose = () => {
-			clearInterval(heartbeatInterval);
-		};
+		connect();
 
 		return () => {
 			ws.close();
 			clearInterval(heartbeatInterval);
+			clearTimeout(reconnectTimeout);
 		};
 	}, []);
 
