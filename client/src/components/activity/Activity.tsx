@@ -49,9 +49,11 @@ const Activity = () => {
 			const message: LanyardEvent = JSON.parse(event.data);
 
 			if (message.t === "INIT_STATE" || message.t === "PRESENCE_UPDATE") {
-				const latestActivity = message.d.activities[0];
+				const latestActivity = message.d.activities.filter(
+					(activity) => activity.application_id === "383226320970055681",
+				);
 				if (latestActivity) {
-					setActivity(latestActivity);
+					setActivity(latestActivity[0]);
 				}
 			}
 		};
@@ -79,15 +81,16 @@ const Activity = () => {
 		const timer = setInterval(updateDuration, 1000);
 		return () => clearInterval(timer);
 	}, [activity]);
+	
 	return (
 		<div className="mx-auto mt-8 flex max-w-screen-2xl flex-col items-center justify-center px-3 text-center md:px-10">
-			<h2 className="text-xl font-semibold text-white">
+			<h2 className="text-xl lg:text-2xl font-semibold text-white">
 				Live Peek into My World
 			</h2>
+
 			<p className="mt-1 mb-6 text-sm text-gray-200">
-				Whether I’m writing code, vibing to music, or just staring at my screen
-				pretending to debug — it all shows up here. Trust me, this thing is
-				actually live. 🛰️
+				Whether I’m writing code, editing a code file, or just staring at my
+				screen — it all shows up here. And yes, it’s actually live. 🛰️
 			</p>
 
 			{activity ? (
