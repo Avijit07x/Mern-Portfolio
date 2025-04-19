@@ -68,7 +68,7 @@ app.get("/", (req: Request, res: Response) => {
 // 404 Not Found Middleware
 app.use(notFound);
 
-// Optional: Global Error Handler
+// Global Error Handler
 app.use(errorHandler);
 
 app.listen(PORT, () => {

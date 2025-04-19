@@ -24,6 +24,7 @@ type LanyardEvent = {
 		discord_status: string;
 		activities: Activity[];
 		user_id: string;
+		heartbeat_interval: number;
 	};
 };
 
@@ -33,6 +34,8 @@ const Activity = () => {
 
 	useEffect(() => {
 		const ws = new WebSocket("wss://api.lanyard.rest/socket");
+
+		let heartbeatInterval: NodeJS.Timeout;
 
 		ws.onopen = () => {
 			ws.send(
@@ -46,19 +49,29 @@ const Activity = () => {
 		};
 
 		ws.onmessage = (event) => {
-			const message: LanyardEvent = JSON.parse(event.data);
+			const data: LanyardEvent = JSON.parse(event.data);
 
-			if (message.t === "INIT_STATE" || message.t === "PRESENCE_UPDATE") {
-				const latestActivity = message.d.activities.filter(
-					(activity) => activity.application_id === "383226320970055681",
+			// If heartbeat interval is sent by server
+			if (data.op === 1 && data.d?.heartbeat_interval) {
+				heartbeatInterval = setInterval(() => {
+					ws.send(JSON.stringify({ op: 3 }));
+				}, data.d.heartbeat_interval);
+			}
+
+			// On receiving activity update
+			if (data.t === "INIT_STATE" || data.t === "PRESENCE_UPDATE") {
+				const latestActivity = data.d.activities.find(
+					(activity: Activity) =>
+						activity.application_id === "383226320970055681",
 				);
-				if (latestActivity) {
-					setActivity(latestActivity[0]);
-				}
+				setActivity(latestActivity ?? null);
 			}
 		};
 
-		return () => ws.close();
+		return () => {
+			ws.close();
+			clearInterval(heartbeatInterval);
+		};
 	}, []);
 
 	useEffect(() => {
@@ -81,10 +94,10 @@ const Activity = () => {
 		const timer = setInterval(updateDuration, 1000);
 		return () => clearInterval(timer);
 	}, [activity]);
-	
+
 	return (
 		<div className="mx-auto mt-8 flex max-w-screen-2xl flex-col items-center justify-center px-3 text-center md:px-10">
-			<h2 className="text-xl lg:text-2xl font-semibold text-white">
+			<h2 className="text-xl font-semibold text-white lg:text-2xl">
 				Live Peek into My World
 			</h2>
 
