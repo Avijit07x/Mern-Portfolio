@@ -120,7 +120,7 @@ const Activity = () => {
 				Live Peek into My World
 			</h2>
 
-			<p className="mt-5 lg:mt-1 mb-6 text-sm text-gray-200">
+			<p className="mt-2 lg:mt-1 mb-6 text-sm text-gray-200">
 				Whether I’m writing code, editing a code file, or just staring at my
 				screen — it all shows up here. And yes, it’s actually live. 🛰️
 			</p>

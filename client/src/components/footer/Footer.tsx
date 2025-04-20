@@ -4,8 +4,8 @@ import { Link } from "react-router";
 const Footer = () => {
 	return (
 		<footer className="pt-10">
-			<div className="mx-auto w-full max-w-screen-xl px-4 max-md:px-12">
-				<div className="flex flex-wrap items-center justify-center gap-6 py-6 md:justify-between">
+			<div className="mx-auto w-full max-w-screen-xl px-4 sm:px-7 md:px-12 lg:px-16 xl:px-0">
+				<div className="flex flex-col items-center justify-center gap-6 py-6 sm:flex-row sm:justify-between">
 					<span className="text-muted-foreground order-last block text-center text-sm md:order-first">
 						© {new Date().getFullYear()} Avijit07x, All rights reserved
 					</span>
