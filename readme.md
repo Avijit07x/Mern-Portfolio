@@ -12,6 +12,7 @@ This is a personal portfolio website built using the MERN (MongoDB, Express.js, 
 - ⏳ Contact form with email integration (upcoming)
 - ✅ Admin panel with JWT authentication
 - ⏳ Content management via Admin panel (partially completed)
+- ✅ Real-time coding activity (VS Code)
 
 ## Tech Stack
 ### Frontend:

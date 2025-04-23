@@ -11,7 +11,6 @@ const addProject: RequestHandler = async (req: Request, res: Response) => {
 };
 
 // get all Projects
-
 const getProjects: RequestHandler = async (req: Request, res: Response) => {
 	try {
 		const projects = await Project.find().sort({ order: 1 });

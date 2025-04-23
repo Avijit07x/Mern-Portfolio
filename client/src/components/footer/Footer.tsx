@@ -7,7 +7,7 @@ const Footer = () => {
 			<div className="mx-auto w-full max-w-screen-xl px-4 sm:px-7 md:px-12 lg:px-16 xl:px-0">
 				<div className="flex flex-col items-center justify-center gap-6 py-6 sm:flex-row sm:justify-between">
 					<span className="text-muted-foreground order-last block text-center text-sm md:order-first">
-						© {new Date().getFullYear()} Avijit07x, All rights reserved
+						Made with ❤ by Avijit Dey
 					</span>
 					<div className="order-first flex flex-wrap justify-center gap-6 text-sm md:order-last">
 						<Link

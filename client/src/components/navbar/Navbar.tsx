@@ -9,7 +9,7 @@ import { Menu } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router";
 
-const Navbar = ({ scrollToSection, aboutRef }: any) => {
+const Navbar = () => {
 	const [open, setOpen] = useState(false);
 	return (
 		<>
@@ -25,14 +25,6 @@ const Navbar = ({ scrollToSection, aboutRef }: any) => {
 					<span className="sr-only">Open menu</span>
 				</button>
 				<ul className="hidden items-center justify-center lg:flex">
-					<li className="mx-5 text-white">
-						<button
-							className="cursor-pointer"
-							onClick={() => scrollToSection(aboutRef)}
-						>
-							About
-						</button>
-					</li>
 					<li className="mx-5 text-white">
 						<button>Projects</button>
 					</li>
@@ -54,23 +46,6 @@ const Navbar = ({ scrollToSection, aboutRef }: any) => {
 						</SheetDescription>
 					</SheetHeader>
 					<ul className="mt-14 flex flex-col items-center justify-center gap-5">
-						<li
-							className="flex w-full items-center justify-center rounded-xl border border-[#FFFFFF20] py-2 text-white shadow-2xl"
-							style={{
-								backdropFilter: "blur(16px) saturate(180%)",
-								backgroundColor: "rgba(17, 25, 40, 0.75)",
-							}}
-						>
-							<button
-								onClick={() => {
-									scrollToSection(aboutRef);
-									setOpen(false);
-								}}
-								className="w-full"
-							>
-								About
-							</button>
-						</li>
 						<li
 							className="flex w-full items-center justify-center rounded-xl border border-[#FFFFFF20] py-2 text-white shadow-2xl"
 							style={{

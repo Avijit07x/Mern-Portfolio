@@ -120,6 +120,9 @@
 		@apply bg-[#01031a];
 		font-family: "Outfit", serif;
 	}
+	button {
+		@apply cursor-pointer;
+	}
 	html {
 		@apply scroll-smooth;
 	}

@@ -1,5 +1,4 @@
 import bcrypt from "bcryptjs";
-
 import { Request, Response } from "express";
 import {
 	access_tokenOptions,
@@ -59,8 +58,9 @@ const loginUser = async (req: Request, res: Response) => {
 		const admin = await Admin.findOne({ email });
 
 		if (!admin) {
-			res.status(404).json({ success: false, message: "User not found" });
-			return;
+			return res
+				.status(401)
+				.json({ success: false, message: "Invalid email or password" });
 		}
 
 		// Check password
