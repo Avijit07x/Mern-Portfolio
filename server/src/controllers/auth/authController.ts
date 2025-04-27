@@ -81,6 +81,7 @@ const loginUser: RequestHandler = async (req: Request, res: Response) => {
 		}
 
 		const user = {
+			id: admin.id,
 			email: admin.email,
 			username: admin.username,
 		};
