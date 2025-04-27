@@ -3,8 +3,8 @@ import jwt from "jsonwebtoken";
 import ms from "ms";
 
 interface UserPayload {
-	id: string;
 	email: string;
+	username: string;
 }
 
 // Function to generate access token

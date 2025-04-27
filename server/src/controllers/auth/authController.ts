@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import { Request, Response } from "express";
+import { Request, RequestHandler, Response } from "express";
 import {
 	access_tokenOptions,
 	generate_access_token,
@@ -7,30 +7,33 @@ import {
 import Admin from "../../models/Admin";
 import { loginSchema } from "../../validations/authValidation";
 
-// register
-// const registerUser = async (req: Request, res: Response) => {
-// 	const { username, email, password } = req.body  ?? {};
-// 	try {
-// 		// validation
-// 		if (!(username && email && password)) {
-// 			res
-// 				.status(400)
-// 				.json({ success: false, message: "All fields are required" });
-// 		}
+// // register
+// const registerUser: RequestHandler = async (req: Request, res: Response) => {
+// 	const { error, data, success } = adminSchema.safeParse(req.body);
 
+// 	if (!success || error) {
+// 		const errorDetails = error.issues.map((err) => ({
+// 			field: err.path.join(","),
+// 			message: err.message,
+// 		}));
+// 		res.status(400).json({ success: false, message: errorDetails });
+// 		return;
+// 	}
+// 	try {
 // 		// check if user already exists
-// 		const existingUser = await Admin.findOne({ email });
+// 		const existingUser = await Admin.findOne({ email: data?.email });
 
 // 		if (existingUser) {
 // 			res.status(409).json({ success: false, message: "User already exists" });
+// 			return;
 // 		}
 
 // 		// hash password
-// 		const hashedPassword = await bcrypt.hash(password, 10);
+// 		const hashedPassword = await bcrypt.hash(data?.password, 10);
 
 // 		const admin = {
-// 			username,
-// 			email,
+// 			username: data?.username,
+// 			email: data?.email,
 // 			password: hashedPassword,
 // 		};
 
@@ -44,27 +47,33 @@ import { loginSchema } from "../../validations/authValidation";
 // };
 
 // login controller
-const loginUser = async (req: Request, res: Response) => {
-	const { email, password } = req.body ?? {};
+const loginUser: RequestHandler = async (req: Request, res: Response) => {
+	const { success, data, error } = loginSchema.safeParse(req.body);
 
-	const { error } = loginSchema.validate({ email, password });
-
-	if (error) {
-		res.status(400).json({ success: false, message: error.details[0].message });
+	if (!success || error) {
+		const errorDetails = error.issues.map((err) => ({
+			field: err.path.join(","),
+			message: err.message,
+		}));
+		res.status(400).json({ success: false, message: errorDetails });
 		return;
 	}
 
 	try {
-		const admin = await Admin.findOne({ email });
+		const admin = await Admin.findOne({ email: data.email });
 
 		if (!admin) {
-			return res
+			res
 				.status(401)
 				.json({ success: false, message: "Invalid email or password" });
+			return;
 		}
 
 		// Check password
-		const isPasswordCorrect = await bcrypt.compare(password, admin.password);
+		const isPasswordCorrect = await bcrypt.compare(
+			data.password,
+			admin.password
+		);
 
 		if (!isPasswordCorrect) {
 			res.json({ success: false, message: "Incorrect password" });
@@ -72,7 +81,6 @@ const loginUser = async (req: Request, res: Response) => {
 		}
 
 		const user = {
-			id: admin._id,
 			email: admin.email,
 			username: admin.username,
 		};
@@ -95,7 +103,7 @@ const loginUser = async (req: Request, res: Response) => {
 };
 
 // logout
-const logoutUser = (req: Request, res: Response) => {
+const logoutUser: RequestHandler = (req: Request, res: Response) => {
 	res
 		.clearCookie("_access_token", {
 			httpOnly: true,

@@ -14,9 +14,7 @@ import projectRoute from "./routes/admin/ProjectRoute";
 import toolRoute from "./routes/admin/ToolRoute";
 import authRoute from "./routes/auth/authRoute";
 
-dotenv.config({
-	path: "./.env",
-});
+dotenv.config();
 
 const app: Express = express();
 
