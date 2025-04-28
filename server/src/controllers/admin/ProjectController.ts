@@ -1,10 +1,23 @@
 import { Request, RequestHandler, Response } from "express";
 import Project from "../../models/Project";
+import projectSchema from "../../validations/projectValidation";
 
 // add a new Project
 const addProject: RequestHandler = async (req: Request, res: Response) => {
+	const { success, data, error } = projectSchema.safeParse(req.body);
+	if (!success || error) {
+		const errorDetails = error.issues.map((err) => ({
+			field: err.path.join(","),
+			message: err.message,
+		}));
+		res.status(400).json({ success, message: errorDetails, error });
+		return;
+	}
 	try {
-		res.status(200).json({ success: true, message: "Projects fetched" });
+		const project = await Project.create(data);
+		res
+			.status(200)
+			.json({ success: true, message: "Projects created successfully", project });
 	} catch (error) {
 		res.status(500).json({ success: false, message: "Something went wrong" });
 	}

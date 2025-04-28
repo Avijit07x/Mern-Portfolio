@@ -38,7 +38,11 @@ const authMiddleware = async (
 			return;
 		}
 
-		req.user = decoded.user;
+		req.user = {
+			id: admin._id.toString(),
+			email: admin.email,
+			username: admin.username,
+		};
 
 		next();
 	} catch (error: any) {

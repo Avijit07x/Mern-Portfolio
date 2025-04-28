@@ -7,7 +7,7 @@ import authMiddleware, {
 
 const router: Router = express.Router();
 
-// router.post("/register", registerLimiter, registerUser);
+// router.post("/register", registerLimiter, authMiddleware, registerUser);
 router.post("/login", loginLimiter, loginUser);
 router.post("/logout", logoutUser);
 router.get(
