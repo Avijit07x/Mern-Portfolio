@@ -12,8 +12,8 @@ const env = cleanEnv(process.env, {
 	TOKEN_KEY_EXPIRY: str(),
 
 	PORT: num(),
-	ADMIN_URL: str(),
-	CLIENT_URL: str(),
+	ADMIN_URL: url(),
+	CLIENT_URL: url(),
 	MONGO_URI: url(),
 	NODE_ENV: str({ choices: ["development", "production"] }),
 });
