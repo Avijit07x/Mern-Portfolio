@@ -10,8 +10,8 @@ const router: Router = express.Router();
 
 router.post(
 	"/upload-image",
-	upload.single("image"),
 	authMiddleware,
+	upload.single("image"),
 	handleImageUpload
 );
 

@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import { Request, RequestHandler, Response } from "express";
+import env from "utils/env";
 import {
 	access_tokenOptions,
 	generate_access_token,
@@ -108,8 +109,8 @@ const logoutUser: RequestHandler = (req: Request, res: Response) => {
 	res
 		.clearCookie("_access_token", {
 			httpOnly: true,
-			secure: process.env.NODE_ENV === "production",
-			sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+			secure: env.isProd,
+			sameSite: env.isProd ? "none" : "lax",
 			path: "/",
 		})
 		.status(200)

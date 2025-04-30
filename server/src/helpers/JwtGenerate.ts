@@ -1,6 +1,7 @@
 import { CookieOptions } from "express";
 import jwt from "jsonwebtoken";
 import ms from "ms";
+import env from "utils/env";
 
 interface UserPayload {
 	email: string;
@@ -10,14 +11,8 @@ interface UserPayload {
 // Function to generate access token
 export const generate_access_token = (user: UserPayload) => {
 	try {
-		const secret = process.env.TOKEN_KEY as string;
-		const expiresIn = process.env.TOKEN_KEY_EXPIRY as ms.StringValue;
-
-		if (!secret || !expiresIn) {
-			throw new Error(
-				"Missing TOKEN_KEY or TOKEN_KEY_EXPIRY in environment variables"
-			);
-		}
+		const secret = env.TOKEN_KEY;
+		const expiresIn = env.TOKEN_KEY_EXPIRY as ms.StringValue;
 
 		return jwt.sign({ user }, secret, { expiresIn });
 	} catch (error) {
@@ -29,9 +24,7 @@ export const generate_access_token = (user: UserPayload) => {
 // Cookie options
 export const access_tokenOptions: CookieOptions = {
 	httpOnly: true,
-	secure: process.env.NODE_ENV === "production",
-	sameSite: (process.env.NODE_ENV === "production" ? "none" : "lax") as
-		| "lax"
-		| "none",
+	secure: env.isProd,
+	sameSite: (env.isProd ? "none" : "lax") as "lax" | "none",
 	maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in ms
 };

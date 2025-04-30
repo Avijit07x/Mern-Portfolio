@@ -1,4 +1,5 @@
 import mongoose, { ConnectOptions } from "mongoose";
+import env from "utils/env";
 
 interface Connection {
 	isConnected?: number;
@@ -12,7 +13,7 @@ const options: ConnectOptions = {
 };
 
 const connectToDB = async () => {
-	const uri = process.env.MONGO_URI;
+	const uri = env.MONGO_URI;
 	if (!uri) {
 		throw new Error("MONGO_URI is not defined");
 	}

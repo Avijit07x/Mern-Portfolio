@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
+import env from "utils/env";
 import Admin from "../models/Admin";
 
 export interface CustomRequest extends Request {
@@ -25,10 +26,7 @@ const authMiddleware = async (
 	}
 
 	try {
-		const decoded = jwt.verify(
-			token,
-			process.env.TOKEN_KEY as string
-		) as JwtPayload;
+		const decoded = jwt.verify(token, env.TOKEN_KEY) as JwtPayload;
 
 		const admin = await Admin.findById(decoded.user?.id);
 		if (!admin) {

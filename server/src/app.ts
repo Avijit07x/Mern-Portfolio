@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import express, { Express, Request, Response } from "express";
 import helmet from "helmet";
 import morgan from "morgan";
+import env from "utils/env";
 import connectToDB from "./db/db";
 import { limiter } from "./helpers/RateLimit";
 import { errorHandler } from "./middlewares/errorHandler";
@@ -18,9 +19,7 @@ dotenv.config();
 
 const app: Express = express();
 
-const PORT = process.env.PORT || 8000;
-const ADMIN_URL = process.env.ADMIN_URL as string;
-const CLIENT_URL = process.env.CLIENT_URL as string;
+const PORT = env.PORT || 8000;
 
 // Logger
 app.use(morgan("dev"));
@@ -34,7 +33,7 @@ app.use(helmet());
 // CORS Configuration
 app.use(
 	cors({
-		origin: [CLIENT_URL, ADMIN_URL],
+		origin: [env.CLIENT_URL, env.ADMIN_URL],
 		methods: ["GET", "POST", "PUT", "DELETE"],
 		credentials: true,
 	})

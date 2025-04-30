@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import { rateLimit } from "express-rate-limit";
+import env from "utils/env";
 
 const createRateLimiter = (max: number, windowMs: number) => {
-	if (process.env.NODE_ENV !== "production") {
+	if (env.isDev) {
 		return (req: Request, res: Response, next: NextFunction) => next();
 	}
 

@@ -1,13 +1,36 @@
 {
 	"compilerOptions": {
-		"target": "ES2024",
+		"target": "ESNext",
 		"module": "NodeNext",
-		"rootDir": "./src",
-		"outDir": "./dist",
-		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true,
+		"moduleResolution": "NodeNext",
+		"lib": ["ESNext", "DOM"],
 		"strict": true,
+		"esModuleInterop": true,
 		"skipLibCheck": true,
-		"removeComments": true
-	}
+		"forceConsistentCasingInFileNames": true,
+		"removeComments": true,
+		"noImplicitReturns": true,
+		"noImplicitAny": true,
+		"strictNullChecks": true,
+		"baseUrl": ".",
+		"rootDir": "src",
+		"outDir": "dist",
+		"typeRoots": ["node_modules/@types", "src/@types"],
+		"allowSyntheticDefaultImports": true,
+		"resolveJsonModule": true,
+		"incremental": true,
+		"noUnusedLocals": false,
+		"noUnusedParameters": false,
+		"noFallthroughCasesInSwitch": true,
+		"strictFunctionTypes": true,
+		"strictPropertyInitialization": true,
+		"paths": {
+			"*": ["src/*"]
+		}
+	},
+	"ts-node": {
+		"files": true
+	},
+	"include": ["src"],
+	"exclude": ["node_modules", "dist"]
 }
