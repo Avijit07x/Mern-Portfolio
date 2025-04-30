@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { rateLimit } from "express-rate-limit";
-import env from "utils/env";
+import env from "../utils/env";
 
 const createRateLimiter = (max: number, windowMs: number) => {
 	if (env.isDev) {

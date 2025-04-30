@@ -1,5 +1,5 @@
 import mongoose, { ConnectOptions } from "mongoose";
-import env from "utils/env";
+import env from "../utils/env";
 
 interface Connection {
 	isConnected?: number;

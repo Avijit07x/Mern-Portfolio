@@ -1,11 +1,11 @@
 import bcrypt from "bcryptjs";
 import { Request, RequestHandler, Response } from "express";
-import env from "utils/env";
 import {
 	access_tokenOptions,
 	generate_access_token,
 } from "../../helpers/JwtGenerate";
 import Admin from "../../models/Admin";
+import env from "../../utils/env";
 import { loginSchema } from "../../validations/authValidation";
 
 // // register

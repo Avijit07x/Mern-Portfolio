@@ -25,7 +25,7 @@
 		"strictFunctionTypes": true,
 		"strictPropertyInitialization": true,
 		"paths": {
-			"*": ["src/*"]
+			"../": ["src/*"]
 		}
 	},
 	"ts-node": {

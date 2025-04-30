@@ -1,5 +1,5 @@
 import { ErrorRequestHandler, NextFunction, Request, Response } from "express";
-import env from "utils/env";
+import env from "../utils/env";
 
 const errorHandler: ErrorRequestHandler = (
 	err: any,

@@ -5,7 +5,6 @@ import dotenv from "dotenv";
 import express, { Express, Request, Response } from "express";
 import helmet from "helmet";
 import morgan from "morgan";
-import env from "utils/env";
 import connectToDB from "./db/db";
 import { limiter } from "./helpers/RateLimit";
 import { errorHandler } from "./middlewares/errorHandler";
@@ -14,6 +13,7 @@ import imageRoute from "./routes/admin/ImageRoute";
 import projectRoute from "./routes/admin/ProjectRoute";
 import toolRoute from "./routes/admin/ToolRoute";
 import authRoute from "./routes/auth/authRoute";
+import env from "./utils/env";
 
 dotenv.config();
 

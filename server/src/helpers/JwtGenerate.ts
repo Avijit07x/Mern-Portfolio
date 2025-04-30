@@ -1,7 +1,7 @@
 import { CookieOptions } from "express";
 import jwt from "jsonwebtoken";
 import ms from "ms";
-import env from "utils/env";
+import env from "../utils/env";
 
 interface UserPayload {
 	email: string;
