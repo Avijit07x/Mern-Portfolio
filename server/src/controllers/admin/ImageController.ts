@@ -1,8 +1,11 @@
-import { Request, Response } from "express";
+import { Request, RequestHandler, Response } from "express";
 import { ImageDeleteUtil, ImageUploadUtil } from "../../helpers/Cloudinary";
 
 // upload image to cloudinary
-const handleImageUpload = async (req: Request, res: Response) => {
+const handleImageUpload: RequestHandler = async (
+	req: Request,
+	res: Response
+) => {
 	try {
 		if (!req.file) {
 			res.status(400).json({ success: false, message: "No file uploaded" });
@@ -21,7 +24,10 @@ const handleImageUpload = async (req: Request, res: Response) => {
 };
 
 // delete image from cloudinary
-const handleImageDelete = async (req: Request, res: Response) => {
+const handleImageDelete: RequestHandler = async (
+	req: Request,
+	res: Response
+) => {
 	const { id } = req.body ?? {};
 	try {
 		const result = await ImageDeleteUtil(id);

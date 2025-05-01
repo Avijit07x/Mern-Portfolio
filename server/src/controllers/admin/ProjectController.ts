@@ -1,4 +1,4 @@
-import { Request, RequestHandler, Response } from "express";
+import { NextFunction, Request, RequestHandler, Response } from "express";
 import Project from "../../models/Project";
 import projectSchema from "../../validations/projectValidation";
 
@@ -15,9 +15,11 @@ const addProject: RequestHandler = async (req: Request, res: Response) => {
 	}
 	try {
 		const project = await Project.create(data);
-		res
-			.status(200)
-			.json({ success: true, message: "Projects created successfully", project });
+		res.status(200).json({
+			success: true,
+			message: "Projects created successfully",
+			project,
+		});
 	} catch (error) {
 		res.status(500).json({ success: false, message: "Something went wrong" });
 	}
@@ -45,9 +47,26 @@ const updateProject: RequestHandler = async (req: Request, res: Response) => {
 };
 
 // delete Project
-const deleteProject: RequestHandler = async (req: Request, res: Response) => {
+const deleteProject: RequestHandler = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
+	const { id } = req.params;
+	if (!id || typeof id !== "string") {
+		res
+			.status(400)
+			.json({ success: false, message: "Invalid or missing project ID" });
+		return;
+	}
 	try {
-		res.status(200).json({ success: true, message: "Projects fetched" });
+		const deletedProject = await Project.findByIdAndDelete(id);
+		if (!deletedProject) {
+			res.status(404).json({ success: false, message: "Project not found" });
+		}
+		res
+			.status(200)
+			.json({ success: true, message: "Projects deleted successfully" });
 	} catch (error) {
 		res.status(500).json({ success: false, message: "Something went wrong" });
 	}
