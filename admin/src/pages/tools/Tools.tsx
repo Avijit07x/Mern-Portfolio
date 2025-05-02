@@ -128,7 +128,7 @@ const Tools = () => {
 					</div>
 				}
 			>
-				<div className="space-y-3 pb-10 md:space-y-5">
+				<div className="space-y-3 md:space-y-5">
 					{filteredTools.map((tool) => (
 						<ToolTile
 							key={tool._id}

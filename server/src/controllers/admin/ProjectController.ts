@@ -61,9 +61,12 @@ const deleteProject: RequestHandler = async (
 	}
 	try {
 		const deletedProject = await Project.findByIdAndDelete(id);
+
 		if (!deletedProject) {
 			res.status(404).json({ success: false, message: "Project not found" });
+			return;
 		}
+
 		res
 			.status(200)
 			.json({ success: true, message: "Projects deleted successfully" });
