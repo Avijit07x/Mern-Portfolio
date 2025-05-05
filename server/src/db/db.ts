@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { ConnectOptions } from "mongoose";
 import env from "../utils/env";
 
 interface Connection {
@@ -7,6 +7,10 @@ interface Connection {
 
 const connection: Connection = {};
 
+const options: ConnectOptions = {
+	connectTimeoutMS: 60000, // 60 seconds
+	socketTimeoutMS: 60000, // 60 seconds
+};
 const connectToDB = async () => {
 	const uri = env.MONGO_URI;
 	if (!uri) {
@@ -17,7 +21,7 @@ const connectToDB = async () => {
 		if (connection.isConnected) {
 			return;
 		}
-		const db = await mongoose.connect(uri);
+		const db = await mongoose.connect(uri, options);
 		connection.isConnected = db.connections[0].readyState;
 		console.log(`MongoDB Connected: ${db.connections[0].readyState}`);
 	} catch (error: any) {
