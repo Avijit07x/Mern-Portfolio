@@ -15,23 +15,23 @@ export type Tool = {
 const Tools = () => {
 	const [tools, setTools] = useState<Tool[]>([]);
 	const [loading, setLoading] = useState(true);
-
 	const windowWidth = useWindowWidth();
 
+	const fetchTools = async () => {
+		try {
+			const response = await axios.get(
+				`${import.meta.env.VITE_SERVER_URL}admin/tool/get-tools`,
+			);
+			const data = response.data.tools;
+			setTools(data);
+		} catch (error) {
+			console.error("Error fetching tools:", error);
+		} finally {
+			setLoading(false);
+		}
+	};
+
 	useEffect(() => {
-		const fetchTools = async () => {
-			try {
-				const response = await axios.get(
-					`${import.meta.env.VITE_SERVER_URL}admin/tool/get-tools`,
-				);
-				const data = response.data.tools;
-				setTools(data);
-			} catch (error) {
-				console.error("Error fetching tools:", error);
-			} finally {
-				setLoading(false);
-			}
-		};
 		fetchTools();
 	}, []);
 
@@ -60,7 +60,7 @@ const Tools = () => {
 					{windowWidth >= 1280 ? (
 						<AnimatedTools tools={tools} />
 					) : (
-						<div className="mx-auto mt-5 flex max-w-screen-2xl px-3 flex-wrap items-center justify-center gap-4 sm:px-10 lg:mt-10 xl:px-36">
+						<div className="mx-auto mt-5 flex max-w-screen-2xl flex-wrap items-center justify-center gap-4 px-3 sm:px-10 lg:mt-10 xl:px-36">
 							{tools.map((tool) => (
 								<div
 									key={tool._id}

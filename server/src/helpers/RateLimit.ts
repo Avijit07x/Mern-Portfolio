@@ -26,10 +26,10 @@ export const limiter = createRateLimiter(
 
 export const registerLimiter = createRateLimiter(
 	10,
-	5 * 60 * 1000 // 5 minutes
+	24 * 60 * 60 * 1000 // 24 hours
 );
 
 export const loginLimiter = createRateLimiter(
 	20,
-	5 * 60 * 1000 // 5 minutes
+	24 * 60 * 60 * 1000 // 24 hours
 );

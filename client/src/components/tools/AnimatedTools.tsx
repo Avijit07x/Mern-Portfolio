@@ -1,9 +1,5 @@
 import { motion } from "motion/react";
 import { Tool } from "./Tools";
-const containerVariants = {
-	hidden: { opacity: 0, transition: { staggerChildren: 0.02 } },
-	visible: { opacity: 1, transition: { staggerChildren: 0.03 } },
-};
 
 const itemVariants = {
 	hidden: { opacity: 0, scale: 0.9 },
@@ -12,13 +8,7 @@ const itemVariants = {
 
 const AnimatedTools = ({ tools }: { tools: Tool[] }) => {
 	return (
-		<motion.div
-			className="mx-auto mt-5 flex max-w-screen-2xl flex-wrap items-center justify-center gap-4 lg:mt-10 xl:px-36"
-			variants={containerVariants}
-			initial="hidden"
-			whileInView="visible"
-			viewport={{ once: true, amount: 0.2 }}
-		>
+		<div className="mx-auto mt-5 flex max-w-screen-2xl flex-wrap items-center justify-center gap-4 lg:mt-10 xl:px-36">
 			{tools.map((tool) => (
 				<motion.div
 					key={tool._id}
@@ -34,7 +24,7 @@ const AnimatedTools = ({ tools }: { tools: Tool[] }) => {
 					/>
 				</motion.div>
 			))}
-		</motion.div>
+		</div>
 	);
 };
 

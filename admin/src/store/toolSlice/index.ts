@@ -11,8 +11,6 @@ interface IToolState {
 interface ToolPayload {
 	success: boolean;
 	tools: any[];
-	reorderedTools: any[];
-	filteredTools: any[];
 }
 
 const initialState: IToolState = {
@@ -65,6 +63,9 @@ const toolSlice = createSlice({
 		);
 		builder.addCase(fetchTools.pending, (state) => {
 			state.isLoading = true;
+		});
+		builder.addCase(fetchTools.rejected, (state) => {
+			state.isLoading = false;
 		});
 	},
 });

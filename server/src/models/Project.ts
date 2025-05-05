@@ -15,7 +15,12 @@ const ProjectSchema = new mongoose.Schema(
 			required: true,
 		},
 		tools: {
-			type: [String],
+			type: [
+				{
+					id: { type: String },
+					text: { type: String, required: true },
+				},
+			],
 			required: true,
 		},
 		order: { type: Number, default: 0 },

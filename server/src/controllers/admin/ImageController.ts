@@ -30,7 +30,7 @@ const handleImageDelete: RequestHandler = async (
 ) => {
 	const { id } = req.body ?? {};
 	try {
-		const result = await ImageDeleteUtil(id);
+		const { result } = await ImageDeleteUtil(id);
 		res.status(200).json({ success: true, result });
 	} catch (error: any) {
 		res.status(500).json({ success: false, message: error.message });

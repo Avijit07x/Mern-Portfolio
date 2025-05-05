@@ -77,7 +77,7 @@ const loginUser: RequestHandler = async (req: Request, res: Response) => {
 		);
 
 		if (!isPasswordCorrect) {
-			res.json({ success: false, message: "Incorrect password" });
+			res.json({ success: false, message: "Invalid email or password" });
 			return;
 		}
 

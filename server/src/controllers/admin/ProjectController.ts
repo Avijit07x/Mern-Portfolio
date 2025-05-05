@@ -10,7 +10,7 @@ const addProject: RequestHandler = async (req: Request, res: Response) => {
 			field: err.path.join(","),
 			message: err.message,
 		}));
-		res.status(400).json({ success, message: errorDetails, error });
+		res.status(400).json({ success, message: errorDetails });
 		return;
 	}
 	try {

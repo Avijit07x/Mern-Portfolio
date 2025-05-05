@@ -1,7 +1,12 @@
 import { useAppSelector } from "@/store/hooks";
+import React from "react";
 import { Navigate, useLocation } from "react-router";
 
-const CheckAuth = ({ children }: { children: React.ReactNode }) => {
+type Props = {
+	children: React.ReactNode;
+};
+
+const CheckAuth: React.FC<Props> = ({ children }) => {
 	const { isAuth } = useAppSelector((state) => state.auth);
 	const location = useLocation();
 
