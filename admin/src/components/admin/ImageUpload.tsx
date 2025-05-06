@@ -1,6 +1,7 @@
 import api from "@/utils/api";
 import { FileIcon, Loader, UploadCloud, X } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
@@ -62,7 +63,9 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 				setUploadedImageUrl(response.data.result);
 			}
 		} catch (error: any) {
-			console.error(error.response?.data || error.message);
+			toast.error(error.response.data.message || "Internal server error");
+			console.error(error.response.data.message);
+			setImageFile(null);
 		} finally {
 			setIsLoading(false);
 		}
