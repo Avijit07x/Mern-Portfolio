@@ -1,12 +1,10 @@
+import { ITools } from "@/types/types";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { GripVertical } from "lucide-react";
 
 type Props = {
-	tool: {
-		_id: string;
-		name: string;
-	};
+	tool: ITools;
 	index: number;
 };
 

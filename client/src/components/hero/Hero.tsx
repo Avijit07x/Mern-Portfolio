@@ -41,9 +41,9 @@ const Hero = () => {
 			</div>
 			{process.env.NODE_ENV === "production" && windowWidth > 1024 && (
 				<AnimatedGridPattern
-					numSquares={15}
+					numSquares={10}
 					maxOpacity={0.1}
-					duration={3}
+					duration={2}
 					repeatDelay={1}
 					className={cn(
 						"[mask-image:radial-gradient(400px_circle_at_center,white,transparent)]",

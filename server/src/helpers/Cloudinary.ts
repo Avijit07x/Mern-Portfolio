@@ -17,8 +17,18 @@ const upload = multer({ storage });
 const ImageUploadUtil = async (image: string) => {
 	const result = await cloudinary.uploader.upload(image, {
 		resource_type: "image",
+		eager: [
+			{
+				format: "webp", // convert to WebP
+				quality: "auto", // optimize quality
+			},
+		],
+		eager_async: false, // wait for transformation to finish
 	});
-	return result;
+	return {
+		url: result.eager?.[0]?.secure_url,
+		public_id: result.public_id,
+	};
 };
 
 // delete image

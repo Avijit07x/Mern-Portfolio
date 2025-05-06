@@ -1,17 +1,6 @@
+import { IToolState, ToolPayload } from "@/types/types";
 import api from "@/utils/api";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface IToolState {
-	tools: any[];
-	isLoading: boolean;
-	reorderedTools: any[];
-	filteredTools: any[];
-}
-
-interface ToolPayload {
-	success: boolean;
-	tools: any[];
-}
 
 const initialState: IToolState = {
 	tools: [],

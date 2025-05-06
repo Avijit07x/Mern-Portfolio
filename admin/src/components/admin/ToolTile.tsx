@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useAppDispatch } from "@/store/hooks";
 import { fetchTools } from "@/store/toolSlice";
+import { ITools } from "@/types/types";
 import api from "@/utils/api";
 import { Loader, Pencil, Trash } from "lucide-react";
 import { useState } from "react";
@@ -16,11 +17,7 @@ import {
 } from "../ui/dialog";
 
 type Props = {
-	tool: {
-		_id: string;
-		name: string;
-		image: { url: string; public_id: string };
-	};
+	tool: ITools;
 	setToolName: React.Dispatch<React.SetStateAction<string>>;
 	setOpenCreateProductsDialog: React.Dispatch<React.SetStateAction<boolean>>;
 	setCurrentEditedTool: React.Dispatch<React.SetStateAction<string | null>>;

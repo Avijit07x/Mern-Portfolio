@@ -33,7 +33,7 @@ const TagInputForm: React.FC<Props> = ({ tags, setTags }) => {
 					tag: {
 						body: "relative h-7 bg-[#8946ff] rounded-md flex justify-center gap-1 items-center border-none text-white text-sm ps-2 pe-7 hover:bg-[#8946ff]",
 						closeButton:
-							"absolute -inset-y-px cursor-pointer -end-px p-0 rounded-s-none rounded-e-md flex size-8 transition-[color,box-shadow] text-white hover:text-white ",
+							"absolute -inset-y-px cursor-pointer -end-px p-0 rounded-s-none rounded-e-md flex size-8 transition-[color,box-shadow] text-white hover:text-white",
 					},
 				}}
 				activeTagIndex={activeTagIndex}

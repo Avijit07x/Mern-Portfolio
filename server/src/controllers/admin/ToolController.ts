@@ -68,7 +68,7 @@ const deleteTool: RequestHandler = async (req: Request, res: Response) => {
 			return;
 		}
 		await ImageDeleteUtil(tool.image.public_id);
-		await Tool.findByIdAndDelete(id);
+		await Tool.deleteOne({ _id: id });
 		res.status(200).json({ success: true, message: "Tool deleted" });
 	} catch (error) {
 		res.status(500).json({ success: false, message: "Something went wrong" });
@@ -77,7 +77,9 @@ const deleteTool: RequestHandler = async (req: Request, res: Response) => {
 
 const getTools: RequestHandler = async (req: Request, res: Response) => {
 	try {
-		const tools = await Tool.find().sort({ order: 1 }).select("-image.public_id");
+		const tools = await Tool.find()
+			.sort({ order: 1 })
+			.select("-image.public_id");
 		res.status(200).json({ success: true, message: "Tools fetched", tools });
 	} catch (error) {
 		res.status(500).json({ success: false, message: "Something went wrong" });

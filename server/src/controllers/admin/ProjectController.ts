@@ -1,4 +1,5 @@
 import { NextFunction, Request, RequestHandler, Response } from "express";
+import { ImageDeleteUtil } from "../../helpers/Cloudinary";
 import Project from "../../models/Project";
 import projectSchema from "../../validations/projectValidation";
 
@@ -14,11 +15,18 @@ const addProject: RequestHandler = async (req: Request, res: Response) => {
 		return;
 	}
 	try {
-		const project = await Project.create(data);
+		const newProject = await Project.create(data);
+		if (!newProject) {
+			res
+				.send(400)
+				.json({ success: false, message: "Failed to create project" });
+			return;
+		}
+		const projects = await Project.find();
 		res.status(200).json({
 			success: true,
 			message: "Projects created successfully",
-			project,
+			projects,
 		});
 	} catch (error) {
 		res.status(500).json({ success: false, message: "Something went wrong" });
@@ -28,8 +36,8 @@ const addProject: RequestHandler = async (req: Request, res: Response) => {
 // get all Projects
 const getProjects: RequestHandler = async (req: Request, res: Response) => {
 	try {
-		const projects = await Project.find().sort({ order: 1 });
-		res
+		const projects = await Project.find().sort({ order: 1 }).select("-image.public_id");
+		res	
 			.status(200)
 			.json({ success: true, message: "Projects fetched", projects });
 	} catch (error) {
@@ -60,16 +68,22 @@ const deleteProject: RequestHandler = async (
 		return;
 	}
 	try {
-		const deletedProject = await Project.findByIdAndDelete(id);
+		const project = await Project.findById(id);
 
-		if (!deletedProject) {
+		if (!project) {
 			res.status(404).json({ success: false, message: "Project not found" });
 			return;
 		}
 
-		res
-			.status(200)
-			.json({ success: true, message: "Projects deleted successfully" });
+		await ImageDeleteUtil(project.image.public_id);
+		await Project.deleteOne({ _id: id });
+		const projects = await Project.find();
+
+		res.status(200).json({
+			success: true,
+			message: "Projects deleted successfully",
+			projects,
+		});
 	} catch (error) {
 		res.status(500).json({ success: false, message: "Something went wrong" });
 	}

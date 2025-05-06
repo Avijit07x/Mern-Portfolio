@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router";
-import Home from "./routes/Home";
-import NotFound from "./routes/NotFound";
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
 
 const App = () => {
 	return (

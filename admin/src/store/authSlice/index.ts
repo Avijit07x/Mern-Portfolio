@@ -1,21 +1,6 @@
+import { AuthPayload, IAuthState } from "@/types/types";
 import api from "@/utils/api";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface IAuthState {
-	isAuth: boolean;
-	user: any;
-	isLoading: boolean;
-}
-
-interface AuthPayload {
-	success: boolean;
-	user?: {
-		id: string;
-		name: string;
-		email: string;
-	};
-	error?: string;
-}
 
 const initialState: IAuthState = {
 	isAuth: false,
