@@ -67,11 +67,13 @@ const Project = () => {
 					</div>
 				}
 			>
-				{projects.length !== 0
-					? projects.map((project) => {
-							return <ProjectTile key={project._id} project={project} />;
-						})
-					: null}
+				
+					{projects.length !== 0
+						? projects.map((project) => {
+								return <ProjectTile key={project._id} project={project} />;
+							})
+						: null}
+				
 			</Suspense>
 		</div>
 	);

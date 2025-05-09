@@ -11,6 +11,7 @@ const options: ConnectOptions = {
 	connectTimeoutMS: 60000, // 60 seconds
 	socketTimeoutMS: 60000, // 60 seconds
 };
+
 const connectToDB = async () => {
 	const uri = env.MONGO_URI;
 	if (!uri) {
@@ -19,6 +20,7 @@ const connectToDB = async () => {
 
 	try {
 		if (connection.isConnected) {
+			console.log("MongoDB already connected.");
 			return;
 		}
 		const db = await mongoose.connect(uri, options);
