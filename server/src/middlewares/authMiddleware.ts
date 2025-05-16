@@ -26,7 +26,9 @@ const authMiddleware = async (
 	}
 
 	try {
-		const decoded = jwt.verify(token, env.TOKEN_KEY) as JwtPayload;
+		const decoded = jwt.verify(token, env.TOKEN_KEY, {
+			algorithms: ["HS256"],
+		}) as JwtPayload;
 
 		const admin = await Admin.findById(decoded.user?.id);
 		if (!admin) {

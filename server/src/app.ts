@@ -1,7 +1,7 @@
 import compression from "compression";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import dotenv from "dotenv";
+import "dotenv/config";
 import express, { Express, Request, Response } from "express";
 import helmet from "helmet";
 import morgan from "morgan";
@@ -14,8 +14,6 @@ import projectRoute from "./routes/admin/ProjectRoute";
 import toolRoute from "./routes/admin/ToolRoute";
 import authRoute from "./routes/auth/authRoute";
 import env from "./utils/env";
-
-dotenv.config();
 
 const app: Express = express();
 
