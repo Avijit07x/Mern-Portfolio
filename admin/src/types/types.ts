@@ -61,7 +61,7 @@ export interface IProjectState {
 	projects: IProject[];
 	reorderedProjects: IProject[];
 	filteredProjects: IProject[];
-	currentEditingId: string;
+	currentEditingId: string | null;
 	isLoading: boolean;
 }
 

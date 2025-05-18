@@ -10,6 +10,7 @@ const initialState: IProjectState = {
 	projects: [],
 	reorderedProjects: [],
 	filteredProjects: [],
+	currentEditingId: null,
 	isLoading: false,
 };
 
@@ -52,7 +53,11 @@ export const deleteProject = createAsyncThunk(
 const projectSlice = createSlice({
 	name: "project",
 	initialState,
-	reducers: {},
+	reducers: {
+		setCurrentEditingId: (state, action) => {
+			state.currentEditingId = action.payload;
+		},
+	},
 	extraReducers: (builder) => {
 		builder.addCase(fetchProjects.pending, (state) => {
 			state.isLoading = true;
@@ -85,4 +90,4 @@ const projectSlice = createSlice({
 });
 
 export default projectSlice.reducer;
-export const {} = projectSlice.actions;
+export const { setCurrentEditingId } = projectSlice.actions;
