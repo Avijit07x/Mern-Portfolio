@@ -10,23 +10,25 @@ import {
 	SheetTitle,
 } from "@/components/ui/sheet";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { fetchTools, setFilteredTools } from "@/store/toolSlice";
+import {
+	fetchTools,
+	setCurrentEditedTool,
+	setFilteredTools,
+	setToolFormData,
+} from "@/store/toolSlice";
 import { Plus, X } from "lucide-react";
 import { lazy, Suspense, useEffect, useState } from "react";
 const ToolTile = lazy(() => import("@/components/admin/ToolTile"));
 
 const Tools = () => {
 	const { tools, filteredTools } = useAppSelector((state) => state.tool);
-	const [toolName, setToolName] = useState<string>("");
+
 	const [searchedText, setSearchedText] = useState<string>("");
 	const [openCreateProductsDialog, setOpenCreateProductsDialog] =
 		useState<boolean>(false);
 	const [imageFile, setImageFile] = useState<File | null>(null);
 	const [uploadedImageUrl, setUploadedImageUrl] = useState<UploadedImage | "">(
 		"",
-	);
-	const [currentEditedTool, setCurrentEditedTool] = useState<string | null>(
-		null,
 	);
 
 	const dispatch = useAppDispatch();
@@ -44,10 +46,14 @@ const Tools = () => {
 	};
 
 	// open create tool dialog
-	const handleOpenCreateProductsDialog = () => {
-		setToolName("");
+	const handleAddToolDialog = () => {
+		dispatch(
+			setToolFormData({
+				name: "",
+			}),
+		);
 		setImageFile(null);
-		setCurrentEditedTool(null);
+		dispatch(setCurrentEditedTool(null));
 		setOpenCreateProductsDialog(true);
 	};
 
@@ -56,7 +62,7 @@ const Tools = () => {
 	}, [dispatch, tools]);
 
 	return (
-		<div>
+		<>
 			<div className="mb-5 flex w-full justify-between gap-5">
 				<div>
 					<Input
@@ -74,7 +80,7 @@ const Tools = () => {
 					<Reorganize />
 					<Button
 						className="cursor-pointer items-center justify-center gap-1.5 rounded-full bg-blue-600/90 text-sm hover:bg-blue-600/70 max-lg:size-9"
-						onClick={handleOpenCreateProductsDialog}
+						onClick={handleAddToolDialog}
 					>
 						<Plus size={20} />
 						<span className="max-lg:sr-only">Add New</span>
@@ -95,12 +101,14 @@ const Tools = () => {
 							<SheetTitle className="text-xl font-bold text-white">
 								Add Tool
 							</SheetTitle>
-							<button
+							<Button
 								onClick={() => setOpenCreateProductsDialog(false)}
-								className="cursor-pointer"
+								className="cursor-pointer hover:bg-transparent hover:text-white"
+								size={"icon"}
+								variant={"ghost"}
 							>
 								<X size={20} />
-							</button>
+							</Button>
 						</SheetHeader>
 						<ImageUpload
 							imageFile={imageFile}
@@ -113,9 +121,6 @@ const Tools = () => {
 							setUploadedImageUrl={setUploadedImageUrl}
 							setOpenCreateProductsDialog={setOpenCreateProductsDialog}
 							setImageFile={setImageFile}
-							toolName={toolName}
-							setToolName={setToolName}
-							currentEditedTool={currentEditedTool}
 						/>
 					</div>
 				</SheetContent>
@@ -133,14 +138,12 @@ const Tools = () => {
 						<ToolTile
 							key={tool._id}
 							tool={tool}
-							setToolName={setToolName}
 							setOpenCreateProductsDialog={setOpenCreateProductsDialog}
-							setCurrentEditedTool={setCurrentEditedTool}
 						/>
 					))}
 				</div>
 			</Suspense>
-		</div>
+		</>
 	);
 };
 

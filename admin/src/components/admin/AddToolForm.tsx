@@ -1,6 +1,10 @@
-import { useAppDispatch } from "@/store/hooks";
-import { fetchTools } from "@/store/toolSlice";
-import api from "@/utils/api";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import {
+	addTool,
+	fetchTools,
+	setToolFormData,
+	updateTool,
+} from "@/store/toolSlice";
 import { Loader } from "lucide-react";
 import React, { useState } from "react";
 import { toast } from "sonner";
@@ -13,9 +17,7 @@ type AddToolFormProps = {
 	uploadedImageUrl: any;
 	setOpenCreateProductsDialog: React.Dispatch<React.SetStateAction<boolean>>;
 	setImageFile: React.Dispatch<React.SetStateAction<File | null>>;
-	toolName: string;
-	setToolName: React.Dispatch<React.SetStateAction<string>>;
-	currentEditedTool: string | null;
+
 	setUploadedImageUrl: React.Dispatch<React.SetStateAction<UploadedImage | "">>;
 };
 
@@ -23,44 +25,52 @@ const AddToolForm: React.FC<AddToolFormProps> = ({
 	uploadedImageUrl,
 	setOpenCreateProductsDialog,
 	setImageFile,
-	toolName,
-	setToolName,
-	currentEditedTool,
 	setUploadedImageUrl,
 }) => {
+	const { formData, currentEditedTool } = useAppSelector((store) => store.tool);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const dispatch = useAppDispatch();
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setToolName(e.target.value);
+		const { value } = e.target;
+		dispatch(
+			setToolFormData({
+				name: value,
+			}),
+		);
 	};
 
 	// create
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		if (!toolName || !uploadedImageUrl) {
+		if (!formData.name || !uploadedImageUrl) {
 			toast.error("Please fill all fields");
 			return;
 		}
 		try {
 			setIsLoading(true);
 			const data = {
-				name: toolName,
+				name: formData.name,
 				image: {
 					url: uploadedImageUrl.url,
 					public_id: uploadedImageUrl.public_id,
 				},
 			};
-			const res = await api.post("admin/tool/add-tool", data);
-			if (res.data.success) {
-				toast.success(res.data.message);
+			const { message } = await dispatch(addTool(data)).unwrap();
+
+			if (message) {
+				toast.success(message);
 				dispatch(fetchTools());
 			}
 		} catch (error) {
 			console.log(error);
 		} finally {
 			setIsLoading(false);
-			setToolName("");
+			dispatch(
+				setToolFormData({
+					name: "",
+				}),
+			);
 			setImageFile(null);
 			setUploadedImageUrl("");
 			setOpenCreateProductsDialog(false);
@@ -74,25 +84,25 @@ const AddToolForm: React.FC<AddToolFormProps> = ({
 		try {
 			setIsLoading(true);
 			const data = {
-				name: toolName,
+				id: currentEditedTool,
+				name: formData.name,
 				image: {
 					url: uploadedImageUrl.url,
 					public_id: uploadedImageUrl.public_id,
 				},
 			};
-			const res = await api.put(
-				`admin/tool/update-tool/${currentEditedTool}`,
-				data,
-			);
-			if (res.data.success) {
-				toast.success(res.data.message);
-				dispatch(fetchTools());
-			}
+			const { message } = await dispatch(updateTool(data)).unwrap();
+			toast.success(message);
+			dispatch(fetchTools());
 		} catch (error) {
 			console.log(error);
 		} finally {
 			setIsLoading(false);
-			setToolName("");
+			dispatch(
+				setToolFormData({
+					name: "",
+				}),
+			);
 			setImageFile(null);
 			setUploadedImageUrl("");
 			setOpenCreateProductsDialog(false);
@@ -113,7 +123,7 @@ const AddToolForm: React.FC<AddToolFormProps> = ({
 						type="text"
 						name="name"
 						id="name"
-						value={toolName}
+						value={formData.name}
 						onChange={handleChange}
 						className="border-muted-foreground/50 py-5 selection:bg-blue-500"
 						placeholder="Enter tool name"

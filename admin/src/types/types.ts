@@ -46,6 +46,10 @@ export interface IToolState {
 	isLoading: boolean;
 	reorderedTools: ITools[];
 	filteredTools: ITools[];
+	formData: {
+		name: string;
+	};
+	currentEditedTool: string | null;
 }
 
 export interface ToolPayload {
@@ -57,6 +61,7 @@ export interface IProjectState {
 	projects: IProject[];
 	reorderedProjects: IProject[];
 	filteredProjects: IProject[];
+	currentEditingId: string;
 	isLoading: boolean;
 }
 

@@ -1,9 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useAppDispatch } from "@/store/hooks";
-import { fetchTools } from "@/store/toolSlice";
+import {
+	deleteTool,
+	fetchTools,
+	setCurrentEditedTool,
+	setToolFormData,
+} from "@/store/toolSlice";
 import { ITools } from "@/types/types";
-import api from "@/utils/api";
 import { Loader, Pencil, Trash } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -18,17 +22,10 @@ import {
 
 type Props = {
 	tool: ITools;
-	setToolName: React.Dispatch<React.SetStateAction<string>>;
 	setOpenCreateProductsDialog: React.Dispatch<React.SetStateAction<boolean>>;
-	setCurrentEditedTool: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
-const ToolTile: React.FC<Props> = ({
-	tool,
-	setToolName,
-	setOpenCreateProductsDialog,
-	setCurrentEditedTool,
-}) => {
+const ToolTile: React.FC<Props> = ({ tool, setOpenCreateProductsDialog }) => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
@@ -36,20 +33,25 @@ const ToolTile: React.FC<Props> = ({
 
 	const onEdit = () => {
 		setOpenCreateProductsDialog(true);
-		setToolName(tool.name);
-		setCurrentEditedTool(tool._id);
+		dispatch(
+			setToolFormData({
+				name: tool.name,
+			}),
+		);
+		dispatch(setCurrentEditedTool(tool._id));
 	};
 
 	const handleToolDelete = async () => {
+		setIsLoading(true);
 		try {
-			setIsLoading(true);
-			const res = await api.post(`admin/tool/delete-tool/${tool._id}`);
-			toast.success(res.data.message);
+			const { message } = await dispatch(deleteTool(tool._id)).unwrap();
+			toast.success(message);
 			dispatch(fetchTools());
 		} catch (error) {
 			console.log(error);
 		} finally {
 			setIsLoading(false);
+			setIsDeleting(false);
 		}
 	};
 

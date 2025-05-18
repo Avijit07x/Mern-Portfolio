@@ -2,6 +2,18 @@ import { Request, RequestHandler, Response } from "express";
 import { ImageDeleteUtil } from "../../helpers/Cloudinary";
 import Tool from "../../models/Tools";
 
+
+const getTools: RequestHandler = async (req: Request, res: Response) => {
+	try {
+		const tools = await Tool.find()
+			.sort({ order: 1 })
+			.select("-image.public_id");
+		res.status(200).json({ success: true, message: "Tools fetched", tools });
+	} catch (error) {
+		res.status(500).json({ success: false, message: "Something went wrong" });
+	}
+};
+
 const addTool: RequestHandler = async (req: Request, res: Response) => {
 	try {
 		const { name, image } = req.body ?? {};
@@ -75,16 +87,7 @@ const deleteTool: RequestHandler = async (req: Request, res: Response) => {
 	}
 };
 
-const getTools: RequestHandler = async (req: Request, res: Response) => {
-	try {
-		const tools = await Tool.find()
-			.sort({ order: 1 })
-			.select("-image.public_id");
-		res.status(200).json({ success: true, message: "Tools fetched", tools });
-	} catch (error) {
-		res.status(500).json({ success: false, message: "Something went wrong" });
-	}
-};
+
 
 const reorderTools: RequestHandler = async (req: Request, res: Response) => {
 	try {
