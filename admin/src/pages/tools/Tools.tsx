@@ -12,7 +12,7 @@ import {
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
 	fetchTools,
-	setCurrentEditedTool,
+	setcurrentEditingId,
 	setFilteredTools,
 	setToolFormData,
 } from "@/store/toolSlice";
@@ -22,7 +22,6 @@ const ToolTile = lazy(() => import("@/components/admin/ToolTile"));
 
 const Tools = () => {
 	const { tools, filteredTools } = useAppSelector((state) => state.tool);
-
 	const [searchedText, setSearchedText] = useState<string>("");
 	const [openCreateProductsDialog, setOpenCreateProductsDialog] =
 		useState<boolean>(false);
@@ -47,19 +46,15 @@ const Tools = () => {
 
 	// open create tool dialog
 	const handleAddToolDialog = () => {
-		dispatch(
-			setToolFormData({
-				name: "",
-			}),
-		);
+		dispatch(setToolFormData({}));
 		setImageFile(null);
-		dispatch(setCurrentEditedTool(null));
+		dispatch(setcurrentEditingId(null));
 		setOpenCreateProductsDialog(true);
 	};
 
 	useEffect(() => {
 		if (tools.length === 0) dispatch(fetchTools());
-	}, [dispatch, tools]);
+	}, []);
 
 	return (
 		<>
@@ -79,7 +74,7 @@ const Tools = () => {
 				<div className="flex items-center gap-2">
 					<Reorganize />
 					<Button
-						className="cursor-pointer items-center justify-center gap-1.5 rounded-full bg-blue-600/90 text-sm hover:bg-blue-600/70 max-lg:size-9"
+						className="cursor-pointer items-center justify-center gap-1.5 rounded-full bg-[#8946ff] text-sm hover:bg-[#8946ff]/90 max-lg:size-9"
 						onClick={handleAddToolDialog}
 					>
 						<Plus size={20} />

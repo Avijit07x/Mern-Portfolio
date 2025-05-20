@@ -4,6 +4,7 @@ export interface ITools {
 	_id: string;
 	text: string;
 	name: string;
+id: string;
 	image: {
 		url: string;
 		public_Id: string;
@@ -49,7 +50,7 @@ export interface IToolState {
 	formData: {
 		name: string;
 	};
-	currentEditedTool: string | null;
+	currentEditingId: string | null;
 }
 
 export interface ToolPayload {

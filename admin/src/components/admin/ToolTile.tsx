@@ -4,7 +4,7 @@ import { useAppDispatch } from "@/store/hooks";
 import {
 	deleteTool,
 	fetchTools,
-	setCurrentEditedTool,
+	setcurrentEditingId,
 	setToolFormData,
 } from "@/store/toolSlice";
 import { ITools } from "@/types/types";
@@ -38,7 +38,7 @@ const ToolTile: React.FC<Props> = ({ tool, setOpenCreateProductsDialog }) => {
 				name: tool.name,
 			}),
 		);
-		dispatch(setCurrentEditedTool(tool._id));
+		dispatch(setcurrentEditingId(tool._id));
 	};
 
 	const handleToolDelete = async () => {

@@ -17,7 +17,6 @@ type AddToolFormProps = {
 	uploadedImageUrl: any;
 	setOpenCreateProductsDialog: React.Dispatch<React.SetStateAction<boolean>>;
 	setImageFile: React.Dispatch<React.SetStateAction<File | null>>;
-
 	setUploadedImageUrl: React.Dispatch<React.SetStateAction<UploadedImage | "">>;
 };
 
@@ -27,10 +26,11 @@ const AddToolForm: React.FC<AddToolFormProps> = ({
 	setImageFile,
 	setUploadedImageUrl,
 }) => {
-	const { formData, currentEditedTool } = useAppSelector((store) => store.tool);
+	const { formData, currentEditingId } = useAppSelector((store) => store.tool);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const dispatch = useAppDispatch();
 
+	// handle input change
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.target;
 		dispatch(
@@ -40,7 +40,7 @@ const AddToolForm: React.FC<AddToolFormProps> = ({
 		);
 	};
 
-	// create
+	// create tool
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (!formData.name || !uploadedImageUrl) {
@@ -66,25 +66,21 @@ const AddToolForm: React.FC<AddToolFormProps> = ({
 			console.log(error);
 		} finally {
 			setIsLoading(false);
-			dispatch(
-				setToolFormData({
-					name: "",
-				}),
-			);
+			dispatch(setToolFormData({}));
 			setImageFile(null);
 			setUploadedImageUrl("");
 			setOpenCreateProductsDialog(false);
 		}
 	};
 
-	// update
+	// update tool
 	const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		try {
 			setIsLoading(true);
 			const data = {
-				id: currentEditedTool,
+				id: currentEditingId,
 				name: formData.name,
 				image: {
 					url: uploadedImageUrl.url,
@@ -98,11 +94,7 @@ const AddToolForm: React.FC<AddToolFormProps> = ({
 			console.log(error);
 		} finally {
 			setIsLoading(false);
-			dispatch(
-				setToolFormData({
-					name: "",
-				}),
-			);
+			dispatch(setToolFormData({}));
 			setImageFile(null);
 			setUploadedImageUrl("");
 			setOpenCreateProductsDialog(false);
@@ -111,8 +103,8 @@ const AddToolForm: React.FC<AddToolFormProps> = ({
 
 	return (
 		<div>
-			<form onSubmit={currentEditedTool !== null ? handleUpdate : handleSubmit}>
-				{currentEditedTool !== null && (
+			<form onSubmit={currentEditingId !== null ? handleUpdate : handleSubmit}>
+				{currentEditingId !== null && (
 					<p className="text-muted-foreground mt-2 text-xs">
 						Note: If you upload a new image, the old one will be replaced
 					</p>
@@ -140,7 +132,7 @@ const AddToolForm: React.FC<AddToolFormProps> = ({
 						<span className="flex items-center justify-center gap-2 text-sm">
 							<Loader className="size-4 animate-spin" /> Adding Tool
 						</span>
-					) : currentEditedTool !== null ? (
+					) : currentEditingId !== null ? (
 						"Update Tool"
 					) : (
 						"Add Tool"

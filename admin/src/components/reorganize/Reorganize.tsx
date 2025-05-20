@@ -99,7 +99,7 @@ const Reorganize = () => {
 		<div>
 			<Dialog open={isOpen} onOpenChange={(open) => handleClose(open)}>
 				<DialogTrigger asChild>
-					<Button className="cursor-pointer rounded-full bg-blue-600/90 hover:bg-blue-600/70 max-lg:size-9">
+					<Button className="cursor-pointer rounded-full bg-[#8946ff] hover:bg-[#8946ff]/90 max-lg:size-9">
 						<ArrowDownUp className="size-4" />
 						<span className="max-lg:sr-only">Reorganize</span>
 					</Button>

@@ -10,7 +10,7 @@ const initialState: IToolState = {
 	formData: {
 		name: "",
 	},
-	currentEditedTool: "",
+	currentEditingId: "",
 };
 
 export const addTool = createAsyncThunk("tool/add-tool", async (data: any) => {
@@ -75,8 +75,8 @@ const toolSlice = createSlice({
 		setToolFormData: (state, action: PayloadAction<any>) => {
 			state.formData = action.payload;
 		},
-		setCurrentEditedTool: (state, action: PayloadAction<any>) => {
-			state.currentEditedTool = action.payload;
+		setcurrentEditingId: (state, action: PayloadAction<any>) => {
+			state.currentEditingId = action.payload;
 		},
 	},
 	extraReducers: (builder) => {
@@ -99,7 +99,6 @@ const toolSlice = createSlice({
 		builder.addCase(fetchTools.rejected, (state) => {
 			state.isLoading = false;
 		});
-		
 	},
 });
 
@@ -111,5 +110,5 @@ export const {
 	setReorderedTools,
 	setFilteredTools,
 	setToolFormData,
-	setCurrentEditedTool,
+	setcurrentEditingId,
 } = toolSlice.actions;
