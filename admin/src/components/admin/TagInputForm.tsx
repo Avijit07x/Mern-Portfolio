@@ -1,13 +1,12 @@
 import { Label } from "@/components/ui/label";
-import { Tag, TagInput } from "emblor";
-import React, { useId, useState } from "react";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { setTags } from "@/store/projectSlice";
+import { TagInput } from "emblor";
+import { useId, useState } from "react";
 
-type Props = {
-	tags: Tag[];
-	setTags: React.Dispatch<React.SetStateAction<Tag[]>>;
-};
-
-const TagInputForm: React.FC<Props> = ({ tags, setTags }) => {
+const TagInputForm = () => {
+	const { tags } = useAppSelector((state) => state.project);
+	const dispatch = useAppDispatch();
 	const id = useId();
 	const [activeTagIndex, setActiveTagIndex] = useState<number | null>(null);
 
@@ -20,7 +19,7 @@ const TagInputForm: React.FC<Props> = ({ tags, setTags }) => {
 				id={id}
 				tags={tags}
 				setTags={(newTags) => {
-					setTags(newTags);
+					dispatch(setTags(newTags));
 				}}
 				className="flex flex-wrap"
 				placeholder="Add a tools"

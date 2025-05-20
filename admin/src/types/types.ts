@@ -4,7 +4,7 @@ export interface ITools {
 	_id: string;
 	text: string;
 	name: string;
-id: string;
+	id: string;
 	image: {
 		url: string;
 		public_Id: string;
@@ -64,6 +64,11 @@ export interface IProjectState {
 	filteredProjects: IProject[];
 	currentEditingId: string | null;
 	isLoading: boolean;
+	formData: {
+		title: string;
+		description: string;
+	};
+	tags: Tag[];
 }
 
 export interface IProjectActionPayload {

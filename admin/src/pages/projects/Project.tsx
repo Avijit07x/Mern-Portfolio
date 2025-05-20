@@ -1,7 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { fetchProjects } from "@/store/projectSlice";
+import {
+	fetchProjects,
+	setCurrentEditingId,
+	setProjectFormData,
+} from "@/store/projectSlice";
 import { Plus } from "lucide-react";
 import { lazy, Suspense, useEffect, useState } from "react";
 import AddProjectSidebar from "./components/AddProjectSidebar";
@@ -25,14 +29,16 @@ const Project = () => {
 	};
 	// open create project dialog
 	const handleOpenCreateProductsDialog = () => {
+		dispatch(setCurrentEditingId(""));
 		setOpenCreateProductsDialog(true);
+		dispatch(setProjectFormData({}));
 	};
 
 	useEffect(() => {
 		if (projects.length === 0) {
 			dispatch(fetchProjects());
 		}
-	}, [dispatch]);
+	}, []);
 
 	return (
 		<div>
@@ -49,7 +55,7 @@ const Project = () => {
 					/>
 				</div>
 				<Button
-					className="cursor-pointer bg-blue-600/90 text-sm hover:bg-blue-600/70 md:rounded-full"
+					className="cursor-pointer bg-[#8946ff] text-sm hover:bg-[#8946ff]/90 md:rounded-full"
 					onClick={handleOpenCreateProductsDialog}
 				>
 					<Plus size={20} />
@@ -67,13 +73,19 @@ const Project = () => {
 					</div>
 				}
 			>
-				
+				<div className="grid gap-5 lg:grid-cols-3 xl:grid-cols-4">
 					{projects.length !== 0
 						? projects.map((project) => {
-								return <ProjectTile key={project._id} project={project} />;
+								return (
+									<ProjectTile
+										key={project._id}
+										project={project}
+										setOpenCreateProductsDialog={setOpenCreateProductsDialog}
+									/>
+								);
 							})
 						: null}
-				
+				</div>
 			</Suspense>
 		</div>
 	);

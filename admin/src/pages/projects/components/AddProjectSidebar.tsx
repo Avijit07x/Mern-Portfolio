@@ -1,30 +1,15 @@
 import AddProjectsForm from "@/components/admin/AddProjectsForm";
 import ImageUpload, { UploadedImage } from "@/components/admin/ImageUpload";
+import { Button } from "@/components/ui/button";
 import {
 	Sheet,
 	SheetContent,
 	SheetHeader,
 	SheetTitle,
 } from "@/components/ui/sheet";
-import { useAppDispatch } from "@/store/hooks";
-import { addProject } from "@/store/projectSlice";
-import { IProjectPayload } from "@/types/types";
-import { Tag } from "emblor";
+import { useAppSelector } from "@/store/hooks";
 import { X } from "lucide-react";
 import React, { useState } from "react";
-import { toast } from "sonner";
-import { ProjectFormData } from "../Project";
-
-const preTags: Tag[] = [
-	{
-		id: Math.random().toString(36).substring(2, 8),
-		text: "React",
-	},
-	{
-		id: Math.random().toString(36).substring(2, 8),
-		text: "Tailwind Css",
-	},
-];
 
 interface Props {
 	openCreateProductsDialog: boolean;
@@ -39,55 +24,7 @@ const AddProjectSidebar: React.FC<Props> = ({
 	const [uploadedImageUrl, setUploadedImageUrl] = useState<UploadedImage | "">(
 		"",
 	);
-	const [tags, setTags] = useState<Tag[]>(preTags);
-	const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-	const [projectFormData, setProjectFormData] = useState<ProjectFormData>({
-		title: "",
-		description: "",
-	});
-
-	const dispatch = useAppDispatch();
-	// Add project
-	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault();
-
-		if (!uploadedImageUrl || !projectFormData || tags.length === 0) {
-			toast.error("Please fill in all the fields");
-			return;
-		}
-
-		const data: IProjectPayload = {
-			image: {
-				url: uploadedImageUrl.url,
-				public_id: uploadedImageUrl.public_id,
-			},
-			tools: tags,
-			...projectFormData,
-		};
-
-		try {
-			setIsSubmitting(true);
-			const res = await dispatch(addProject(data)).unwrap();
-			if (res.success) {
-				setTags(preTags);
-				setUploadedImageUrl("");
-				setImageFile(null);
-				setProjectFormData({
-					title: "",
-					description: "",
-				});
-				setOpenCreateProductsDialog(false);
-				toast.success("Project added successfully");
-			} else {
-				toast.error(res.message || "Failed to add project");
-			}
-		} catch (error: any) {
-			console.error(error);
-			toast.error(error.message || "An error occurred");
-		} finally {
-			setIsSubmitting(false);
-		}
-	};
+	const { currentEditingId } = useAppSelector((state) => state.project);
 
 	return (
 		<>
@@ -102,14 +39,16 @@ const AddProjectSidebar: React.FC<Props> = ({
 					<div className="text-white">
 						<SheetHeader className="flex flex-row items-center justify-between px-0">
 							<SheetTitle className="text-xl font-bold text-white">
-								Add Project
+								{currentEditingId ? "Update Project" : "Add Project"}
 							</SheetTitle>
-							<button
+							<Button
 								onClick={() => setOpenCreateProductsDialog(false)}
-								className="cursor-pointer"
+								className="cursor-pointer hover:bg-transparent hover:text-white"
+								size={"icon"}
+								variant={"ghost"}
 							>
 								<X size={20} />
-							</button>
+							</Button>
 						</SheetHeader>
 						<ImageUpload
 							imageFile={imageFile}
@@ -118,12 +57,10 @@ const AddProjectSidebar: React.FC<Props> = ({
 							setUploadedImageUrl={setUploadedImageUrl}
 						/>
 						<AddProjectsForm
-							projectFormData={projectFormData}
-							setProjectFormData={setProjectFormData}
-							tags={tags}
-							setTags={setTags}
-							handleSubmit={handleSubmit}
-							isSubmitting={isSubmitting}
+							uploadedImageUrl={uploadedImageUrl}
+							setUploadedImageUrl={setUploadedImageUrl}
+							setImageFile={setImageFile}
+							setOpenCreateProductsDialog={setOpenCreateProductsDialog}
 						/>
 					</div>
 				</SheetContent>

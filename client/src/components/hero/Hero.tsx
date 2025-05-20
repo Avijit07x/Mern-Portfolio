@@ -3,7 +3,6 @@ import { ChevronDown } from "lucide-react";
 import { BlurFade } from "../magicui/blur-fade";
 import { HyperText } from "../magicui/hyper-text";
 import { InteractiveGridPattern } from "../magicui/interactive-grid-pattern";
-import { Separator } from "../ui/separator";
 
 const Hero = () => {
 	return (
@@ -27,7 +26,7 @@ const Hero = () => {
 						Front-End Developer
 					</HyperText>
 					<div className="flex items-center justify-center gap-2 tracking-widest">
-						React <Separator orientation="vertical" /> Next.js
+						React | Next.js
 					</div>
 				</div>
 				<div className="3xl:hidden absolute bottom-0 flex flex-col items-center gap-2">

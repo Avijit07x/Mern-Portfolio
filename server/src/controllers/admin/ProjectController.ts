@@ -22,11 +22,10 @@ const addProject: RequestHandler = async (req: Request, res: Response) => {
 				.json({ success: false, message: "Failed to create project" });
 			return;
 		}
-		const projects = await Project.find();
+
 		res.status(200).json({
 			success: true,
 			message: "Projects created successfully",
-			projects,
 		});
 	} catch (error) {
 		res.status(500).json({ success: false, message: "Something went wrong" });
@@ -36,8 +35,10 @@ const addProject: RequestHandler = async (req: Request, res: Response) => {
 // get all Projects
 const getProjects: RequestHandler = async (req: Request, res: Response) => {
 	try {
-		const projects = await Project.find().sort({ order: 1 }).select("-image.public_id");
-		res	
+		const projects = await Project.find()
+			.sort({ order: 1 })
+			.select("-image.public_id");
+		res
 			.status(200)
 			.json({ success: true, message: "Projects fetched", projects });
 	} catch (error) {
@@ -77,12 +78,10 @@ const deleteProject: RequestHandler = async (
 
 		await ImageDeleteUtil(project.image.public_id);
 		await Project.deleteOne({ _id: id });
-		const projects = await Project.find();
 
 		res.status(200).json({
 			success: true,
 			message: "Projects deleted successfully",
-			projects,
 		});
 	} catch (error) {
 		res.status(500).json({ success: false, message: "Something went wrong" });

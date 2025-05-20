@@ -5,6 +5,18 @@ import {
 } from "@/types/types";
 import api from "@/utils/api";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Tag } from "emblor";
+
+export const preTags: Tag[] = [
+	{
+		id: Math.random().toString(36).substring(2, 8),
+		text: "React",
+	},
+	{
+		id: Math.random().toString(36).substring(2, 8),
+		text: "Tailwind Css",
+	},
+];
 
 const initialState: IProjectState = {
 	projects: [],
@@ -12,6 +24,11 @@ const initialState: IProjectState = {
 	filteredProjects: [],
 	currentEditingId: null,
 	isLoading: false,
+	formData: {
+		title: "",
+		description: "",
+	},
+	tags: preTags,
 };
 
 export const addProject = createAsyncThunk(
@@ -54,8 +71,14 @@ const projectSlice = createSlice({
 	name: "project",
 	initialState,
 	reducers: {
-		setCurrentEditingId: (state, action) => {
+		setCurrentEditingId: (state, action: PayloadAction<string>) => {
 			state.currentEditingId = action.payload;
+		},
+		setProjectFormData: (state, action) => {
+			state.formData = action.payload;
+		},
+		setTags: (state, action: PayloadAction<any>) => {
+			state.tags = action.payload;
 		},
 	},
 	extraReducers: (builder) => {
@@ -72,22 +95,9 @@ const projectSlice = createSlice({
 		builder.addCase(fetchProjects.rejected, (state) => {
 			state.isLoading = false;
 		});
-		builder.addCase(
-			deleteProject.fulfilled,
-			(state, action: PayloadAction<IProjectActionPayload>) => {
-				state.projects = action.payload.projects;
-			},
-		);
-		builder.addCase(
-			addProject.fulfilled,
-			(state, action: PayloadAction<IProjectActionPayload>) => {
-				if (action.payload?.projects?.length !== 0) {
-					state.projects = action.payload.projects;
-				}
-			},
-		);
 	},
 });
 
 export default projectSlice.reducer;
-export const { setCurrentEditingId } = projectSlice.actions;
+export const { setCurrentEditingId, setProjectFormData, setTags } =
+	projectSlice.actions;
