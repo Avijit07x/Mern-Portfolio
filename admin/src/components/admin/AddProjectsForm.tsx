@@ -19,7 +19,7 @@ import TagInputForm from "./TagInputForm";
 
 type Props = {
 	uploadedImageUrl: any;
-	setOpenCreateProductsDialog: React.Dispatch<React.SetStateAction<boolean>>;
+	setOpenAddProjectDialog: React.Dispatch<React.SetStateAction<boolean>>;
 	setImageFile: React.Dispatch<React.SetStateAction<File | null>>;
 	setUploadedImageUrl: React.Dispatch<React.SetStateAction<UploadedImage | "">>;
 };
@@ -28,7 +28,7 @@ const AddProjectsForm: React.FC<Props> = ({
 	uploadedImageUrl,
 	setUploadedImageUrl,
 	setImageFile,
-	setOpenCreateProductsDialog,
+	setOpenAddProjectDialog,
 }) => {
 	const { currentEditingId, formData, tags } = useAppSelector(
 		(state) => state.project,
@@ -70,7 +70,7 @@ const AddProjectsForm: React.FC<Props> = ({
 				dispatch(setProjectFormData({}));
 				setUploadedImageUrl("");
 				setImageFile(null);
-				setOpenCreateProductsDialog(false);
+				setOpenAddProjectDialog(false);
 				toast.success("Project added successfully");
 			} else {
 				toast.error(res.message || "Failed to add project");
@@ -86,8 +86,8 @@ const AddProjectsForm: React.FC<Props> = ({
 	// handle update project
 	const handleUpdate = (e: React.FormEvent) => {
 		e.preventDefault();
-		console.log(formData)
-		console.log(tags)
+		console.log(formData);
+		console.log(tags);
 	};
 
 	return (

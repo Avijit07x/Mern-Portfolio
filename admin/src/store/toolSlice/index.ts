@@ -75,7 +75,7 @@ const toolSlice = createSlice({
 		setToolFormData: (state, action: PayloadAction<any>) => {
 			state.formData = action.payload;
 		},
-		setcurrentEditingId: (state, action: PayloadAction<any>) => {
+		setCurrentEditingId: (state, action: PayloadAction<any>) => {
 			state.currentEditingId = action.payload;
 		},
 	},
@@ -110,5 +110,5 @@ export const {
 	setReorderedTools,
 	setFilteredTools,
 	setToolFormData,
-	setcurrentEditingId,
+	setCurrentEditingId,
 } = toolSlice.actions;

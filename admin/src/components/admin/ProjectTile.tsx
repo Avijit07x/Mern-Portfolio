@@ -24,13 +24,10 @@ import {
 
 interface Props {
 	project: IProject;
-	setOpenCreateProductsDialog: React.Dispatch<React.SetStateAction<boolean>>;
+	setOpenAddProjectDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ProjectTile: React.FC<Props> = ({
-	project,
-	setOpenCreateProductsDialog,
-}) => {
+const ProjectTile: React.FC<Props> = ({ project, setOpenAddProjectDialog }) => {
 	const dispatch = useAppDispatch();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [isDeleting, setIsDeleting] = useState<boolean>(false);
@@ -49,7 +46,7 @@ const ProjectTile: React.FC<Props> = ({
 	};
 
 	const handleEdit = (id: string) => {
-		setOpenCreateProductsDialog(true);
+		setOpenAddProjectDialog(true);
 		dispatch(setCurrentEditingId(id));
 		dispatch(
 			setProjectFormData({
@@ -62,7 +59,7 @@ const ProjectTile: React.FC<Props> = ({
 
 	return (
 		<>
-			<Card className="max-w-xs gap-2 overflow-hidden rounded-2xl border-0 bg-[#18181a] text-white shadow-lg">
+			<Card className="max-xs:w-full w-[300px] gap-2 overflow-hidden rounded-2xl border-0 bg-[#18181a] text-white shadow-lg">
 				<CardHeader>
 					<CardTitle className="text-xl font-bold">{project.title}</CardTitle>
 				</CardHeader>
@@ -71,12 +68,12 @@ const ProjectTile: React.FC<Props> = ({
 					<img
 						src={project.image.url}
 						alt={project.title}
-						className="h-48 w-full rounded-md object-cover object-top"
+						className="h-44 w-full rounded-md object-cover object-top"
 					/>
 
 					<p className="text-sm">{project.description}</p>
 
-					<div className="flex flex-wrap gap-2">
+					<div className="line-clamp-1 flex gap-2">
 						{project.tools.map((tool) => (
 							<Badge
 								key={tool._id}
@@ -108,7 +105,7 @@ const ProjectTile: React.FC<Props> = ({
 			<Dialog onOpenChange={setIsDeleting} open={isDeleting}>
 				<DialogContent className="bg-[#1e1e20] sm:max-w-[450px]">
 					<DialogHeader>
-						<DialogTitle className="text-white pt-2">
+						<DialogTitle className="pt-2 text-white">
 							Are you sure you want to delete this project?
 						</DialogTitle>
 						<DialogDescription>

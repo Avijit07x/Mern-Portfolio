@@ -15,14 +15,14 @@ import { UploadedImage } from "./ImageUpload";
 
 type AddToolFormProps = {
 	uploadedImageUrl: any;
-	setOpenCreateProductsDialog: React.Dispatch<React.SetStateAction<boolean>>;
+	setOpenAddToolDialog: React.Dispatch<React.SetStateAction<boolean>>;
 	setImageFile: React.Dispatch<React.SetStateAction<File | null>>;
 	setUploadedImageUrl: React.Dispatch<React.SetStateAction<UploadedImage | "">>;
 };
 
 const AddToolForm: React.FC<AddToolFormProps> = ({
 	uploadedImageUrl,
-	setOpenCreateProductsDialog,
+	setOpenAddToolDialog,
 	setImageFile,
 	setUploadedImageUrl,
 }) => {
@@ -69,7 +69,7 @@ const AddToolForm: React.FC<AddToolFormProps> = ({
 			dispatch(setToolFormData({}));
 			setImageFile(null);
 			setUploadedImageUrl("");
-			setOpenCreateProductsDialog(false);
+			setOpenAddToolDialog(false);
 		}
 	};
 
@@ -97,7 +97,7 @@ const AddToolForm: React.FC<AddToolFormProps> = ({
 			dispatch(setToolFormData({}));
 			setImageFile(null);
 			setUploadedImageUrl("");
-			setOpenCreateProductsDialog(false);
+			setOpenAddToolDialog(false);
 		}
 	};
 

@@ -14,6 +14,12 @@ const ProjectSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
+		github_link: {
+			type: String,
+		},
+		live_link: {
+			type: String,
+		},
 		tools: {
 			type: [
 				{

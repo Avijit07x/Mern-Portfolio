@@ -12,6 +12,11 @@ const projectSchema = zod.object({
 		public_id: zod.string(),
 	}),
 	description: zod.string().min(1, "description is required"),
+	github_link: zod
+		.string()
+		.optional()
+		.default("https://github.com/Avijit07x?tab=repositories"),
+	live_link: zod.string().optional(),
 	tools: zod.array(tagSchema).nonempty("At least one tool is required"),
 	order: zod.number().optional().default(0),
 });

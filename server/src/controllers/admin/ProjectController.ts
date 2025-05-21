@@ -76,7 +76,7 @@ const deleteProject: RequestHandler = async (
 			return;
 		}
 
-		await ImageDeleteUtil(project.image.public_id);
+		ImageDeleteUtil(project.image.public_id);
 		await Project.deleteOne({ _id: id });
 
 		res.status(200).json({

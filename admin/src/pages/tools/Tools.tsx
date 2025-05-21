@@ -1,39 +1,28 @@
-import AddToolForm from "@/components/admin/AddToolForm";
-import ImageUpload, { UploadedImage } from "@/components/admin/ImageUpload";
 import Reorganize from "@/components/reorganize/Reorganize";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-	Sheet,
-	SheetContent,
-	SheetHeader,
-	SheetTitle,
-} from "@/components/ui/sheet";
+
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
 	fetchTools,
-	setcurrentEditingId,
+	setCurrentEditingId,
 	setFilteredTools,
 	setToolFormData,
 } from "@/store/toolSlice";
-import { Plus, X } from "lucide-react";
+import { Plus } from "lucide-react";
 import { lazy, Suspense, useEffect, useState } from "react";
+import AddToolSidebar from "./components/AddToolSidebar";
 const ToolTile = lazy(() => import("@/components/admin/ToolTile"));
 
 const Tools = () => {
 	const { tools, filteredTools } = useAppSelector((state) => state.tool);
 	const [searchedText, setSearchedText] = useState<string>("");
-	const [openCreateProductsDialog, setOpenCreateProductsDialog] =
-		useState<boolean>(false);
-	const [imageFile, setImageFile] = useState<File | null>(null);
-	const [uploadedImageUrl, setUploadedImageUrl] = useState<UploadedImage | "">(
-		"",
-	);
+	const [openAddToolDialog, setOpenAddToolDialog] = useState<boolean>(false);
 
 	const dispatch = useAppDispatch();
 
 	// handle search
-	const handleSearchProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleSearchProject = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchedText(e.target.value);
 		const filteredTools = tools.filter((tool) =>
 			tool.name.includes(e.target.value.toLowerCase()),
@@ -47,9 +36,8 @@ const Tools = () => {
 	// open create tool dialog
 	const handleAddToolDialog = () => {
 		dispatch(setToolFormData({}));
-		setImageFile(null);
-		dispatch(setcurrentEditingId(null));
-		setOpenCreateProductsDialog(true);
+		dispatch(setCurrentEditingId(null));
+		setOpenAddToolDialog(true);
 	};
 
 	useEffect(() => {
@@ -67,7 +55,7 @@ const Tools = () => {
 						id="search"
 						placeholder="Search tools"
 						className="h-9 rounded-full border border-[#2b2b30] text-white selection:bg-amber-700 sm:w-72 lg:w-80 xl:w-96"
-						onChange={handleSearchProduct}
+						onChange={handleSearchProject}
 						autoComplete="off"
 					/>
 				</div>
@@ -82,45 +70,10 @@ const Tools = () => {
 					</Button>
 				</div>
 			</div>
-
-			<Sheet
-				open={openCreateProductsDialog}
-				onOpenChange={setOpenCreateProductsDialog}
-			>
-				<SheetContent
-					side="right"
-					className="overflow-auto border-0 bg-[#18181a] px-4 [&>button]:hidden"
-				>
-					<div className="text-white">
-						<SheetHeader className="flex flex-row items-center justify-between px-0">
-							<SheetTitle className="text-xl font-bold text-white">
-								Add Tool
-							</SheetTitle>
-							<Button
-								onClick={() => setOpenCreateProductsDialog(false)}
-								className="cursor-pointer hover:bg-transparent hover:text-white"
-								size={"icon"}
-								variant={"ghost"}
-							>
-								<X size={20} />
-							</Button>
-						</SheetHeader>
-						<ImageUpload
-							imageFile={imageFile}
-							setImageFile={setImageFile}
-							uploadedImageUrl={uploadedImageUrl}
-							setUploadedImageUrl={setUploadedImageUrl}
-						/>
-						<AddToolForm
-							uploadedImageUrl={uploadedImageUrl}
-							setUploadedImageUrl={setUploadedImageUrl}
-							setOpenCreateProductsDialog={setOpenCreateProductsDialog}
-							setImageFile={setImageFile}
-						/>
-					</div>
-				</SheetContent>
-			</Sheet>
-
+			<AddToolSidebar
+				openAddToolDialog={openAddToolDialog}
+				setOpenAddToolDialog={setOpenAddToolDialog}
+			/>
 			<Suspense
 				fallback={
 					<div className="flex min-h-[70vh] items-center justify-center">
@@ -133,7 +86,7 @@ const Tools = () => {
 						<ToolTile
 							key={tool._id}
 							tool={tool}
-							setOpenCreateProductsDialog={setOpenCreateProductsDialog}
+							setOpenAddToolDialog={setOpenAddToolDialog}
 						/>
 					))}
 				</div>

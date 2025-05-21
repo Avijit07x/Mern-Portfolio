@@ -3,8 +3,10 @@ import { Input } from "@/components/ui/input";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
 	fetchProjects,
+	preTags,
 	setCurrentEditingId,
 	setProjectFormData,
+	setTags,
 } from "@/store/projectSlice";
 import { Plus } from "lucide-react";
 import { lazy, Suspense, useEffect, useState } from "react";
@@ -19,19 +21,21 @@ export type ProjectFormData = {
 const Project = () => {
 	const { projects } = useAppSelector((state) => state.project);
 	const [searchedText, setSearchedText] = useState<string>("");
-	const [openCreateProductsDialog, setOpenCreateProductsDialog] =
+	const [openAddProjectDialog, setOpenAddProjectDialog] =
 		useState<boolean>(false);
 
 	const dispatch = useAppDispatch();
 
-	const handleSearchProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleSearchTool = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchedText(e.target.value);
 	};
+
 	// open create project dialog
-	const handleOpenCreateProductsDialog = () => {
+	const handleOpenAddProjectDialog = () => {
 		dispatch(setCurrentEditingId(""));
-		setOpenCreateProductsDialog(true);
+		setOpenAddProjectDialog(true);
 		dispatch(setProjectFormData({}));
+		dispatch(setTags(preTags));
 	};
 
 	useEffect(() => {
@@ -51,20 +55,20 @@ const Project = () => {
 						id="search"
 						placeholder="Search projects"
 						className="h-9 rounded-full border border-[#2b2b30] text-white selection:bg-amber-700 sm:w-72 lg:w-80 xl:w-96"
-						onChange={handleSearchProduct}
+						onChange={handleSearchTool}
 					/>
 				</div>
 				<Button
 					className="cursor-pointer bg-[#8946ff] text-sm hover:bg-[#8946ff]/90 md:rounded-full"
-					onClick={handleOpenCreateProductsDialog}
+					onClick={handleOpenAddProjectDialog}
 				>
 					<Plus size={20} />
 					<span className="hidden md:block">Add New</span>
 				</Button>
 			</div>
 			<AddProjectSidebar
-				openCreateProductsDialog={openCreateProductsDialog}
-				setOpenCreateProductsDialog={setOpenCreateProductsDialog}
+				openAddProjectDialog={openAddProjectDialog}
+				setOpenAddProjectDialog={setOpenAddProjectDialog}
 			/>
 			<Suspense
 				fallback={
@@ -74,17 +78,16 @@ const Project = () => {
 				}
 			>
 				<div className="grid gap-5 lg:grid-cols-3 xl:grid-cols-4">
-					{projects.length !== 0
-						? projects.map((project) => {
-								return (
-									<ProjectTile
-										key={project._id}
-										project={project}
-										setOpenCreateProductsDialog={setOpenCreateProductsDialog}
-									/>
-								);
-							})
-						: null}
+					{projects.length !== 0 &&
+						projects.map((project) => {
+							return (
+								<ProjectTile
+									key={project._id}
+									project={project}
+									setOpenAddProjectDialog={setOpenAddProjectDialog}
+								/>
+							);
+						})}
 				</div>
 			</Suspense>
 		</div>

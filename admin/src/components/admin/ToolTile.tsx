@@ -4,7 +4,7 @@ import { useAppDispatch } from "@/store/hooks";
 import {
 	deleteTool,
 	fetchTools,
-	setcurrentEditingId,
+	setCurrentEditingId,
 	setToolFormData,
 } from "@/store/toolSlice";
 import { ITools } from "@/types/types";
@@ -22,23 +22,23 @@ import {
 
 type Props = {
 	tool: ITools;
-	setOpenCreateProductsDialog: React.Dispatch<React.SetStateAction<boolean>>;
+	setOpenAddToolDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const ToolTile: React.FC<Props> = ({ tool, setOpenCreateProductsDialog }) => {
+const ToolTile: React.FC<Props> = ({ tool, setOpenAddToolDialog }) => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
 	const dispatch = useAppDispatch();
 
 	const onEdit = () => {
-		setOpenCreateProductsDialog(true);
+		setOpenAddToolDialog(true);
 		dispatch(
 			setToolFormData({
 				name: tool.name,
 			}),
 		);
-		dispatch(setcurrentEditingId(tool._id));
+		dispatch(setCurrentEditingId(tool._id));
 	};
 
 	const handleToolDelete = async () => {
@@ -90,7 +90,7 @@ const ToolTile: React.FC<Props> = ({ tool, setOpenCreateProductsDialog }) => {
 			<Dialog onOpenChange={setIsDeleting} open={isDeleting}>
 				<DialogContent className="bg-[#1e1e20] sm:max-w-[425px]">
 					<DialogHeader>
-						<DialogTitle className="text-white">
+						<DialogTitle className="pt-2 text-white">
 							Are you sure you want to delete this tool?
 						</DialogTitle>
 						<DialogDescription>

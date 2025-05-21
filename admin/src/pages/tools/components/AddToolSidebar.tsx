@@ -1,4 +1,4 @@
-import AddProjectsForm from "@/components/admin/AddProjectsForm";
+import AddToolForm from "@/components/admin/AddToolForm";
 import ImageUpload, { UploadedImage } from "@/components/admin/ImageUpload";
 import { Button } from "@/components/ui/button";
 import {
@@ -7,39 +7,36 @@ import {
 	SheetHeader,
 	SheetTitle,
 } from "@/components/ui/sheet";
-import { useAppSelector } from "@/store/hooks";
 import { X } from "lucide-react";
 import React, { useState } from "react";
 
 interface Props {
-	openAddProjectDialog: boolean;
-	setOpenAddProjectDialog: React.Dispatch<React.SetStateAction<boolean>>;
+	openAddToolDialog: boolean;
+	setOpenAddToolDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const AddProjectSidebar: React.FC<Props> = ({
-	openAddProjectDialog,
-	setOpenAddProjectDialog,
+const AddToolSidebar: React.FC<Props> = ({
+	openAddToolDialog,
+	setOpenAddToolDialog,
 }) => {
 	const [imageFile, setImageFile] = useState<File | null>(null);
 	const [uploadedImageUrl, setUploadedImageUrl] = useState<UploadedImage | "">(
 		"",
 	);
-	const { currentEditingId } = useAppSelector((state) => state.project);
-
 	return (
 		<>
-			<Sheet open={openAddProjectDialog} onOpenChange={setOpenAddProjectDialog}>
+			<Sheet open={openAddToolDialog} onOpenChange={setOpenAddToolDialog}>
 				<SheetContent
 					side="right"
-					className="no-scrollbar overflow-auto border-0 bg-[#18181a] px-4 [&>button]:hidden"
+					className="overflow-auto border-0 bg-[#18181a] px-4 [&>button]:hidden"
 				>
 					<div className="text-white">
 						<SheetHeader className="flex flex-row items-center justify-between px-0">
 							<SheetTitle className="text-xl font-bold text-white">
-								{currentEditingId ? "Update Project" : "Add Project"}
+								Add Tool
 							</SheetTitle>
 							<Button
-								onClick={() => setOpenAddProjectDialog(false)}
+								onClick={() => setOpenAddToolDialog(false)}
 								className="cursor-pointer hover:bg-transparent hover:text-white"
 								size={"icon"}
 								variant={"ghost"}
@@ -53,11 +50,11 @@ const AddProjectSidebar: React.FC<Props> = ({
 							uploadedImageUrl={uploadedImageUrl}
 							setUploadedImageUrl={setUploadedImageUrl}
 						/>
-						<AddProjectsForm
+						<AddToolForm
 							uploadedImageUrl={uploadedImageUrl}
 							setUploadedImageUrl={setUploadedImageUrl}
+							setOpenAddToolDialog={setOpenAddToolDialog}
 							setImageFile={setImageFile}
-							setOpenAddProjectDialog={setOpenAddProjectDialog}
 						/>
 					</div>
 				</SheetContent>
@@ -66,4 +63,4 @@ const AddProjectSidebar: React.FC<Props> = ({
 	);
 };
 
-export default AddProjectSidebar;
+export default AddToolSidebar;
