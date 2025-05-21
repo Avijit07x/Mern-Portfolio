@@ -1,39 +1,32 @@
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Route, Routes } from "react-router";
 import AdminLayout from "./components/admin/Layout";
 import CheckAuth from "./components/auth/CheckAuth";
 import Loader from "./components/loader/Loader";
-import Home from "./pages/home/Home";
-import Login from "./pages/login/Login";
-import NotFound from "./pages/not-found/NotFound";
-import Project from "./pages/projects/Project";
-import Tools from "./pages/tools/Tools";
 import { checkAuth } from "./store/authSlice";
 import { useAppDispatch, useAppSelector } from "./store/hooks";
 
+// Lazy-loaded pages
+const Home = lazy(() => import("./pages/home/Home"));
+const Login = lazy(() => import("./pages/login/Login"));
+const NotFound = lazy(() => import("./pages/not-found/NotFound"));
+const Project = lazy(() => import("./pages/projects/Project"));
+const Tools = lazy(() => import("./pages/tools/Tools"));
+
 const App = () => {
 	const { isLoading } = useAppSelector((state) => state.auth);
-
 	const dispatch = useAppDispatch();
 	const token = localStorage.getItem("_token");
 
 	useEffect(() => {
-		if (
-			token === "false" ||
-			!token ||
-			token === null ||
-			token === "undefined"
-		) {
-			return;
-		} else {
-			dispatch(checkAuth());
-		}
-	}, [dispatch]);
+		if (!token || token === "false" || token === "undefined") return;
+		dispatch(checkAuth());
+	}, []);
 
 	if (isLoading) return <Loader />;
 
 	return (
-		<>
+		<Suspense fallback={<Loader />}>
 			<Routes>
 				<Route
 					path="/"
@@ -47,6 +40,7 @@ const App = () => {
 					<Route path="projects" element={<Project />} />
 					<Route path="tools" element={<Tools />} />
 				</Route>
+
 				<Route
 					path="/login"
 					element={
@@ -55,9 +49,10 @@ const App = () => {
 						</CheckAuth>
 					}
 				/>
+
 				<Route path="*" element={<NotFound />} />
 			</Routes>
-		</>
+		</Suspense>
 	);
 };
 
