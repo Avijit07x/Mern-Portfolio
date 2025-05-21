@@ -26,33 +26,35 @@ const App = () => {
 	if (isLoading) return <Loader />;
 
 	return (
-		<Suspense fallback={<Loader />}>
-			<Routes>
-				<Route
-					path="/"
-					element={
-						<CheckAuth>
-							<AdminLayout />
-						</CheckAuth>
-					}
-				>
-					<Route index element={<Home />} />
-					<Route path="projects" element={<Project />} />
-					<Route path="tools" element={<Tools />} />
-				</Route>
+		<div className="h-screen w-full bg-[#121214]">
+			<Suspense fallback={<Loader />}>
+				<Routes>
+					<Route
+						path="/"
+						element={
+							<CheckAuth>
+								<AdminLayout />
+							</CheckAuth>
+						}
+					>
+						<Route index element={<Home />} />
+						<Route path="projects" element={<Project />} />
+						<Route path="tools" element={<Tools />} />
+					</Route>
 
-				<Route
-					path="/login"
-					element={
-						<CheckAuth>
-							<Login />
-						</CheckAuth>
-					}
-				/>
+					<Route
+						path="/login"
+						element={
+							<CheckAuth>
+								<Login />
+							</CheckAuth>
+						}
+					/>
 
-				<Route path="*" element={<NotFound />} />
-			</Routes>
-		</Suspense>
+					<Route path="*" element={<NotFound />} />
+				</Routes>
+			</Suspense>
+		</div>
 	);
 };
 
