@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
-import ActiveCard from "./ActiveCard";
-import AfkCard from "./AfkCard";
+import { lazy, Suspense, useEffect, useState } from "react";
+import ActivityLoader from "./ActivityLoader";
+const AfkCard = lazy(() => import("./AfkCard"));
+const ActiveCard = lazy(() => import("./ActiveCard"));
 
 export type Activity = {
 	name: string;
@@ -31,7 +32,7 @@ type LanyardEvent = {
 const Activity = () => {
 	const [activity, setActivity] = useState<Activity | null>(null);
 	const [duration, setDuration] = useState<string>("");
-
+	const [isReady, setIsReady] = useState<boolean>(false);
 	useEffect(() => {
 		let ws: WebSocket;
 		let heartbeatInterval: NodeJS.Timeout;
@@ -71,6 +72,7 @@ const Activity = () => {
 							activity.application_id === "383226320970055681",
 					);
 					setActivity(latestActivity ?? null);
+					setIsReady(true);
 				}
 			};
 
@@ -120,15 +122,21 @@ const Activity = () => {
 				Live Peek into My World
 			</h2>
 
-			<p className="mt-2 lg:mt-1 mb-6 text-sm text-gray-200">
+			<p className="mt-2 mb-6 text-sm text-gray-200 lg:mt-1">
 				Whether I’m writing code, editing a code file, or just staring at my
 				screen — it all shows up here. And yes, it’s actually live. 🛰️
 			</p>
 
-			{activity ? (
-				<ActiveCard activity={activity} duration={duration} />
+			{!isReady ? (
+				<ActivityLoader />
 			) : (
-				<AfkCard />
+				<Suspense fallback={<ActivityLoader />}>
+					{activity ? (
+						<ActiveCard activity={activity} duration={duration} />
+					) : (
+						<AfkCard />
+					)}
+				</Suspense>
 			)}
 		</div>
 	);

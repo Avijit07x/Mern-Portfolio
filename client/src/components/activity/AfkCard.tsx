@@ -1,4 +1,6 @@
-const AfkCard = () => {
+import React from "react";
+
+const AfkCard: React.FC = () => {
 	return (
 		<div className="flex w-fit justify-center gap-2.5 rounded-lg bg-[#0f132e] p-4 text-start text-sm font-medium text-white drop-shadow-md">
 			<div className="relative size-18">

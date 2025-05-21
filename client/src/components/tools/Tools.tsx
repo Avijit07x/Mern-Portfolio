@@ -1,8 +1,9 @@
 import axios from "axios";
-
-import { useEffect, useState } from "react";
-import AnimatedTools from "./AnimatedTools";
+import { lazy, Suspense, useEffect, useState } from "react";
 import ToolsLoader from "./ToolsLoader";
+
+// lazy component
+const AnimatedTools = lazy(() => import("./AnimatedTools"));
 
 export type Tool = {
 	_id: string;
@@ -13,7 +14,6 @@ export type Tool = {
 
 const Tools = () => {
 	const [tools, setTools] = useState<Tool[]>([]);
-	const [loading, setLoading] = useState(true);
 
 	const fetchTools = async () => {
 		try {
@@ -24,8 +24,6 @@ const Tools = () => {
 			setTools(data);
 		} catch (error) {
 			console.error("Error fetching tools:", error);
-		} finally {
-			setLoading(false);
 		}
 	};
 
@@ -51,7 +49,9 @@ const Tools = () => {
 				</div>
 			</div>
 
-			{loading ? <ToolsLoader /> : <AnimatedTools tools={tools} />}
+			<Suspense fallback={<ToolsLoader />}>
+				<AnimatedTools tools={tools} />
+			</Suspense>
 		</div>
 	);
 };
