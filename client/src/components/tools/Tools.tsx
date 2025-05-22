@@ -14,9 +14,11 @@ export type Tool = {
 
 const Tools = () => {
 	const [tools, setTools] = useState<Tool[]>([]);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 
 	const fetchTools = async () => {
 		try {
+			setIsLoading(true);
 			const response = await axios.get(
 				`${import.meta.env.VITE_SERVER_URL}admin/tool/get-tools`,
 			);
@@ -24,6 +26,8 @@ const Tools = () => {
 			setTools(data);
 		} catch (error) {
 			console.error("Error fetching tools:", error);
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
@@ -49,9 +53,13 @@ const Tools = () => {
 				</div>
 			</div>
 
-			<Suspense fallback={<ToolsLoader />}>
-				<AnimatedTools tools={tools} />
-			</Suspense>
+			{isLoading ? (
+				<ToolsLoader />
+			) : (
+				<Suspense fallback={<ToolsLoader />}>
+					<AnimatedTools tools={tools} />
+				</Suspense>
+			)}
 		</div>
 	);
 };
