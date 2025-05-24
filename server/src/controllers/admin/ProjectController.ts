@@ -1,7 +1,11 @@
-import { NextFunction, Request, RequestHandler, Response } from "express";
+import { Request, RequestHandler, Response } from "express";
 import { ImageDeleteUtil } from "../../helpers/Cloudinary";
 import Project from "../../models/Project";
-import projectSchema from "../../validations/projectValidation";
+import { IProject } from "../../types/types";
+import {
+	projectSchema,
+	updateProjectSchema,
+} from "../../validations/projectValidation";
 
 // add a new Project
 const addProject: RequestHandler = async (req: Request, res: Response) => {
@@ -48,19 +52,57 @@ const getProjects: RequestHandler = async (req: Request, res: Response) => {
 
 // update Project
 const updateProject: RequestHandler = async (req: Request, res: Response) => {
+	const { id } = req.params;
+
+	if (!id) {
+		res
+			.status(400)
+			.json({ success: false, message: "Invalid or incorrect ID format." });
+		return;
+	}
+
+	const { data, success, error } = updateProjectSchema.safeParse(req.body);
+
+	if (!success || error) {
+		const errorDetails = error.issues.map((err) => ({
+			field: err.path.join(","),
+			message: err.message,
+		}));
+		res.status(400).json({ success, message: errorDetails });
+		return;
+	}
+
 	try {
-		res.status(200).json({ success: true, message: "Projects fetched" });
+		const project: IProject | null = await Project.findById(id);
+
+		if (!project) {
+			res.status(404).json({ success: false, message: "Project not found" });
+			return;
+		}
+
+		if (data.image?.url && data.image.public_id) {
+			ImageDeleteUtil(project.image.public_id);
+		}
+
+		project.image = data.image || project.image;
+		project.title = data.title || project.title;
+		project.description = data.description || project.description;
+		project.tools = data.tools || project.tools;
+		project.github_link = data.github_link || project.github_link;
+		project.live_link = data.live_link || project.live_link;
+
+		await project.save();
+
+		res
+			.status(200)
+			.json({ success: true, message: "Project updated successfully" });
 	} catch (error) {
 		res.status(500).json({ success: false, message: "Something went wrong" });
 	}
 };
 
 // delete Project
-const deleteProject: RequestHandler = async (
-	req: Request,
-	res: Response,
-	next: NextFunction
-) => {
+const deleteProject: RequestHandler = async (req: Request, res: Response) => {
 	const { id } = req.params;
 	if (!id || typeof id !== "string") {
 		res

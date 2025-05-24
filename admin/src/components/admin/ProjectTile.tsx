@@ -46,15 +46,13 @@ const ProjectTile: React.FC<Props> = ({ project, setOpenAddProjectDialog }) => {
 	};
 
 	const handleEdit = (id: string) => {
+		const { title, description, github_link, live_link, tools } = project;
 		setOpenAddProjectDialog(true);
 		dispatch(setCurrentEditingId(id));
 		dispatch(
-			setProjectFormData({
-				title: project.title,
-				description: project.description,
-			}),
+			setProjectFormData({ title, description, github_link, live_link }),
 		);
-		dispatch(setTags(project.tools));
+		dispatch(setTags(tools));
 	};
 
 	return (

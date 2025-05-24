@@ -1,6 +1,7 @@
-import mongoose from "mongoose";
+import mongoose, { Model, Schema } from "mongoose";
+import { ITools } from "../types/types";
 
-const ToolsSchema = new mongoose.Schema(
+const ToolsSchema = new Schema<ITools>(
 	{
 		name: { type: String, required: true },
 		image: {
@@ -12,4 +13,6 @@ const ToolsSchema = new mongoose.Schema(
 	{ timestamps: true }
 );
 
-export default mongoose.models.Tool || mongoose.model("Tool", ToolsSchema);
+const Tool: Model<ITools> =
+	mongoose.models.Tool || mongoose.model<ITools>("Tool", ToolsSchema);
+export default Tool;

@@ -1,6 +1,6 @@
 import { Tag } from "emblor";
 
-export interface ITools {
+interface ITools {
 	_id: string;
 	text: string;
 	name: string;
@@ -12,7 +12,7 @@ export interface ITools {
 	order: number;
 }
 
-export interface IProject {
+interface IProject {
 	_id: string;
 	title: string;
 	image: {
@@ -20,29 +20,31 @@ export interface IProject {
 		public_Id: string;
 	};
 	description: string;
+	github_link: string;
+	live_link: string;
 	tools: ITools[];
 	order: number;
 }
 
-export interface IUser {
+interface IUser {
 	email: string;
 	id: string;
 	username: string;
 }
 
-export interface IAuthState {
+interface IAuthState {
 	isAuth: boolean;
 	user: IUser | null;
 	isLoading: boolean;
 }
 
-export interface AuthPayload {
+interface AuthPayload {
 	success: boolean;
 	user: IUser;
 	error?: string;
 }
 
-export interface IToolState {
+interface IToolState {
 	tools: ITools[];
 	isLoading: boolean;
 	reorderedTools: ITools[];
@@ -53,30 +55,34 @@ export interface IToolState {
 	currentEditingId: string | null;
 }
 
-export interface ToolPayload {
+interface ToolPayload {
 	success: boolean;
 	tools: ITools[];
 }
 
-export interface IProjectState {
+interface IProjectFormData {
+	title: string;
+	description: string;
+	github_link: string;
+	live_link: string;
+}
+
+interface IProjectState {
 	projects: IProject[];
 	reorderedProjects: IProject[];
 	filteredProjects: IProject[];
 	currentEditingId: string | null;
 	isLoading: boolean;
-	formData: {
-		title: string;
-		description: string;
-	};
+	formData: IProjectFormData;
 	tags: Tag[];
 }
 
-export interface IProjectActionPayload {
+interface IProjectActionPayload {
 	success: boolean;
 	projects: IProject[];
 }
 
-export interface IProjectPayload {
+interface IProjectPayload {
 	title: string;
 	description: string;
 	image: {
@@ -84,4 +90,12 @@ export interface IProjectPayload {
 		public_id: string;
 	};
 	tools: Tag[];
+}
+
+interface IProjectUpdateData extends Partial<IProjectPayload> {
+	id: string | null;
+	image?: {
+		url: string;
+		public_id: string;
+	};
 }

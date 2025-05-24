@@ -1,12 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
 	fetchProjects,
-	preTags,
+	resetProjectForm,
 	setCurrentEditingId,
-	setProjectFormData,
-	setTags,
 } from "@/store/projectSlice";
 import { Plus } from "lucide-react";
 import { lazy, Suspense, useEffect, useState } from "react";
@@ -20,22 +17,21 @@ export type ProjectFormData = {
 
 const Project = () => {
 	const { projects } = useAppSelector((state) => state.project);
-	const [searchedText, setSearchedText] = useState<string>("");
 	const [openAddProjectDialog, setOpenAddProjectDialog] =
 		useState<boolean>(false);
+	// const [searchedText, setSearchedText] = useState<string>("");
 
 	const dispatch = useAppDispatch();
 
-	const handleSearchTool = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setSearchedText(e.target.value);
-	};
+	// const handleSearchTool = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+	// 	// setSearchedText(e.target.value);
+	// };
 
 	// open create project dialog
 	const handleOpenAddProjectDialog = () => {
 		dispatch(setCurrentEditingId(""));
 		setOpenAddProjectDialog(true);
-		dispatch(setProjectFormData({}));
-		dispatch(setTags(preTags));
+		dispatch(resetProjectForm());
 	};
 
 	useEffect(() => {
@@ -48,7 +44,7 @@ const Project = () => {
 		<div>
 			<div className="mb-5 flex w-full justify-between gap-5">
 				<div>
-					<Input
+					{/* <Input
 						value={searchedText}
 						type="text"
 						name="search"
@@ -56,7 +52,7 @@ const Project = () => {
 						placeholder="Search projects"
 						className="h-9 rounded-full border border-[#2b2b30] text-white selection:bg-amber-700 sm:w-72 lg:w-80 xl:w-96"
 						onChange={handleSearchTool}
-					/>
+					/> */}
 				</div>
 				<Button
 					className="cursor-pointer bg-[#8946ff] text-sm hover:bg-[#8946ff]/90 md:rounded-full"

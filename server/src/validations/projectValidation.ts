@@ -21,4 +21,8 @@ const projectSchema = zod.object({
 	order: zod.number().optional().default(0),
 });
 
-export default projectSchema;
+const updateProjectSchema = projectSchema.partial().extend({
+	image: projectSchema.shape.image.optional(),
+});
+
+export { projectSchema, updateProjectSchema };

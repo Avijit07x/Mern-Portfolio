@@ -32,7 +32,7 @@ const addTool: RequestHandler = async (req: Request, res: Response) => {
 
 const updateTool: RequestHandler = async (req: Request, res: Response) => {
 	try {
-		const { id } = req.params ?? {};
+		const { id } = req.params;
 		const { name, image } = req.body ?? {};
 
 		if (!id) {

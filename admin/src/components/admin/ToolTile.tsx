@@ -32,13 +32,14 @@ const ToolTile: React.FC<Props> = ({ tool, setOpenAddToolDialog }) => {
 	const dispatch = useAppDispatch();
 
 	const onEdit = () => {
+		const { _id, name } = tool;
 		setOpenAddToolDialog(true);
 		dispatch(
 			setToolFormData({
-				name: tool.name,
+				name,
 			}),
 		);
-		dispatch(setCurrentEditingId(tool._id));
+		dispatch(setCurrentEditingId(_id));
 	};
 
 	const handleToolDelete = async () => {
@@ -64,6 +65,7 @@ const ToolTile: React.FC<Props> = ({ tool, setOpenAddToolDialog }) => {
 						alt={tool?.name || "Tool"}
 						onError={(e) => (e.currentTarget.src = "/fallback.svg")}
 						className="size-8 object-contain md:size-11"
+						loading="lazy"
 					/>
 					<p className="font-semibold text-white uppercase">{tool?.name}</p>
 				</div>

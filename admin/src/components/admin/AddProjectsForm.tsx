@@ -2,11 +2,11 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
 	addProject,
 	fetchProjects,
-	preTags,
+	resetProjectForm,
 	setProjectFormData,
-	setTags,
+	updateProject,
 } from "@/store/projectSlice";
-import { IProjectPayload } from "@/types/types";
+import { IProjectPayload, IProjectUpdateData } from "@/types/types";
 import { Loader } from "lucide-react";
 import React, { useState } from "react";
 import { toast } from "sonner";
@@ -46,6 +46,7 @@ const AddProjectsForm: React.FC<Props> = ({
 	// handle Add project
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+		const { url, public_id } = uploadedImageUrl;
 
 		if (!uploadedImageUrl || !formData || tags.length === 0) {
 			toast.error("Please fill in all the fields");
@@ -53,10 +54,7 @@ const AddProjectsForm: React.FC<Props> = ({
 		}
 
 		const data: IProjectPayload = {
-			image: {
-				url: uploadedImageUrl.url,
-				public_id: uploadedImageUrl.public_id,
-			},
+			image: { url, public_id },
 			tools: tags,
 			...formData,
 		};
@@ -65,9 +63,8 @@ const AddProjectsForm: React.FC<Props> = ({
 			setIsSubmitting(true);
 			const res = await dispatch(addProject(data)).unwrap();
 			if (res.success) {
-				dispatch(setTags(preTags));
+				dispatch(resetProjectForm());
 				dispatch(fetchProjects());
-				dispatch(setProjectFormData({}));
 				setUploadedImageUrl("");
 				setImageFile(null);
 				setOpenAddProjectDialog(false);
@@ -84,14 +81,37 @@ const AddProjectsForm: React.FC<Props> = ({
 	};
 
 	// handle update project
-	const handleUpdate = (e: React.FormEvent) => {
+	const handleUpdate = async (e: React.FormEvent) => {
 		e.preventDefault();
-		console.log(formData);
-		console.log(tags);
+		const { url, public_id } = uploadedImageUrl;
+		const data: IProjectUpdateData = {
+			id: currentEditingId,
+			tools: tags,
+			...formData,
+		};
+
+		if (url && public_id) {
+			data.image = { url, public_id };
+		}
+		setIsSubmitting(true);
+		try {
+			const { success, message } = await dispatch(updateProject(data)).unwrap();
+			if (success) {
+				toast.success(message);
+				dispatch(fetchProjects());
+				dispatch(resetProjectForm());
+				setUploadedImageUrl("");
+				setOpenAddProjectDialog(false);
+			}
+		} catch (error) {
+			console.log(error);
+		} finally {
+			setIsSubmitting(false);
+		}
 	};
 
 	return (
-		<div>
+		<div className="pb-4">
 			<form onSubmit={currentEditingId ? handleUpdate : handleSubmit}>
 				<div className="mt-4 space-y-4">
 					<Label htmlFor="title">Project Name</Label>
@@ -118,6 +138,32 @@ const AddProjectsForm: React.FC<Props> = ({
 						autoComplete="off"
 					/>
 				</div>
+				<div className="mt-4 space-y-4">
+					<Label htmlFor="github_link">Github Link</Label>
+					<Input
+						type="text"
+						name="github_link"
+						id="github_link"
+						value={formData?.github_link}
+						onChange={handleChange}
+						className="border-muted-foreground/50 py-5 selection:bg-blue-500"
+						placeholder="Enter project name"
+						autoComplete="off"
+					/>
+				</div>
+				<div className="mt-4 space-y-4">
+					<Label htmlFor="live_link">Live Link</Label>
+					<Input
+						type="text"
+						name="live_link"
+						id="live_link"
+						value={formData?.live_link}
+						onChange={handleChange}
+						className="border-muted-foreground/50 py-5 selection:bg-blue-500"
+						placeholder="Enter project name"
+						autoComplete="off"
+					/>
+				</div>
 				<div>
 					<TagInputForm />
 				</div>
@@ -129,7 +175,10 @@ const AddProjectsForm: React.FC<Props> = ({
 					>
 						{isSubmitting ? (
 							<span className="flex items-center justify-center gap-2 text-sm">
-								<Loader className="size-4 animate-spin" /> Adding Project
+								<Loader className="size-4 animate-spin" />
+								<span>
+									{currentEditingId ? "Updating Project" : "Adding Project"}
+								</span>
 							</span>
 						) : currentEditingId ? (
 							"Update Project"

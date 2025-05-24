@@ -1,6 +1,7 @@
-import mongoose from "mongoose";
+import mongoose, { Model, Schema } from "mongoose";
+import { IAdmin } from "../types/types";
 
-const adminSchema = new mongoose.Schema(
+const adminSchema = new Schema<IAdmin>(
 	{
 		username: { type: String, required: true },
 		email: { type: String, required: true, unique: true },
@@ -9,4 +10,7 @@ const adminSchema = new mongoose.Schema(
 	{ timestamps: true }
 );
 
-export default mongoose.models.Admin || mongoose.model("Admin", adminSchema);
+const Admin: Model<IAdmin> =
+	mongoose.models.Admin || mongoose.model<IAdmin>("Admin", adminSchema);
+
+export default Admin;

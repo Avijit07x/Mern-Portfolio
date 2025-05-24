@@ -1,5 +1,6 @@
 import {
 	IProjectActionPayload,
+	IProjectFormData,
 	IProjectPayload,
 	IProjectState,
 } from "@/types/types";
@@ -18,16 +19,20 @@ export const preTags: Tag[] = [
 	},
 ];
 
+const initialFormData: IProjectFormData = {
+	title: "",
+	description: "",
+	github_link: "",
+	live_link: "",
+};
+
 const initialState: IProjectState = {
 	projects: [],
 	reorderedProjects: [],
 	filteredProjects: [],
 	currentEditingId: null,
 	isLoading: false,
-	formData: {
-		title: "",
-		description: "",
-	},
+	formData: initialFormData,
 	tags: preTags,
 };
 
@@ -55,11 +60,25 @@ export const fetchProjects = createAsyncThunk(
 	},
 );
 
+export const updateProject = createAsyncThunk(
+	"projects/update",
+	async (data: any) => {
+		try {
+			const res = await api.put(`admin/project/update-project/${data.id}`, {
+				...data,
+			});
+			return res.data;
+		} catch (error: any) {
+			return error.response.data;
+		}
+	},
+);
+
 export const deleteProject = createAsyncThunk(
 	"project/delete-project",
 	async (id: string) => {
 		try {
-			const res = await api.post(`admin/project/delete-project/${id}`);
+			const res = await api.delete(`admin/project/delete-project/${id}`);
 			return res.data;
 		} catch (error: any) {
 			return error.response.data;
@@ -80,6 +99,11 @@ const projectSlice = createSlice({
 		setTags: (state, action: PayloadAction<any>) => {
 			state.tags = action.payload;
 		},
+		resetProjectForm: (state) => {
+			state.formData = initialFormData;
+			state.tags = preTags;
+			state.currentEditingId = "";
+		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(fetchProjects.pending, (state) => {
@@ -99,5 +123,9 @@ const projectSlice = createSlice({
 });
 
 export default projectSlice.reducer;
-export const { setCurrentEditingId, setProjectFormData, setTags } =
-	projectSlice.actions;
+export const {
+	setCurrentEditingId,
+	setProjectFormData,
+	setTags,
+	resetProjectForm,
+} = projectSlice.actions;

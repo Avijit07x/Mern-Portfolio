@@ -1,6 +1,7 @@
-import mongoose from "mongoose";
+import mongoose, { Model, Schema } from "mongoose";
+import { IProject } from "../types/types";
 
-const ProjectSchema = new mongoose.Schema(
+const ProjectSchema = new Schema<IProject>(
 	{
 		title: {
 			type: String,
@@ -34,5 +35,8 @@ const ProjectSchema = new mongoose.Schema(
 	{ timestamps: true }
 );
 
-export default mongoose.models.Project ||
-	mongoose.model("Project", ProjectSchema);
+const Project: Model<IProject> =
+	mongoose.models.Project ||
+	mongoose.model<IProject>("Project", ProjectSchema);
+
+export default Project;

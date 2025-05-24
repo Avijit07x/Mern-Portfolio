@@ -7,7 +7,6 @@ import helmet from "helmet";
 import morgan from "morgan";
 import connectToDB from "./db/db";
 import { limiter } from "./helpers/RateLimit";
-import { errorHandler } from "./middlewares/errorHandler";
 import { notFound } from "./middlewares/notFound";
 import imageRoute from "./routes/admin/ImageRoute";
 import projectRoute from "./routes/admin/ProjectRoute";
@@ -62,9 +61,6 @@ app.get("/", (req: Request, res: Response) => {
 
 // 404 Not Found Middleware
 app.use(notFound);
-
-// Global Error Handler
-app.use(errorHandler);
 
 app.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}`);
