@@ -1,34 +1,40 @@
 import mongoose, { ConnectOptions } from "mongoose";
 import env from "../utils/env";
 
-interface Connection {
-	isConnected?: number;
-}
-
-const connection: Connection = {};
-
+const uri = env.MONGO_URI;
 const options: ConnectOptions = {
-	connectTimeoutMS: 60000, // 60 seconds
-	socketTimeoutMS: 60000, // 60 seconds
+	connectTimeoutMS: 60000,
+	socketTimeoutMS: 60000,
 };
 
+if (!uri) {
+	throw new Error("MONGO_URI is not defined");
+}
+
+let cached = (global as any).mongoose;
+
+if (!cached) {
+	cached = (global as any).mongoose = { conn: null, promise: null };
+}
+
 const connectToDB = async () => {
-	const uri = env.MONGO_URI;
-	if (!uri) {
-		throw new Error("MONGO_URI is not defined");
+	if (cached.conn) {
+		return cached.conn;
+	}
+
+	if (!cached.promise) {
+		cached.promise = mongoose.connect(uri, options);
 	}
 
 	try {
-		if (connection.isConnected) {
-			console.log("MongoDB already connected.");
-			return;
-		}
-		const db = await mongoose.connect(uri, options);
-		connection.isConnected = db.connections[0].readyState;
-		console.log(`MongoDB Connected: ${db.connections[0].readyState}`);
+		cached.conn = await cached.promise;
+		console.log("MongoDB connected");
 	} catch (error: any) {
-		console.error(`Error: ${error.message}`);
+		console.error("MongoDB connection error:", error.message);
+		throw error;
 	}
+
+	return cached.conn;
 };
 
 export default connectToDB;
