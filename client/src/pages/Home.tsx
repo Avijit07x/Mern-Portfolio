@@ -2,6 +2,7 @@ import Activity from "@/components/activity/Activity";
 import Footer from "@/components/footer/Footer";
 import Hero from "@/components/hero/Hero";
 import Navbar from "@/components/navbar/Navbar";
+import Projects from "@/components/projects/Project";
 import Tools from "@/components/tools/Tools";
 import { ReactLenis } from "lenis/react";
 const Home = () => {
@@ -23,6 +24,7 @@ const Home = () => {
 						<Hero />
 					</div>
 					<Tools />
+					<Projects />
 					<Activity />
 					<Footer />
 				</div>

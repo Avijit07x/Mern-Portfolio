@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "@/lib/api";
 import { lazy, Suspense, useEffect, useState } from "react";
 import ToolsLoader from "./ToolsLoader";
 
@@ -19,9 +19,7 @@ const Tools = () => {
 	const fetchTools = async () => {
 		try {
 			setIsLoading(true);
-			const response = await axios.get(
-				`${import.meta.env.VITE_SERVER_URL}admin/tool/get-tools`,
-			);
+			const response = await api.get("admin/tool/get-tools");
 			const data = response.data.tools;
 			setTools(data);
 		} catch (error) {

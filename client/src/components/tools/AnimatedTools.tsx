@@ -8,7 +8,7 @@ const itemVariants = {
 
 const AnimatedTools = ({ tools }: { tools: Tool[] }) => {
 	return (
-		<div className="mx-auto mt-5 flex max-w-screen-2xl flex-wrap items-center justify-center gap-4 lg:mt-10 xl:px-36">
+		<div className="mx-auto mt-5 flex max-w-screen-2xl flex-wrap items-center px-4 justify-center gap-4 lg:mt-10 xl:px-36">
 			{tools.map((tool) => (
 				<motion.div
 					key={tool._id}

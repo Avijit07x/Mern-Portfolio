@@ -57,28 +57,30 @@ const ProjectTile: React.FC<Props> = ({ project, setOpenAddProjectDialog }) => {
 
 	return (
 		<>
-			<Card className="max-xs:w-full w-[300px] gap-2 overflow-hidden rounded-2xl border-0 bg-[#18181a] text-white shadow-lg">
-				<CardHeader>
-					<CardTitle className="text-xl font-bold capitalize">
+			<Card className="max-xs:w-full xl:w-[300px] gap-3 overflow-hidden rounded-2xl border-0 bg-[#18181a] text-white shadow-lg transition-all duration-300 hover:scale-[1.015]">
+				<img
+					src={project.image.url}
+					alt={project.title}
+					className="h-52 w-full rounded-t-2xl object-cover object-top"
+				/>
+
+				<CardHeader className="gap-0 border-b-0 px-6 pb-0">
+					<CardTitle className="text-xl font-semibold capitalize">
 						{project.title}
 					</CardTitle>
 				</CardHeader>
 
-				<CardContent className="space-y-4">
-					<img
-						src={project.image.url}
-						alt={project.title}
-						className="h-44 w-full rounded-md object-cover object-top"
-					/>
+				<CardContent className="space-y-4 px-6">
+					<p className="line-clamp-3 text-sm text-gray-300">
+						{project.description}
+					</p>
 
-					<p className="text-sm">{project.description}</p>
-
-					<div className="line-clamp-1 flex gap-2">
+					<div className="flex flex-wrap gap-2">
 						{project.tools.map((tool) => (
 							<Badge
 								key={tool._id}
 								variant="default"
-								className="rounded-sm bg-[#8946ff]"
+								className="rounded-full bg-[#8946ff]/70 px-2 text-xs"
 							>
 								{tool.text}
 							</Badge>
@@ -102,6 +104,7 @@ const ProjectTile: React.FC<Props> = ({ project, setOpenAddProjectDialog }) => {
 					</div>
 				</CardContent>
 			</Card>
+
 			<Dialog onOpenChange={setIsDeleting} open={isDeleting}>
 				<DialogContent className="bg-[#1e1e20] sm:max-w-[450px]">
 					<DialogHeader>
