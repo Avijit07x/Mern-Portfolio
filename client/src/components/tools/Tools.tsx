@@ -41,7 +41,7 @@ const Tools = () => {
 						<span className="text-primary"></span>Languages &amp; Tools
 						<span className="text-primary"></span>
 					</h2>
-					<p className="mt-5 text-sm text-gray-200">
+					<p className="mt-5 text-gray-200 max-lg:text-sm">
 						I possess a strong command of various programming languages and
 						tools, coupled with a continuous drive to stay ahead of industry
 						trends. My current focus lies in advancing my backend development

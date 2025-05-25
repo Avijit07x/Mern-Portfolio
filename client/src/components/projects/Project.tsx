@@ -54,7 +54,7 @@ const Projects: React.FC = () => {
 					>
 						My Projects
 					</motion.h2>
-					<p>
+					<p className="text-gray-20 max-lg:text-sm">
 						Each of these projects highlights a unique aspect of what I can do,
 						from problem-solving to creative design. I am always eager to take
 						on new challenges and expand my horizons.
