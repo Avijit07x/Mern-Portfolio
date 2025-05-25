@@ -99,8 +99,8 @@ const loginUser: RequestHandler = async (req: Request, res: Response) => {
 				user,
 				message: "Login successful",
 			});
-	} catch (error) {
-		res.status(500).json({ success: false, message: "Internal server error" });
+	} catch (error: any) {
+		res.status(500).json({ success: false, message: error.message });
 	}
 };
 
