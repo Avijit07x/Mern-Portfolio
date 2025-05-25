@@ -5,22 +5,23 @@ import {
 	setToolFormData,
 	updateTool,
 } from "@/store/toolSlice";
+import { IToolUpdateData, IUploadedImage } from "@/types/types";
 import { Loader } from "lucide-react";
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { UploadedImage } from "./ImageUpload";
 
-type AddToolFormProps = {
-	uploadedImageUrl: any;
-	setOpenAddToolDialog: React.Dispatch<React.SetStateAction<boolean>>;
-	setImageFile: React.Dispatch<React.SetStateAction<File | null>>;
-	setUploadedImageUrl: React.Dispatch<React.SetStateAction<UploadedImage | "">>;
+
+type Props = {
+	uploadedImageUrl: IUploadedImage;
+	setOpenAddToolDialog: Dispatch<SetStateAction<boolean>>;
+	setImageFile: Dispatch<SetStateAction<File | null>>;
+	setUploadedImageUrl: Dispatch<SetStateAction<IUploadedImage | string>>;
 };
 
-const AddToolForm: React.FC<AddToolFormProps> = ({
+const AddToolForm: React.FC<Props> = ({
 	uploadedImageUrl,
 	setOpenAddToolDialog,
 	setImageFile,
@@ -77,28 +78,31 @@ const AddToolForm: React.FC<AddToolFormProps> = ({
 	const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		try {
-			setIsLoading(true);
-			const data = {
-				id: currentEditingId,
-				name: formData.name,
-				image: {
-					url: uploadedImageUrl.url,
-					public_id: uploadedImageUrl.public_id,
-				},
+		const { url, public_id } = uploadedImageUrl;
+		setIsLoading(true);
+
+		const data: IToolUpdateData = {
+			id: currentEditingId,
+			name: formData.name,
+		};
+
+		if (url && public_id) {
+			data.image = {
+				url,
+				public_id,
 			};
-			const { message } = await dispatch(updateTool(data)).unwrap();
+		}
+
+		const { success, message } = await dispatch(updateTool(data)).unwrap();
+		if (success) {
 			toast.success(message);
 			dispatch(fetchTools());
-		} catch (error) {
-			console.log(error);
-		} finally {
-			setIsLoading(false);
 			dispatch(setToolFormData({}));
 			setImageFile(null);
 			setUploadedImageUrl("");
 			setOpenAddToolDialog(false);
 		}
+		setIsLoading(false);
 	};
 
 	return (

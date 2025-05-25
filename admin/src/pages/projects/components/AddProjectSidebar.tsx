@@ -1,5 +1,5 @@
 import AddProjectsForm from "@/components/admin/AddProjectsForm";
-import ImageUpload, { UploadedImage } from "@/components/admin/ImageUpload";
+import ImageUpload from "@/components/admin/ImageUpload";
 import { Button } from "@/components/ui/button";
 import {
 	Sheet,
@@ -8,6 +8,7 @@ import {
 	SheetTitle,
 } from "@/components/ui/sheet";
 import { useAppSelector } from "@/store/hooks";
+import { IUploadedImage } from "@/types/types";
 import { X } from "lucide-react";
 import React, { useState } from "react";
 
@@ -21,7 +22,7 @@ const AddProjectSidebar: React.FC<Props> = ({
 	setOpenAddProjectDialog,
 }) => {
 	const [imageFile, setImageFile] = useState<File | null>(null);
-	const [uploadedImageUrl, setUploadedImageUrl] = useState<UploadedImage | "">(
+	const [uploadedImageUrl, setUploadedImageUrl] = useState<IUploadedImage | string>(
 		"",
 	);
 	const { currentEditingId } = useAppSelector((state) => state.project);

@@ -1,3 +1,4 @@
+import { IMenuItem } from "@/types/types";
 import {
 	Bolt,
 	ChartNoAxesCombined,
@@ -5,23 +6,20 @@ import {
 	LayoutDashboard,
 	X,
 } from "lucide-react";
-import { JSX } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
 
-interface SidebarProps {
+type SidebarProps = {
 	open: boolean;
-	setOpen: any;
-}
+	setOpen: Dispatch<SetStateAction<boolean>>;
+};
 
-interface MenuItem {
-	id: string;
-	label: string;
-	path: string;
-	icon: JSX.Element;
-}
+type MenuItemsProps = {
+	setOpen: Dispatch<SetStateAction<boolean>>;
+};
 
-const adminSidebarMenuItems: MenuItem[] = [
+const adminSidebarMenuItems: IMenuItem[] = [
 	{
 		id: "dashboard",
 		label: "Dashboard",
@@ -42,7 +40,7 @@ const adminSidebarMenuItems: MenuItem[] = [
 	},
 ];
 
-const MenuItems = ({ setOpen }: any) => {
+const MenuItems: React.FC<MenuItemsProps> = ({ setOpen }) => {
 	const navigate = useNavigate();
 	const location = useLocation();
 
@@ -77,14 +75,14 @@ const MenuItems = ({ setOpen }: any) => {
 	);
 };
 
-const Sidebar = ({ open, setOpen }: SidebarProps) => {
+const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
 	const navigate = useNavigate();
 	return (
 		<>
 			<Sheet open={open} onOpenChange={setOpen}>
 				<SheetContent
 					side="left"
-					className="w-64 border-r-0 bg-[#18181a] px-5 [&>button]:hidden z-100"
+					className="z-100 w-64 border-r-0 bg-[#18181a] px-5 [&>button]:hidden"
 				>
 					<div className="relative flex h-full flex-col">
 						{/* Custom Close Button */}

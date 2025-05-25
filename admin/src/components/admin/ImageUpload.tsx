@@ -1,21 +1,23 @@
+import { IUploadedImage } from "@/types/types";
 import api from "@/utils/api";
 import { FileIcon, Loader, UploadCloud, X } from "lucide-react";
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+	Dispatch,
+	SetStateAction,
+	useEffect,
+	useRef,
+	useState,
+} from "react";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 
-export type UploadedImage = {
-	url: string;
-	public_id: string;
-};
-
 type ImageUploadProps = {
-	setImageFile: React.Dispatch<React.SetStateAction<File | null>>;
+	setImageFile: Dispatch<SetStateAction<File | null>>;
 	imageFile: File | null;
-	uploadedImageUrl: UploadedImage | "";
-	setUploadedImageUrl: React.Dispatch<React.SetStateAction<UploadedImage | "">>;
+	uploadedImageUrl: IUploadedImage | string;
+	setUploadedImageUrl: Dispatch<SetStateAction<IUploadedImage | string>>;
 };
 
 const ImageUpload: React.FC<ImageUploadProps> = ({

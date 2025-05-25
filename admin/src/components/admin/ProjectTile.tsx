@@ -10,7 +10,7 @@ import {
 } from "@/store/projectSlice";
 import { IProject } from "@/types/types";
 import { Loader, Trash } from "lucide-react";
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
 import {
@@ -24,7 +24,7 @@ import {
 
 interface Props {
 	project: IProject;
-	setOpenAddProjectDialog: React.Dispatch<React.SetStateAction<boolean>>;
+	setOpenAddProjectDialog: Dispatch<SetStateAction<boolean>>;
 }
 
 const ProjectTile: React.FC<Props> = ({ project, setOpenAddProjectDialog }) => {
@@ -59,7 +59,9 @@ const ProjectTile: React.FC<Props> = ({ project, setOpenAddProjectDialog }) => {
 		<>
 			<Card className="max-xs:w-full w-[300px] gap-2 overflow-hidden rounded-2xl border-0 bg-[#18181a] text-white shadow-lg">
 				<CardHeader>
-					<CardTitle className="text-xl font-bold">{project.title}</CardTitle>
+					<CardTitle className="text-xl font-bold capitalize">
+						{project.title}
+					</CardTitle>
 				</CardHeader>
 
 				<CardContent className="space-y-4">

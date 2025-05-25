@@ -42,7 +42,7 @@ const Project = () => {
 
 	return (
 		<div>
-			<div className="mb-5 flex w-full justify-between gap-5">
+			<div className="mb-5 flex w-full justify-between gap-5 select-none">
 				<div>
 					{/* <Input
 						value={searchedText}

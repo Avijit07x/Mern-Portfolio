@@ -68,7 +68,7 @@ const updateTool: RequestHandler = async (req: Request, res: Response) => {
 
 const deleteTool: RequestHandler = async (req: Request, res: Response) => {
 	try {
-		const { id } = req.params ?? {};
+		const { id } = req.params;
 		if (!id) {
 			res.status(400).json({ success: false, message: "Tool id is required" });
 			return;
@@ -78,7 +78,7 @@ const deleteTool: RequestHandler = async (req: Request, res: Response) => {
 			res.status(400).json({ success: false, message: "Tool not found" });
 			return;
 		}
-		ImageDeleteUtil(tool.image.public_id);
+		await ImageDeleteUtil(tool.image.public_id);
 		await Tool.deleteOne({ _id: id });
 		res.status(200).json({ success: true, message: "Tool deleted" });
 	} catch (error) {

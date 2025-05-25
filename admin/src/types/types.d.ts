@@ -1,5 +1,17 @@
 import { Tag } from "emblor";
 
+interface IMenuItem {
+	id: string;
+	label: string;
+	path: string;
+	icon: JSX.Element;
+}
+
+interface IUploadedImage {
+	url: string;
+	public_id: string;
+}
+
 interface ITools {
 	_id: string;
 	text: string;
@@ -94,6 +106,15 @@ interface IProjectPayload {
 
 interface IProjectUpdateData extends Partial<IProjectPayload> {
 	id: string | null;
+	image?: {
+		url: string;
+		public_id: string;
+	};
+}
+
+interface IToolUpdateData extends Partial<ITools> {
+	_id?: string;
+	id?: string | null;
 	image?: {
 		url: string;
 		public_id: string;

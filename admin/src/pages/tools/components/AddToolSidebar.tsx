@@ -1,5 +1,5 @@
 import AddToolForm from "@/components/admin/AddToolForm";
-import ImageUpload, { UploadedImage } from "@/components/admin/ImageUpload";
+import ImageUpload from "@/components/admin/ImageUpload";
 import { Button } from "@/components/ui/button";
 import {
 	Sheet,
@@ -7,12 +7,13 @@ import {
 	SheetHeader,
 	SheetTitle,
 } from "@/components/ui/sheet";
+import { IUploadedImage } from "@/types/types";
 import { X } from "lucide-react";
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 
 interface Props {
 	openAddToolDialog: boolean;
-	setOpenAddToolDialog: React.Dispatch<React.SetStateAction<boolean>>;
+	setOpenAddToolDialog: Dispatch<SetStateAction<boolean>>;
 }
 
 const AddToolSidebar: React.FC<Props> = ({
@@ -20,9 +21,9 @@ const AddToolSidebar: React.FC<Props> = ({
 	setOpenAddToolDialog,
 }) => {
 	const [imageFile, setImageFile] = useState<File | null>(null);
-	const [uploadedImageUrl, setUploadedImageUrl] = useState<UploadedImage | "">(
-		"",
-	);
+	const [uploadedImageUrl, setUploadedImageUrl] = useState<
+		IUploadedImage | string
+	>("");
 	return (
 		<>
 			<Sheet open={openAddToolDialog} onOpenChange={setOpenAddToolDialog}>
@@ -51,7 +52,7 @@ const AddToolSidebar: React.FC<Props> = ({
 							setUploadedImageUrl={setUploadedImageUrl}
 						/>
 						<AddToolForm
-							uploadedImageUrl={uploadedImageUrl}
+							uploadedImageUrl={uploadedImageUrl as IUploadedImage}
 							setUploadedImageUrl={setUploadedImageUrl}
 							setOpenAddToolDialog={setOpenAddToolDialog}
 							setImageFile={setImageFile}

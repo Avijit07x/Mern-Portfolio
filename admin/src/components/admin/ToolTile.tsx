@@ -67,7 +67,7 @@ const ToolTile: React.FC<Props> = ({ tool, setOpenAddToolDialog }) => {
 						className="size-8 object-contain md:size-11"
 						loading="lazy"
 					/>
-					<p className="font-semibold text-white uppercase">{tool?.name}</p>
+					<p className="font-semibold text-white capitalize">{tool?.name}</p>
 				</div>
 				<div className="flex items-center gap-4">
 					<Button

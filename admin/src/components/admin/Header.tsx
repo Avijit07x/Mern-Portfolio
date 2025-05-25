@@ -1,8 +1,12 @@
 import { AlignJustify } from "lucide-react";
 
+import React, { Dispatch, SetStateAction } from "react";
 import Profile from "./Profile";
 
-const Header = ({ setOpen }: { setOpen: any }) => {
+type Props = {
+	setOpen: Dispatch<SetStateAction<boolean>>;
+};
+const Header: React.FC<Props> = ({ setOpen }) => {
 	return (
 		<header className="sticky top-0 z-50 flex items-center justify-between border-b border-b-[#1e1e20] bg-[#121214] px-4 py-3">
 			<button

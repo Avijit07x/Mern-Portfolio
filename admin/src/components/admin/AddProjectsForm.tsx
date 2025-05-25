@@ -6,22 +6,25 @@ import {
 	setProjectFormData,
 	updateProject,
 } from "@/store/projectSlice";
-import { IProjectPayload, IProjectUpdateData } from "@/types/types";
+import {
+	IProjectPayload,
+	IProjectUpdateData,
+	IUploadedImage,
+} from "@/types/types";
 import { Loader } from "lucide-react";
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
-import { UploadedImage } from "./ImageUpload";
 import TagInputForm from "./TagInputForm";
 
 type Props = {
 	uploadedImageUrl: any;
-	setOpenAddProjectDialog: React.Dispatch<React.SetStateAction<boolean>>;
-	setImageFile: React.Dispatch<React.SetStateAction<File | null>>;
-	setUploadedImageUrl: React.Dispatch<React.SetStateAction<UploadedImage | "">>;
+	setOpenAddProjectDialog: Dispatch<SetStateAction<boolean>>;
+	setImageFile: Dispatch<SetStateAction<File | null>>;
+	setUploadedImageUrl: Dispatch<SetStateAction<IUploadedImage | string>>;
 };
 
 const AddProjectsForm: React.FC<Props> = ({
@@ -94,20 +97,23 @@ const AddProjectsForm: React.FC<Props> = ({
 			data.image = { url, public_id };
 		}
 		setIsSubmitting(true);
-		try {
-			const { success, message } = await dispatch(updateProject(data)).unwrap();
-			if (success) {
-				toast.success(message);
-				dispatch(fetchProjects());
-				dispatch(resetProjectForm());
-				setUploadedImageUrl("");
-				setOpenAddProjectDialog(false);
-			}
-		} catch (error) {
-			console.log(error);
-		} finally {
-			setIsSubmitting(false);
+
+		const { success, message } = await dispatch(updateProject(data)).unwrap();
+
+		if (success) {
+			toast.success(message);
+			dispatch(fetchProjects());
+			dispatch(resetProjectForm());
+			setUploadedImageUrl("");
+			setOpenAddProjectDialog(false);
 		}
+		if (!success) {
+			const errorMessages = message
+				.map((err: any) => ` ${err.message}`)
+				.join(",");
+			toast.error(errorMessages);
+		}
+		setIsSubmitting(false);
 	};
 
 	return (

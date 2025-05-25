@@ -81,7 +81,7 @@ const updateProject: RequestHandler = async (req: Request, res: Response) => {
 		}
 
 		if (data.image?.url && data.image.public_id) {
-			ImageDeleteUtil(project.image.public_id);
+			await ImageDeleteUtil(project.image.public_id);
 		}
 
 		project.image = data.image || project.image;
@@ -111,14 +111,14 @@ const deleteProject: RequestHandler = async (req: Request, res: Response) => {
 		return;
 	}
 	try {
-		const project = await Project.findById(id);
+		const project: IProject | null = await Project.findById(id);
 
 		if (!project) {
 			res.status(404).json({ success: false, message: "Project not found" });
 			return;
 		}
 
-		ImageDeleteUtil(project.image.public_id);
+		await ImageDeleteUtil(project.image.public_id);
 		await Project.deleteOne({ _id: id });
 
 		res.status(200).json({
