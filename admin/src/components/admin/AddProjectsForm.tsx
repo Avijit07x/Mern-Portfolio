@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
 	addProject,
@@ -43,6 +44,9 @@ const AddProjectsForm: React.FC<Props> = ({
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
 	) => {
 		const { value, name } = e.target;
+		if (name === "description" && value.length > 120) {
+			return;
+		}
 		dispatch(setProjectFormData({ ...formData, [name]: value }));
 	};
 
@@ -133,11 +137,25 @@ const AddProjectsForm: React.FC<Props> = ({
 					/>
 				</div>
 				<div className="mt-4 space-y-4">
-					<Label htmlFor="description">Project Description</Label>
+					<div className="flex items-center justify-between">
+						<Label htmlFor="description">Project Description</Label>
+						<p className="text-muted-foreground text-right text-xs">
+							<span
+								className={cn(
+									formData.description.length >= 120
+										? "text-red-500"
+										: "text-muted-foreground",
+								)}
+							>
+								{formData.description.length}
+							</span>
+							<span>/120</span>
+						</p>
+					</div>
 					<Textarea
 						name="description"
 						id="description"
-						value={formData?.description}
+						value={formData?.description.slice(0, 120)}
 						onChange={handleChange}
 						className="border-muted-foreground/50 no-scrollbar h-25 resize-none py-2.5 selection:bg-blue-500"
 						placeholder="Enter project description"

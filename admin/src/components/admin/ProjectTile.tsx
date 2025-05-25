@@ -57,7 +57,7 @@ const ProjectTile: React.FC<Props> = ({ project, setOpenAddProjectDialog }) => {
 
 	return (
 		<>
-			<Card className="max-xs:w-full xl:w-[300px] gap-3 overflow-hidden rounded-2xl border-0 bg-[#18181a] text-white shadow-lg transition-all duration-300 hover:scale-[1.015]">
+			<Card className="max-xs:w-full xl:w-[290px] gap-3 overflow-hidden rounded-2xl border-0 bg-[#18181a] text-white shadow-lg transition-all duration-300 hover:scale-[1.015]">
 				<img
 					src={project.image.url}
 					alt={project.title}
@@ -65,16 +65,13 @@ const ProjectTile: React.FC<Props> = ({ project, setOpenAddProjectDialog }) => {
 				/>
 
 				<CardHeader className="gap-0 border-b-0 px-6 pb-0">
-					<CardTitle className="text-xl font-semibold capitalize">
+					<CardTitle className="text-lg font-semibold capitalize">
 						{project.title}
 					</CardTitle>
 				</CardHeader>
 
 				<CardContent className="space-y-4 px-6">
-					<p className="line-clamp-3 text-sm text-gray-300">
-						{project.description}
-					</p>
-
+					
 					<div className="flex flex-wrap gap-2">
 						{project.tools.map((tool) => (
 							<Badge

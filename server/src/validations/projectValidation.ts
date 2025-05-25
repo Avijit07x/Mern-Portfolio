@@ -11,7 +11,10 @@ const projectSchema = zod.object({
 		url: zod.string().url().min(1, "Image url is required"),
 		public_id: zod.string(),
 	}),
-	description: zod.string().min(1, "description is required"),
+	description: zod
+		.string()
+		.min(1, "description is required")
+		.max(120, "description is too long"),
 	github_link: zod
 		.string()
 		.optional()

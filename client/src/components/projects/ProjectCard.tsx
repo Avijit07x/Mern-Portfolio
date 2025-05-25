@@ -16,7 +16,7 @@ const ProjectCard: React.FC<Props> = ({ project }) => {
 			</div>
 
 			<div className="p-6 ">
-				<h3 className="mb-2 text-xl font-semibold capitalize line-clamp-1">
+				<h3 className="mb-2 lg:text-xl font-semibold capitalize line-clamp-1">
 					{project.title}
 				</h3>
 				<p className="mb-4 min-h-15 text-sm text-gray-300 line-clamp-3 ">
