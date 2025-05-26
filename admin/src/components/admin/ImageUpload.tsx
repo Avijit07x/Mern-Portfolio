@@ -1,4 +1,3 @@
-import { IUploadedImage } from "@/types/types";
 import api from "@/utils/api";
 import { FileIcon, Loader, UploadCloud, X } from "lucide-react";
 import React, {

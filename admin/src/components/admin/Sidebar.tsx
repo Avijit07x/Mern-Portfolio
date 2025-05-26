@@ -1,4 +1,3 @@
-import { IMenuItem } from "@/types/types";
 import {
 	Bolt,
 	ChartNoAxesCombined,

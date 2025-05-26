@@ -8,7 +8,6 @@ import {
 	setProjectFormData,
 	setTags,
 } from "@/store/projectSlice";
-import { IProject } from "@/types/types";
 import { Loader, Trash } from "lucide-react";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { toast } from "sonner";

@@ -7,7 +7,6 @@ import {
 	setCurrentEditingId,
 	setToolFormData,
 } from "@/store/toolSlice";
-import { ITools } from "@/types/types";
 import { Loader, Pencil, Trash } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -21,7 +20,7 @@ import {
 } from "../ui/dialog";
 
 type Props = {
-	tool: ITools;
+	tool: ITool;
 	setOpenAddToolDialog: React.Dispatch<React.SetStateAction<boolean>>;
 };
 

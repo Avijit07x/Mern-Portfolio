@@ -1,5 +1,3 @@
-import { Tag } from "emblor";
-
 interface IMenuItem {
 	id: string;
 	label: string;
@@ -12,7 +10,7 @@ interface IUploadedImage {
 	public_id: string;
 }
 
-interface ITools {
+interface ITool {
 	_id: string;
 	text: string;
 	name: string;
@@ -34,7 +32,7 @@ interface IProject {
 	description: string;
 	github_link: string;
 	live_link: string;
-	tools: ITools[];
+	tools: ITool[];
 	order: number;
 }
 
@@ -56,11 +54,16 @@ interface AuthPayload {
 	error?: string;
 }
 
+interface ITag {
+	id: string;
+	text: string;
+}
+
 interface IToolState {
-	tools: ITools[];
+	tools: ITool[];
 	isLoading: boolean;
-	reorderedTools: ITools[];
-	filteredTools: ITools[];
+	reorderedTools: ITool[];
+	filteredTools: ITool[];
 	formData: {
 		name: string;
 	};
@@ -69,7 +72,7 @@ interface IToolState {
 
 interface ToolPayload {
 	success: boolean;
-	tools: ITools[];
+	tools: ITool[];
 }
 
 interface IProjectFormData {
@@ -86,7 +89,7 @@ interface IProjectState {
 	currentEditingId: string | null;
 	isLoading: boolean;
 	formData: IProjectFormData;
-	tags: Tag[];
+	tags: ITag[];
 }
 
 interface IProjectActionPayload {
@@ -112,7 +115,7 @@ interface IProjectUpdateData extends Partial<IProjectPayload> {
 	};
 }
 
-interface IToolUpdateData extends Partial<ITools> {
+interface IToolUpdateData extends Partial<ITool> {
 	_id?: string;
 	id?: string | null;
 	image?: {

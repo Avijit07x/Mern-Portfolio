@@ -5,7 +5,6 @@ import {
 	setToolFormData,
 	updateTool,
 } from "@/store/toolSlice";
-import { IToolUpdateData, IUploadedImage } from "@/types/types";
 import { Loader } from "lucide-react";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { toast } from "sonner";

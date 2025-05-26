@@ -51,13 +51,15 @@ const Reorganize = () => {
 
 		if (!over || active.id === over.id) return;
 
-		const oldIndex = reorderedTools.findIndex((t) => t._id === active.id);
-		const newIndex = reorderedTools.findIndex((t) => t._id === over.id);
+		const oldIndex = reorderedTools.findIndex(
+			(t: ITool) => t._id === active.id,
+		);
+		const newIndex = reorderedTools.findIndex((t: ITool) => t._id === over.id);
 
 		if (oldIndex !== -1 && newIndex !== -1) {
 			const newTools = arrayMove(reorderedTools, oldIndex, newIndex);
 			const isReorderedTools = tools.map(
-				(item, index) => item === newTools[index],
+				(item: ITool, index: number) => item === newTools[index],
 			);
 			if (isReorderedTools.includes(false)) {
 				setIsReordered(true);
@@ -76,7 +78,7 @@ const Reorganize = () => {
 		try {
 			setIsLoading(true);
 			const res = await api.post("admin/tool/reorder-tools", {
-				tools: reorderedTools.map((t) => t._id),
+				tools: reorderedTools.map((t: ITool) => t._id),
 			});
 			toast.success(res.data.message);
 			setIsReordered(false);
@@ -120,10 +122,10 @@ const Reorganize = () => {
 							sensors={sensors}
 						>
 							<SortableContext
-								items={reorderedTools.map((tool) => tool._id)}
+								items={reorderedTools.map((tool: ITool) => tool._id)}
 								strategy={verticalListSortingStrategy}
 							>
-								{reorderedTools.map((tool, index) => (
+								{reorderedTools.map((tool: ITool, index: number) => (
 									<ToolItem key={tool._id} tool={tool} index={index} />
 								))}
 							</SortableContext>
