@@ -1,4 +1,3 @@
-import { AuthPayload, IAuthState } from "@/types/types";
 import api from "@/utils/api";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 

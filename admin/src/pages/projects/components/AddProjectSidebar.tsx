@@ -8,7 +8,6 @@ import {
 	SheetTitle,
 } from "@/components/ui/sheet";
 import { useAppSelector } from "@/store/hooks";
-import { IUploadedImage } from "@/types/types";
 import { X } from "lucide-react";
 import React, { useState } from "react";
 

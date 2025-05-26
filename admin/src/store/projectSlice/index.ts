@@ -1,9 +1,3 @@
-import {
-	IProjectActionPayload,
-	IProjectFormData,
-	IProjectPayload,
-	IProjectState,
-} from "@/types/types";
 import api from "@/utils/api";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Tag } from "emblor";

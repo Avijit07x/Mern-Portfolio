@@ -7,7 +7,6 @@ import {
 	SheetHeader,
 	SheetTitle,
 } from "@/components/ui/sheet";
-import { IUploadedImage } from "@/types/types";
 import { X } from "lucide-react";
 import React, { Dispatch, SetStateAction, useState } from "react";
 
