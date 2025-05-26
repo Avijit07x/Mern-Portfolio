@@ -1,6 +1,7 @@
+import RefContext, { IRefContext } from "@/context/RefContext";
 import api from "@/lib/api";
 import { motion } from "motion/react";
-import React, { lazy, Suspense, useEffect, useState } from "react";
+import React, { lazy, Suspense, useContext, useEffect, useState } from "react";
 import ProjectSkeleton from "./ProjectSkeleton";
 
 const ProjectCard = lazy(() => import("./ProjectCard"));
@@ -20,7 +21,8 @@ const item = {
 
 const Projects: React.FC = () => {
 	const [projects, setProjects] = useState<IProject[]>([]);
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState<boolean>(true);
+	const { projectRef } = useContext<IRefContext>(RefContext);
 
 	useEffect(() => {
 		const fetchProjects = async () => {
@@ -39,7 +41,11 @@ const Projects: React.FC = () => {
 	}, []);
 
 	return (
-		<section id="projects" className="px-6 py-10 text-white">
+		<section
+			ref={projectRef}
+			id="projects"
+			className="scroll-mt-[10px] px-6 py-10 text-white"
+		>
 			<motion.div
 				variants={container}
 				initial="hidden"

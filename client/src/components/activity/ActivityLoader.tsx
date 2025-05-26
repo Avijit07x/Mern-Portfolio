@@ -1,6 +1,6 @@
 const ActivityLoader: React.FC = () => {
 	return (
-		<div className="flex w-fit justify-center gap-2.5 rounded-lg bg-[#0f132e] p-4 text-start text-sm font-medium text-white drop-shadow-md">
+		<div className="flex w-fit justify-center gap-2.5 rounded-lg border border-white/[0.1] bg-[#0f132e] p-4 text-start text-sm font-medium text-white drop-shadow-md">
 			<div className="relative size-18">
 				<div className="h-full w-full animate-pulse rounded-md bg-[#1c1f3a]" />
 			</div>

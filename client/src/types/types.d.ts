@@ -1,3 +1,5 @@
+
+
 interface IProjectTool {
 	id: string;
 	text: string;
@@ -19,3 +21,30 @@ interface IProject {
 	updatedAt: string;
 	__v: number;
 }
+
+interface IActivity {
+	name: string;
+	details?: string;
+	state?: string;
+	timestamps?: {
+		start: number;
+		end?: number;
+	};
+	assets?: {
+		large_image?: string;
+		small_image?: string;
+	};
+	application_id?: string;
+}
+
+interface ILanyardEvent {
+	op: number;
+	t?: string;
+	d: {
+		discord_status: string;
+		activities: IActivity[];
+		user_id: string;
+		heartbeat_interval: number;
+	};
+}
+

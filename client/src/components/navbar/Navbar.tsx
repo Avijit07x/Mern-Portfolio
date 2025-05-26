@@ -5,12 +5,28 @@ import {
 	SheetHeader,
 	SheetTitle,
 } from "@/components/ui/sheet";
+import RefContext, { IRefContext } from "@/context/RefContext";
 import { Menu } from "lucide-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router";
 
 const Navbar = () => {
-	const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState<boolean>(false);
+	const { projectRef, contactRef } = useContext<IRefContext>(RefContext);
+
+	const handleScrollToSection = (ref: string) => {
+		if (open) {
+			setOpen(false);
+		}
+		if (ref === "projectRef") {
+			projectRef.current?.scrollIntoView({ behavior: "smooth" });
+			return;
+		}
+		if (ref === "contactRef") {
+			contactRef.current?.scrollIntoView({ behavior: "smooth" });
+			return;
+		}
+	};
 	return (
 		<>
 			<nav className="fixed top-0 z-[150] mx-auto flex h-14 w-full max-w-screen-2xl items-center justify-between bg-[#01031a]/30 backdrop-blur-sm backdrop-filter lg:px-8">
@@ -26,7 +42,9 @@ const Navbar = () => {
 				</button>
 				<ul className="hidden items-center justify-center lg:flex">
 					<li className="mx-5 text-white">
-						<button>Projects</button>
+						<button onClick={() => handleScrollToSection("projectRef")}>
+							Projects
+						</button>
 					</li>
 					<li className="mx-5 text-white">
 						<button>Contact</button>
@@ -54,7 +72,7 @@ const Navbar = () => {
 							}}
 						>
 							<button
-								// onClick={() => scrollToSection(projectRef)}
+								onClick={() => handleScrollToSection("projectRef")}
 								className="w-full"
 							>
 								Projects

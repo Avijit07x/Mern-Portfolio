@@ -1,14 +1,13 @@
 import React from "react";
-import { Activity } from "./Activity";
 
 type Props = {
-	activity: Activity;
+	activity: IActivity;
 	duration: string;
 };
 
 const ActiveCard: React.FC<Props> = ({ activity, duration }) => {
 	return (
-		<div className="flex w-fit justify-center gap-2.5 rounded-lg bg-[#0f132e] p-4 text-start text-sm font-medium text-white drop-shadow-md">
+		<div className="flex w-fit justify-center gap-2.5 rounded-lg border border-white/[0.1] bg-[#0f132e] p-4 text-start text-sm font-medium text-white drop-shadow-md">
 			<div className="relative size-18">
 				<img
 					className="h-full w-full rounded-md"

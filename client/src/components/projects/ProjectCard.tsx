@@ -6,7 +6,7 @@ type Props = {
 
 const ProjectCard: React.FC<Props> = ({ project }) => {
 	return (
-		<div className="h-[430px] overflow-hidden rounded-2xl border border-slate-700 bg-[#0f132e] shadow-lg transition-all duration-300 hover:scale-[1.015] md:w-[340px]">
+		<div className="h-[430px] overflow-hidden rounded-2xl border border-white/[0.1] bg-[#0f132e] shadow-lg transition-all duration-300 hover:scale-[1.015] md:w-[340px]">
 			<div className="overflow-hidden">
 				<img
 					src={project.image.url}

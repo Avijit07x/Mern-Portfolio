@@ -3,34 +3,8 @@ import ActivityLoader from "./ActivityLoader";
 const AfkCard = lazy(() => import("./AfkCard"));
 const ActiveCard = lazy(() => import("./ActiveCard"));
 
-export type Activity = {
-	name: string;
-	details?: string;
-	state?: string;
-	timestamps?: {
-		start: number;
-		end?: number;
-	};
-	assets?: {
-		large_image?: string;
-		small_image?: string;
-	};
-	application_id?: string;
-};
-
-type LanyardEvent = {
-	op: number;
-	t?: string;
-	d: {
-		discord_status: string;
-		activities: Activity[];
-		user_id: string;
-		heartbeat_interval: number;
-	};
-};
-
 const Activity = () => {
-	const [activity, setActivity] = useState<Activity | null>(null);
+	const [activity, setActivity] = useState<IActivity | null>(null);
 	const [duration, setDuration] = useState<string>("");
 	const [isReady, setIsReady] = useState<boolean>(false);
 	useEffect(() => {
@@ -53,7 +27,7 @@ const Activity = () => {
 			};
 
 			ws.onmessage = (event) => {
-				const data: LanyardEvent = JSON.parse(event.data);
+				const data: ILanyardEvent = JSON.parse(event.data);
 
 				// Heartbeat
 				if (data.op === 1 && data.d?.heartbeat_interval) {
@@ -68,7 +42,7 @@ const Activity = () => {
 				// Activity
 				if (data.t === "INIT_STATE" || data.t === "PRESENCE_UPDATE") {
 					const latestActivity = data.d.activities.find(
-						(activity: Activity) =>
+						(activity: IActivity) =>
 							activity.application_id === "383226320970055681",
 					);
 					setActivity(latestActivity ?? null);
@@ -118,11 +92,11 @@ const Activity = () => {
 
 	return (
 		<div className="mx-auto mt-8 flex max-w-screen-2xl flex-col items-center justify-center px-3 text-center md:px-10">
-			<h2 className="text-xl font-semibold text-white lg:text-2xl">
+			<h2 className="text-2xl font-semibold text-white lg:text-3xl">
 				Live Peek into My World
 			</h2>
 
-			<p className="mt-2 mb-6 text-sm text-gray-200 lg:mt-1">
+			<p className="mt-2 mb-6 text-gray-200 max-lg:text-sm lg:mt-1">
 				Whether I’m writing code, editing a code file, or just staring at my
 				screen — it all shows up here. And yes, it’s actually live. 🛰️
 			</p>
