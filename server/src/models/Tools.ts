@@ -1,7 +1,7 @@
 import mongoose, { Model, Schema } from "mongoose";
-import { ITools } from "../types/types";
+import { ITool } from "../types/types";
 
-const ToolsSchema = new Schema<ITools>(
+const ToolsSchema = new Schema<ITool>(
 	{
 		name: { type: String, required: true },
 		image: {
@@ -13,6 +13,6 @@ const ToolsSchema = new Schema<ITools>(
 	{ timestamps: true }
 );
 
-const Tool: Model<ITools> =
-	mongoose.models.Tool || mongoose.model<ITools>("Tool", ToolsSchema);
+const Tool: Model<ITool> =
+	mongoose.models.Tool || mongoose.model<ITool>("Tool", ToolsSchema);
 export default Tool;

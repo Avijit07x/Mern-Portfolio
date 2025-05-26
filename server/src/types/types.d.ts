@@ -1,6 +1,6 @@
 import { Document, Types } from "mongoose";
 
-interface ITools extends Document {
+interface ITool extends Document {
 	_id?: Types.ObjectId;
 	name: string;
 	image: {
