@@ -56,7 +56,7 @@ const ProjectTile: React.FC<Props> = ({ project, setOpenAddProjectDialog }) => {
 
 	return (
 		<>
-			<Card className="max-xs:w-full xl:w-[290px] gap-3 overflow-hidden rounded-2xl border-0 bg-[#18181a] text-white shadow-lg transition-all duration-300 hover:scale-[1.015]">
+			<Card className="max-xs:w-full gap-3 overflow-hidden rounded-2xl border-0 bg-[#18181a] pt-0 text-white shadow-lg transition-all duration-300 hover:scale-[1.015] xl:w-[290px]">
 				<img
 					src={project.image.url}
 					alt={project.title}
@@ -70,7 +70,6 @@ const ProjectTile: React.FC<Props> = ({ project, setOpenAddProjectDialog }) => {
 				</CardHeader>
 
 				<CardContent className="space-y-4 px-6">
-					
 					<div className="flex flex-wrap gap-2">
 						{project.tools.map((tool) => (
 							<Badge
@@ -87,12 +86,12 @@ const ProjectTile: React.FC<Props> = ({ project, setOpenAddProjectDialog }) => {
 						<Button
 							variant="outline"
 							onClick={() => handleEdit(project._id)}
-							className="w-full border-0 bg-[#8b8bb8] hover:bg-[#8b8bb8]/90 hover:text-white"
+							className="w-full rounded-full border-0 bg-[#8b8bb8] hover:bg-[#8b8bb8]/90 hover:text-white"
 						>
 							Edit
 						</Button>
 						<Button
-							className="w-full border-0 bg-[#ce2929] hover:bg-[#ce2929]/90"
+							className="w-full rounded-full border-0 bg-[#ce2929] hover:bg-[#ce2929]/90"
 							onClick={() => setIsDeleting(true)}
 						>
 							Delete

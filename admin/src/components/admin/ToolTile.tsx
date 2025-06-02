@@ -100,7 +100,11 @@ const ToolTile: React.FC<Props> = ({ tool, setOpenAddToolDialog }) => {
 						</DialogDescription>
 					</DialogHeader>
 					<DialogFooter>
-						<Button onClick={() => setIsDeleting(false)} variant="outline">
+						<Button
+							className="rounded-full"
+							onClick={() => setIsDeleting(false)}
+							variant="outline"
+						>
 							Cancel
 						</Button>
 
@@ -108,6 +112,7 @@ const ToolTile: React.FC<Props> = ({ tool, setOpenAddToolDialog }) => {
 							onClick={handleToolDelete}
 							variant="destructive"
 							disabled={isLoading}
+							className="rounded-full"
 						>
 							{isLoading ? (
 								<>
