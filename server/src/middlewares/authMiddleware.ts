@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import Admin from "../models/Admin";
+import Admin from "../models/admin";
 import env from "../utils/env";
 
 export interface CustomRequest extends Request {

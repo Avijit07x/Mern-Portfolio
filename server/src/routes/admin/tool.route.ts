@@ -4,7 +4,7 @@ import {
 	getTools,
 	reorderTools,
 	updateTool,
-} from "../../controllers/admin/ToolController";
+} from "../../controllers/admin/tool.controller";
 
 import express, { Router } from "express";
 import authMiddleware from "../../middlewares/authMiddleware";

@@ -2,8 +2,8 @@ import express, { Router } from "express";
 import {
 	handleImageDelete,
 	handleImageUpload,
-} from "../../controllers/admin/ImageController";
-import { upload } from "../../helpers/Cloudinary";
+} from "../../controllers/admin/image.controller";
+import { upload } from "../../helpers/cloudinary";
 import authMiddleware from "../../middlewares/authMiddleware";
 
 const router: Router = express.Router();

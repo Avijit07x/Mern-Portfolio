@@ -4,7 +4,7 @@ import {
 	deleteProject,
 	getProjects,
 	updateProject,
-} from "../../controllers/admin/ProjectController";
+} from "../../controllers/admin/project.controller";
 import authMiddleware from "../../middlewares/authMiddleware";
 
 const router: Router = express.Router();

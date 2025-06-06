@@ -3,8 +3,8 @@ import { Request, RequestHandler, Response } from "express";
 import {
 	access_tokenOptions,
 	generate_access_token,
-} from "../../helpers/JwtGenerate";
-import Admin from "../../models/Admin";
+} from "../../helpers/jwtGenerate";
+import Admin from "../../models/admin";
 import env from "../../utils/env";
 import { loginSchema } from "../../validations/authValidation";
 
@@ -13,11 +13,7 @@ import { loginSchema } from "../../validations/authValidation";
 // 	const { error, data, success } = adminSchema.safeParse(req.body);
 
 // 	if (!success || error) {
-// 		const errorDetails = error.issues.map((err) => ({
-// 			field: err.path.join(","),
-// 			message: err.message,
-// 		}));
-// 		res.status(400).json({ success: false, message: errorDetails });
+// 		res.status(400).json({ success: false, message: error.flatten().fieldErrors });
 // 		return;
 // 	}
 // 	try {
@@ -52,11 +48,9 @@ const loginUser: RequestHandler = async (req: Request, res: Response) => {
 	const { success, data, error } = loginSchema.safeParse(req.body);
 
 	if (!success || error) {
-		const errorDetails = error.issues.map((err) => ({
-			field: err.path.join(","),
-			message: err.message,
-		}));
-		res.status(400).json({ success: false, message: errorDetails });
+		res
+			.status(400)
+			.json({ success: false, message: error.flatten().fieldErrors });
 		return;
 	}
 

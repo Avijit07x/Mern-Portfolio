@@ -1,6 +1,6 @@
 import { Request, RequestHandler, Response } from "express";
-import { ImageDeleteUtil } from "../../helpers/Cloudinary";
-import Project from "../../models/Project";
+import { ImageDeleteUtil } from "../../helpers/cloudinary";
+import Project from "../../models/project";
 import { IProject } from "../../types/types";
 import {
 	projectSchema,
@@ -11,11 +11,7 @@ import {
 const addProject: RequestHandler = async (req: Request, res: Response) => {
 	const { success, data, error } = projectSchema.safeParse(req.body);
 	if (!success || error) {
-		const errorDetails = error.issues.map((err) => ({
-			field: err.path.join(","),
-			message: err.message,
-		}));
-		res.status(400).json({ success, message: errorDetails });
+		res.status(400).json({ success, message: error.flatten().fieldErrors });
 		return;
 	}
 	try {
@@ -64,11 +60,7 @@ const updateProject: RequestHandler = async (req: Request, res: Response) => {
 	const { data, success, error } = updateProjectSchema.safeParse(req.body);
 
 	if (!success || error) {
-		const errorDetails = error.issues.map((err) => ({
-			field: err.path.join(","),
-			message: err.message,
-		}));
-		res.status(400).json({ success, message: errorDetails });
+		res.status(400).json({ success, message: error.flatten().fieldErrors });
 		return;
 	}
 

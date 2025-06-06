@@ -1,6 +1,6 @@
 import express, { Response, Router } from "express";
-import { loginUser, logoutUser } from "../../controllers/auth/authController";
-import { loginLimiter } from "../../helpers/RateLimit";
+import { loginUser, logoutUser } from "../../controllers/auth/auth.controller";
+import { loginLimiter } from "../../helpers/rateLimit";
 import authMiddleware, {
 	CustomRequest,
 } from "../../middlewares/authMiddleware";

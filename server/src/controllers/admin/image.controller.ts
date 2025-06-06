@@ -1,5 +1,5 @@
 import { Request, RequestHandler, Response } from "express";
-import { ImageDeleteUtil, ImageUploadUtil } from "../../helpers/Cloudinary";
+import { ImageDeleteUtil, ImageUploadUtil } from "../../helpers/cloudinary";
 
 // upload image to cloudinary
 const handleImageUpload: RequestHandler = async (

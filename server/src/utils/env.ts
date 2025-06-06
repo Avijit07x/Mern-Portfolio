@@ -7,6 +7,7 @@ const env = cleanEnv(process.env, {
 
 	GMAIL_USER: email(),
 	GMAIL_PASSWORD: str(),
+	GMAIL_ID: email(),
 
 	TOKEN_KEY: str(),
 	TOKEN_KEY_EXPIRY: str(),

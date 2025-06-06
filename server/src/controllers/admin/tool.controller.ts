@@ -1,6 +1,6 @@
 import { Request, RequestHandler, Response } from "express";
-import { ImageDeleteUtil } from "../../helpers/Cloudinary";
-import Tool from "../../models/Tools";
+import { ImageDeleteUtil } from "../../helpers/cloudinary";
+import Tool from "../../models/tools";
 
 const getTools: RequestHandler = async (req: Request, res: Response) => {
 	try {
