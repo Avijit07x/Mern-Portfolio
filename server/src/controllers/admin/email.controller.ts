@@ -25,7 +25,7 @@ const sendEmail = async (req: Request, res: Response) => {
 		html: htmlBody,
 	};
 	try {
-		transport.sendMail(mainOption);
+		await transport.sendMail(mainOption);
 		res.status(200).json({ success: true, message: "Email Sent" });
 	} catch (error: any) {
 		res.status(400).json({
