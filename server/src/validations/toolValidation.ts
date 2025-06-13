@@ -8,4 +8,7 @@ const toolSchema = zod.object({
 	}),
 });
 
-export default toolSchema;
+const updateToolSchema = toolSchema.partial().extend({
+	image: toolSchema.shape.image.optional(),
+});
+export { toolSchema, updateToolSchema };

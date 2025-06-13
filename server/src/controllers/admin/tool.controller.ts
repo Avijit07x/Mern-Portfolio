@@ -2,7 +2,7 @@ import { Request, RequestHandler, Response } from "express";
 import mongoose from "mongoose";
 import { ImageDeleteUtil } from "../../helpers/cloudinary";
 import Tool from "../../models/tools";
-import toolSchema from "../../validations/toolValidation";
+import { toolSchema, updateToolSchema } from "../../validations/toolValidation";
 
 const getTools: RequestHandler = async (req: Request, res: Response) => {
 	try {
@@ -46,7 +46,7 @@ const updateTool: RequestHandler = async (req: Request, res: Response) => {
 			return;
 		}
 
-		const { data, success, error } = toolSchema.safeParse(req.body);
+		const { data, success, error } = updateToolSchema.safeParse(req.body);
 
 		if (!success || error) {
 			res.status(400).json({ success, error: error.flatten().fieldErrors });
