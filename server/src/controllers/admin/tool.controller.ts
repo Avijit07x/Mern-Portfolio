@@ -1,6 +1,8 @@
 import { Request, RequestHandler, Response } from "express";
+import mongoose from "mongoose";
 import { ImageDeleteUtil } from "../../helpers/cloudinary";
 import Tool from "../../models/tools";
+import toolSchema from "../../validations/toolValidation";
 
 const getTools: RequestHandler = async (req: Request, res: Response) => {
 	try {
@@ -15,14 +17,19 @@ const getTools: RequestHandler = async (req: Request, res: Response) => {
 
 const addTool: RequestHandler = async (req: Request, res: Response) => {
 	try {
-		const { name, image } = req.body ?? {};
-		if (!name || !image) {
-			res
-				.status(400)
-				.json({ success: false, message: "All fields are required" });
+		const { error, success, data } = toolSchema.safeParse(req.body);
+
+		if (!success || error) {
+			res.status(400).json({ success, error: error.flatten().fieldErrors });
 			return;
 		}
-		const newTool = new Tool({ name, image });
+
+		const toolData = {
+			name: data.name,
+			image: data.image,
+		};
+
+		const newTool = new Tool(toolData);
 		await newTool.save();
 		res.status(200).json({ success: true, message: "Tool added" });
 	} catch (error) {
@@ -33,10 +40,16 @@ const addTool: RequestHandler = async (req: Request, res: Response) => {
 const updateTool: RequestHandler = async (req: Request, res: Response) => {
 	try {
 		const { id } = req.params;
-		const { name, image } = req.body ?? {};
 
-		if (!id) {
+		if (!id || !mongoose.Types.ObjectId.isValid(id)) {
 			res.status(400).json({ success: false, message: "Tool id is required" });
+			return;
+		}
+
+		const { data, success, error } = toolSchema.safeParse(req.body);
+
+		if (!success || error) {
+			res.status(400).json({ success, error: error.flatten().fieldErrors });
 			return;
 		}
 
@@ -48,13 +61,13 @@ const updateTool: RequestHandler = async (req: Request, res: Response) => {
 		}
 
 		// Delete old image if a new one is provided
-		if (image?.url && tool.image?.public_id) {
+		if (data.image?.url && tool.image?.public_id) {
 			await ImageDeleteUtil(tool.image.public_id);
 		}
 
 		// Update fields
-		tool.name = name || tool.name;
-		tool.image = image?.url ? image : tool.image;
+		tool.name = data.name || tool.name;
+		tool.image = data.image?.url ? data.image : tool.image;
 
 		await tool.save();
 
@@ -69,7 +82,7 @@ const updateTool: RequestHandler = async (req: Request, res: Response) => {
 const deleteTool: RequestHandler = async (req: Request, res: Response) => {
 	try {
 		const { id } = req.params;
-		if (!id) {
+		if (!id || !mongoose.Types.ObjectId.isValid(id)) {
 			res.status(400).json({ success: false, message: "Tool id is required" });
 			return;
 		}

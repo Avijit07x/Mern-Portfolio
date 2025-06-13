@@ -1,4 +1,5 @@
 import { Request, RequestHandler, Response } from "express";
+import mongoose from "mongoose";
 import { ImageDeleteUtil } from "../../helpers/cloudinary";
 import Project from "../../models/project";
 import { IProject } from "../../types/types";
@@ -9,13 +10,16 @@ import {
 
 // add a new Project
 const addProject: RequestHandler = async (req: Request, res: Response) => {
-	const { success, data, error } = projectSchema.safeParse(req.body);
-	if (!success || error) {
-		res.status(400).json({ success, message: error.flatten().fieldErrors });
-		return;
-	}
 	try {
+		const { success, data, error } = projectSchema.safeParse(req.body);
+
+		if (!success || error) {
+			res.status(400).json({ success, message: error.flatten().fieldErrors });
+			return;
+		}
+
 		const newProject = await Project.create(data);
+
 		if (!newProject) {
 			res
 				.send(400)
@@ -48,23 +52,23 @@ const getProjects: RequestHandler = async (req: Request, res: Response) => {
 
 // update Project
 const updateProject: RequestHandler = async (req: Request, res: Response) => {
-	const { id } = req.params;
-
-	if (!id) {
-		res
-			.status(400)
-			.json({ success: false, message: "Invalid or incorrect ID format." });
-		return;
-	}
-
-	const { data, success, error } = updateProjectSchema.safeParse(req.body);
-
-	if (!success || error) {
-		res.status(400).json({ success, message: error.flatten().fieldErrors });
-		return;
-	}
-
 	try {
+		const { id } = req.params;
+
+		if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+			res
+				.status(400)
+				.json({ success: false, message: "Invalid or incorrect ID format." });
+			return;
+		}
+
+		const { data, success, error } = updateProjectSchema.safeParse(req.body);
+
+		if (!success || error) {
+			res.status(400).json({ success, message: error.flatten().fieldErrors });
+			return;
+		}
+
 		const project: IProject | null = await Project.findById(id);
 
 		if (!project) {
@@ -95,14 +99,16 @@ const updateProject: RequestHandler = async (req: Request, res: Response) => {
 
 // delete Project
 const deleteProject: RequestHandler = async (req: Request, res: Response) => {
-	const { id } = req.params;
-	if (!id || typeof id !== "string") {
-		res
-			.status(400)
-			.json({ success: false, message: "Invalid or missing project ID" });
-		return;
-	}
 	try {
+		const { id } = req.params;
+
+		if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+			res
+				.status(400)
+				.json({ success: false, message: "Invalid or missing project ID" });
+			return;
+		}
+
 		const project: IProject | null = await Project.findById(id);
 
 		if (!project) {
@@ -121,6 +127,8 @@ const deleteProject: RequestHandler = async (req: Request, res: Response) => {
 		res.status(500).json({ success: false, message: "Something went wrong" });
 	}
 };
+
+// TODO: Implement reorderProjects handler logic
 
 // reorder Projects
 const reorderProjects: RequestHandler = async (req: Request, res: Response) => {
