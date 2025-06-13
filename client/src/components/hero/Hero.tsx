@@ -23,7 +23,7 @@ const Hero = () => {
 							"mt-2 cursor-default p-0 text-center text-base tracking-wide md:text-2xl lg:p-2"
 						}
 					>
-						Front-End Developer
+						Full Stack Developer
 					</HyperText>
 					<div className="flex items-center justify-center gap-2 tracking-widest">
 						React | Next.js
