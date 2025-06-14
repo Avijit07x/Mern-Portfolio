@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 
 /**
  * InteractiveGridPattern is a component that renders a grid pattern with interactive squares.
@@ -35,6 +35,15 @@ export function InteractiveGridPattern({
 	const [horizontal, vertical] = squares;
 	const [hoveredSquare, setHoveredSquare] = useState<number | null>(null);
 
+	// Memoized grid square positions
+	const squaresArray = useMemo(() => {
+		return Array.from({ length: horizontal * vertical }).map((_, index) => {
+			const x = (index % horizontal) * width;
+			const y = Math.floor(index / horizontal) * height;
+			return { index, x, y };
+		});
+	}, [horizontal, vertical, width, height]);
+
 	return (
 		<svg
 			width={width * horizontal}
@@ -45,26 +54,24 @@ export function InteractiveGridPattern({
 			)}
 			{...props}
 		>
-			{Array.from({ length: horizontal * vertical }).map((_, index) => {
-				const x = (index % horizontal) * width;
-				const y = Math.floor(index / horizontal) * height;
-				return (
-					<rect
-						key={index}
-						x={x}
-						y={y}
-						width={width}
-						height={height}
-						className={cn(
-							"stroke-gray-400/20 transition-all duration-100 ease-in-out [&:not(:hover)]:duration-1000",
-							hoveredSquare === index ? "fill-gray-300/30" : "fill-transparent",
-							squaresClassName,
-						)}
-						onMouseEnter={() => setHoveredSquare(index)}
-						onMouseLeave={() => setHoveredSquare(null)}
-					/>
-				);
-			})}
+			{squaresArray.map(({ index, x, y }) => (
+				<rect
+					key={index}
+					x={x}
+					y={y}
+					width={width}
+					height={height}
+					className={cn(
+						"stroke-gray-400/20 transition-all duration-100 ease-in-out [&:not(:hover)]:duration-1000",
+						hoveredSquare === index ? "fill-gray-300/30" : "fill-transparent",
+						squaresClassName,
+					)}
+					onMouseEnter={() => {
+						if (hoveredSquare !== index) setHoveredSquare(index);
+					}}
+					onMouseLeave={() => setHoveredSquare(null)}
+				/>
+			))}
 		</svg>
 	);
 }

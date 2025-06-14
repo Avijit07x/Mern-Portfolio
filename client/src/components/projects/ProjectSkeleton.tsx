@@ -1,16 +1,8 @@
-import { motion } from "motion/react";
-
-const item = {
-	hidden: { opacity: 0, y: 30 },
-	show: { opacity: 1, y: 0 },
-};
-
 const ProjectSkeleton: React.FC = () => {
 	return (
 		<>
 			{Array.from({ length: 2 }).map((_, i) => (
-				<motion.div
-					variants={item}
+				<div
 					key={i}
 					className="h-[430px] w-[340px] rounded-2xl border border-slate-700 bg-[#0f132e] p-6 shadow-lg"
 				>
@@ -26,7 +18,7 @@ const ProjectSkeleton: React.FC = () => {
 						</div>
 						<div className="h-4 w-1/2 rounded bg-slate-600" />
 					</div>
-				</motion.div>
+				</div>
 			))}
 		</>
 	);
