@@ -20,7 +20,7 @@ const Activity = () => {
 					JSON.stringify({
 						op: 2,
 						d: {
-							subscribe_to_id: "486217717238726656",
+							subscribe_to_id: `${import.meta.env.VITE_ACTIVITY_ID}`,
 						},
 					}),
 				);
@@ -98,7 +98,8 @@ const Activity = () => {
 
 			<p className="mt-2 mb-6 text-gray-200 max-lg:text-sm lg:mt-1">
 				Whether I’m writing code, editing a code file, or just staring at my
-				screen — it all shows up here. <br className="max-md:hidden" /> And yes, it’s actually live. 🛰️
+				screen — it all shows up here. <br className="max-md:hidden" /> And yes,
+				it’s actually live. 🛰️
 			</p>
 
 			{!isReady ? (
