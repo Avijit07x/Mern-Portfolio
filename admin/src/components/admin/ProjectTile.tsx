@@ -112,7 +112,11 @@ const ProjectTile: React.FC<Props> = ({ project, setOpenAddProjectDialog }) => {
 						</DialogDescription>
 					</DialogHeader>
 					<DialogFooter>
-						<Button onClick={() => setIsDeleting(false)} variant="outline">
+						<Button
+							onClick={() => setIsDeleting(false)}
+							variant="outline"
+							className="rounded-full"
+						>
 							Cancel
 						</Button>
 
@@ -120,6 +124,7 @@ const ProjectTile: React.FC<Props> = ({ project, setOpenAddProjectDialog }) => {
 							onClick={() => handleDelete(project._id)}
 							variant="destructive"
 							disabled={isLoading}
+							className="rounded-full"
 						>
 							{isLoading ? (
 								<>

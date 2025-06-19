@@ -55,7 +55,7 @@ const Project = () => {
 					/> */}
 				</div>
 				<Button
-					className="cursor-pointer bg-[#8946ff] text-sm hover:bg-[#8946ff]/90 md:rounded-full"
+					className="cursor-pointer items-center justify-center gap-1.5 rounded-full bg-[#8946ff] text-sm hover:bg-[#8946ff]/90 max-lg:size-9"
 					onClick={handleOpenAddProjectDialog}
 				>
 					<Plus size={20} />
