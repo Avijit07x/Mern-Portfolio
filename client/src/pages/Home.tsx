@@ -1,5 +1,6 @@
 import Activity from "@/components/activity/Activity";
 import Footer from "@/components/footer/Footer";
+import Contributions from "@/components/github/Contributions";
 import Hero from "@/components/hero/Hero";
 import Navbar from "@/components/navbar/Navbar";
 import Projects from "@/components/projects/Project";
