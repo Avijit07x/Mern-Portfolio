@@ -6,15 +6,6 @@ import Projects from "@/components/projects/Project";
 import Tools from "@/components/tools/Tools";
 import { ReactLenis } from "lenis/react";
 const Home = () => {
-	// const aboutRef = useRef<HTMLElement>(null);
-
-	// const scrollToSection = useCallback(
-	// 	(ref: React.RefObject<HTMLElement>) => {
-	// 		ref.current.scrollIntoView({ behavior: "smooth" });
-	// 	},
-	// 	[aboutRef],
-	// );
-
 	return (
 		<>
 			<ReactLenis root>
@@ -25,6 +16,7 @@ const Home = () => {
 					</div>
 					<Tools />
 					<Projects />
+<Contributions />
 					<Activity />
 					<Footer />
 				</div>

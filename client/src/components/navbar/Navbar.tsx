@@ -23,7 +23,7 @@ const Navbar = () => {
 			return;
 		}
 		if (ref === "contactRef") {
-			contactRef.current?.scrollIntoView({ behavior: "smooth" });
+			contactRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
 			return;
 		}
 	};
@@ -47,7 +47,9 @@ const Navbar = () => {
 						</button>
 					</li>
 					<li className="mx-5 text-white">
-						<button>Contact</button>
+						<button onClick={() => handleScrollToSection("contactRef")}>
+							Contact
+						</button>
 					</li>
 					<li className="mx-5 text-white">
 						<Link to="/resume">Resume</Link>
@@ -85,7 +87,9 @@ const Navbar = () => {
 								backgroundColor: "rgba(17, 25, 40, 0.75)",
 							}}
 						>
-							Contact
+							<button onClick={() => handleScrollToSection("contactRef")}>
+								Contact
+							</button>
 						</li>
 						<li
 							className="flex w-full items-center justify-center rounded-xl border border-[#FFFFFF20] py-2 text-white shadow-2xl"

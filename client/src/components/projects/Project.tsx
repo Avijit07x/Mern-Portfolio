@@ -30,7 +30,7 @@ const Projects: React.FC = () => {
 		<section
 			ref={projectRef}
 			id="projects"
-			className="scroll-mt-[10px] px-6 py-10 text-white"
+			className="scroll-mt-[30px] px-4 pb-10 pt-5 text-white"
 		>
 			<div className="mx-auto max-w-6xl">
 				<div className="mx-auto mb-10 flex flex-col items-center justify-center text-center md:w-[70%]">

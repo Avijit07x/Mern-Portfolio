@@ -6,35 +6,38 @@ type Props = {
 
 const ProjectCard: React.FC<Props> = ({ project }) => {
 	return (
-		<div className="h-[430px] overflow-hidden rounded-2xl border border-white/[0.1] bg-[#0f132e] shadow-lg transition-all duration-300 hover:scale-[1.015] md:w-[340px]">
-			<div className="overflow-hidden">
+		<div className="flex w-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-white/[0.1] bg-[#0f132e] shadow-lg transition-all duration-300 hover:scale-[1.01] lg:flex-row-reverse">
+			{/* Image Section */}
+			<div className="h-52 w-full lg:w-[45%] lg:h-60">
 				<img
 					src={project.image.url}
 					alt={project.title}
-					className="h-52 w-full object-cover sm:h-52"
+					className="h-full w-full object-cover"
 				/>
 			</div>
 
-			<div className="p-6 ">
-				<h3 className="mb-2 lg:text-xl font-semibold capitalize line-clamp-1">
-					{project.title}
-				</h3>
-				<p className="mb-4 min-h-15 text-sm text-gray-300 line-clamp-3 ">
-					{project.description}
-				</p>
-
-				<div className="mb-4 flex flex-wrap gap-2">
-					{project.tools.map((tool) => (
-						<span
-							key={tool._id}
-							className="rounded-full bg-indigo-600/20 px-2 py-1 text-xs text-indigo-300"
-						>
-							{tool.text}
-						</span>
-					))}
+			{/* Content Section */}
+			<div className="flex w-full flex-col justify-between p-6 lg:w-[55%]">
+				<div>
+					<h3 className="mb-2 line-clamp-1 text-lg font-semibold text-white capitalize lg:text-xl">
+						{project.title}
+					</h3>
+					<p className="mb-4 line-clamp-3 text-sm text-gray-300">
+						{project.description}
+					</p>
+					<div className="mb-4 flex flex-wrap gap-2">
+						{project.tools.map((tool) => (
+							<span
+								key={tool._id}
+								className="rounded-full bg-indigo-600/20 px-2 py-1 text-xs text-indigo-300"
+							>
+								{tool.text}
+							</span>
+						))}
+					</div>
 				</div>
 
-				<div className="flex items-center gap-4">
+				<div className="mt-2 flex items-center gap-4">
 					{project.live_link && (
 						<a
 							href={project.live_link}

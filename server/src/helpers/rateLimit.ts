@@ -33,3 +33,8 @@ export const loginLimiter = createRateLimiter(
 	20,
 	24 * 60 * 60 * 1000 // 24 hours
 );
+
+export const mailLimiter = createRateLimiter(
+	2,
+	24 * 60 * 60 * 1000 // 24 hours
+);
