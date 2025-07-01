@@ -11,13 +11,12 @@ const boxSize = 10;
 const boxGap = 4;
 
 const getColor = (count: number) => {
-	if (count === 0) return "#050817";     
-	if (count <= 2) return "#2e3355";    
-	if (count <= 4) return "#4c5280";      
-	if (count <= 6) return "#6d73aa";    
-	return "#a2a8d8";                      
+	if (count === 0) return "#050817";
+	if (count <= 2) return "#2e3355";
+	if (count <= 4) return "#4c5280";
+	if (count <= 6) return "#6d73aa";
+	return "#a2a8d8";
 };
-
 
 const legendColors = ["#050817", "#2e3355", "#4c5280", "#6d73aa", "#a2a8d8"];
 
@@ -32,21 +31,6 @@ const getWeekIndex = (startDate: string, currentDate: string) => {
 	return Math.floor(diff / 7);
 };
 
-const monthNames = [
-	"Jan",
-	"Feb",
-	"Mar",
-	"Apr",
-	"May",
-	"Jun",
-	"Jul",
-	"Aug",
-	"Sep",
-	"Oct",
-	"Nov",
-	"Dec",
-];
-
 const GithubGraph: React.FC<Props> = ({ contributions }) => {
 	if (!contributions?.length) return null;
 
@@ -57,42 +41,9 @@ const GithubGraph: React.FC<Props> = ({ contributions }) => {
 	const width = totalWeeks * (boxSize + boxGap);
 	const height = 7 * (boxSize + boxGap) + 20; // extra for month labels
 
-	// Create month label list
-	let lastMonth = -1;
-
-	const monthLabels = contributions.filter((day) => {
-		const date = new Date(day.date);
-		const isSunday = getDayOfWeek(day.date) === 0;
-		const currentMonth = date.getMonth();
-
-		if (isSunday && currentMonth !== lastMonth) {
-			lastMonth = currentMonth;
-			return true;
-		}
-		return false;
-	});
-
 	return (
-		<div className="w-fit rounded p-4 mx-auto">
+		<div className="mx-auto w-fit rounded p-4">
 			<svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
-				{/* Month Labels */}
-				{monthLabels.map((day, index) => {
-					const date = new Date(day.date);
-					const x = getWeekIndex(startDate, day.date) * (boxSize + boxGap);
-
-					return (
-						<text
-							key={`month-${index}`}
-							x={x}
-							y={10}
-							fontSize="13"
-							fill="#ffffff"
-						>
-							{monthNames[date.getMonth()]}
-						</text>
-					);
-				})}
-
 				{/* Contribution Rectangles */}
 				{contributions.map((day, index) => {
 					const x = getWeekIndex(startDate, day.date) * (boxSize + boxGap);
