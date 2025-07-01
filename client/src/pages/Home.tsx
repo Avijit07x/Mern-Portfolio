@@ -1,5 +1,5 @@
 import Activity from "@/components/activity/Activity";
-import Contact from "@/components/contact/Contact";
+// import Contact from "@/components/contact/Contact";
 import Footer from "@/components/footer/Footer";
 import Contributions from "@/components/github/Contributions";
 import Hero from "@/components/hero/Hero";
@@ -20,7 +20,7 @@ const Home = () => {
 					<Projects />
 					<Contributions />
 					<Activity />
-					<Contact />
+					{/* <Contact /> */}
 					<Footer />
 					<img
 						className="absolute inset-x-0 -bottom-150 -z-10 w-full"
