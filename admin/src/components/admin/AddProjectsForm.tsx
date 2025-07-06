@@ -98,12 +98,12 @@ const AddProjectsForm: React.FC<Props> = ({
 		setIsSubmitting(true);
 
 		const { success, message } = await dispatch(updateProject(data)).unwrap();
-
 		if (success) {
 			toast.success(message);
 			dispatch(fetchProjects());
 			dispatch(resetProjectForm());
 			setUploadedImageUrl("");
+			setImageFile(null);
 			setOpenAddProjectDialog(false);
 		}
 		if (!success) {

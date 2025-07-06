@@ -1,5 +1,5 @@
 import Activity from "@/components/activity/Activity";
-// import Contact from "@/components/contact/Contact";
+import Contact from "@/components/contact/Contact";
 import Footer from "@/components/footer/Footer";
 import Contributions from "@/components/github/Contributions";
 import Hero from "@/components/hero/Hero";
@@ -7,6 +7,7 @@ import Navbar from "@/components/navbar/Navbar";
 import Projects from "@/components/projects/Project";
 import Tools from "@/components/tools/Tools";
 import { ReactLenis } from "lenis/react";
+
 const Home = () => {
 	return (
 		<>
@@ -20,13 +21,8 @@ const Home = () => {
 					<Projects />
 					<Contributions />
 					<Activity />
-					{/* <Contact /> */}
+					<Contact />
 					<Footer />
-					<img
-						className="absolute inset-x-0 -bottom-150 -z-10 w-full"
-						src="/footer-grid.svg"
-						alt="footer-grid"
-					/>
 				</div>
 			</ReactLenis>
 		</>

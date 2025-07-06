@@ -1,10 +1,14 @@
 import { cn } from "@/lib/utils";
+import { useWindowWidth } from "@react-hook/window-size/throttled";
 import { ChevronDown } from "lucide-react";
 import { BlurFade } from "../magicui/blur-fade";
+import { GridPattern } from "../magicui/grid-pattern";
 import { HyperText } from "../magicui/hyper-text";
 import { InteractiveGridPattern } from "../magicui/interactive-grid-pattern";
 
 const Hero = () => {
+	const windowWidth = useWindowWidth();
+
 	return (
 		<>
 			<div className="relative z-[100] flex h-full w-full flex-col items-center justify-center gap-4 lg:gap-5">
@@ -36,12 +40,31 @@ const Hero = () => {
 					</div>
 				</div>
 
-				{process.env.NODE_ENV === "production" && (
+				{windowWidth > 425 && process.env.NODE_ENV === "production" && (
 					<InteractiveGridPattern
 						className={cn(
 							"z-111 [mask-image:radial-gradient(400px_circle_at_center,white,transparent)]",
 							"lg:[mask-image:radial-gradient(700px_circle_at_center,white,transparent)]",
 							"inset-x-0 inset-y-[-30%] h-[200%] skew-y-12 max-lg:-top-1/2",
+						)}
+					/>
+				)}
+				{windowWidth <= 425 && (
+					<GridPattern
+						squares={[
+							[4, 9],
+							[5, 1],
+							[8, 2],
+							[5, 3],
+							[5, 5],
+							[10, 10],
+							[12, 15],
+							[15, 10],
+							[10, 15],
+						]}
+						className={cn(
+							"[mask-image:radial-gradient(400px_circle_at_center,white,transparent)]",
+							"inset-x-0 inset-y-[-30%] h-[200%] skew-y-12 max-xl:-top-1/2",
 						)}
 					/>
 				)}
