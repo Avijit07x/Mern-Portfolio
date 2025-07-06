@@ -1,5 +1,4 @@
 import Activity from "@/components/activity/Activity";
-import Contact from "@/components/contact/Contact";
 import Footer from "@/components/footer/Footer";
 import Contributions from "@/components/github/Contributions";
 import Hero from "@/components/hero/Hero";
@@ -21,7 +20,6 @@ const Home = () => {
 					<Projects />
 					<Contributions />
 					<Activity />
-					<Contact />
 					<Footer />
 				</div>
 			</ReactLenis>
