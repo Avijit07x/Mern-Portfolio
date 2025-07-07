@@ -27,13 +27,19 @@ const ContactForm: React.FC = () => {
 	});
 
 	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const [errorMessage, setErrorMessage] = useState<string>("");
 
 	const onSubmit = async (data: ContactFormData) => {
 		try {
 			setIsLoading(true);
 			await api.post("admin/email/send-email", data);
-		} catch (error) {
+		} catch (error: any) {
 			console.log(error);
+			if (error.status === 429) {
+				setErrorMessage(
+					"Looks like you've reached the message limit. Try again later!",
+				);
+			}
 		} finally {
 			setIsLoading(false);
 		}
@@ -82,6 +88,9 @@ const ContactForm: React.FC = () => {
 					<p className="text-sm text-red-500">{errors.message.message}</p>
 				)}
 			</div>
+			{errorMessage && (
+				<p className="mt-3 text-center text-sm text-red-500">{errorMessage}</p>
+			)}
 
 			<Button
 				type="submit"
