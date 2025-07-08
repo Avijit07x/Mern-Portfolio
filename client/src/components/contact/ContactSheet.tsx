@@ -1,4 +1,4 @@
-import { AnimatePresence, motion, useMotionValue } from "framer-motion";
+import { AnimatePresence, motion, useMotionValue } from "motion/react";
 import React, { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import Socials from "../socials/Socials";
 import ContactForm from "./ContactForm";
@@ -63,7 +63,7 @@ const ContactSheet: React.FC<Props> = ({ open, setOpen }) => {
 						className="fixed inset-x-0 bottom-0 z-100 flex w-full justify-center sm:mx-auto sm:w-fit"
 					>
 						<motion.div
-							className="w-full touch-none rounded-t-xl bg-white/5 shadow-lg backdrop-blur-2xl md:min-w-md"
+							className="w-full touch-none rounded-t-xl bg-white/5 shadow-lg backdrop-blur-2xl md:w-lg"
 							style={{ y }}
 							drag={false}
 							onPointerDown={handlePointerDown}

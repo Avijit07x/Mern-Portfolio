@@ -81,7 +81,7 @@ const ContactForm: React.FC = () => {
 				<Textarea
 					id="message"
 					{...register("message")}
-					className="min-h-30 border border-white/[0.1] focus:border-transparent focus:ring-2 focus:ring-offset-0 max-sm:text-sm"
+					className="custom-scrollbar h-30 w-full resize-none overflow-y-auto border border-white/[0.1] focus:border-transparent focus:ring-2 focus:ring-offset-0 max-sm:text-sm"
 					placeholder="Let’s talk about your vision"
 				/>
 				{errors.message && (
