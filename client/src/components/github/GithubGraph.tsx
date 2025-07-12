@@ -42,7 +42,7 @@ const GithubGraph: React.FC<Props> = ({ contributions }) => {
 	const height = 7 * (boxSize + boxGap) + 20; // extra for month labels
 
 	return (
-		<div className="mx-auto w-fit rounded p-4">
+		<div className="mx-auto w-fit rounded pt-0 p-4">
 			<svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
 				{/* Contribution Rectangles */}
 				{contributions.map((day, index) => {

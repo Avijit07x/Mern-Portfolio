@@ -22,17 +22,25 @@ const ContactForm: React.FC = () => {
 		register,
 		handleSubmit,
 		formState: { errors },
+		reset,
 	} = useForm<ContactFormData>({
 		resolver: zodResolver(contactFormSchema),
 	});
 
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [errorMessage, setErrorMessage] = useState<string>("");
+	const [successMessage, setSuccessMessage] = useState<string>("");
 
 	const onSubmit = async (data: ContactFormData) => {
 		try {
 			setIsLoading(true);
-			await api.post("admin/email/send-email", data);
+			setErrorMessage("");
+			setSuccessMessage("");
+			const res = await api.post("admin/email/send-email", data);
+			if (res?.data?.success) {
+				setSuccessMessage("Message sent successfully!");
+				reset();
+			}
 		} catch (error: any) {
 			console.log(error);
 			if (error.status === 429) {
@@ -47,7 +55,7 @@ const ContactForm: React.FC = () => {
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} noValidate>
-			<div className="flex items-center gap-3 max-sm:flex-col">
+			<div className="flex items-start gap-3 max-sm:flex-col">
 				<div className="w-full space-y-3">
 					<Label htmlFor="name">Name</Label>
 					<Input
@@ -114,6 +122,11 @@ const ContactForm: React.FC = () => {
 					)}
 				</>
 			</Button>
+			{successMessage && (
+				<p className="mt-3 text-center text-sm text-green-500">
+					{successMessage}
+				</p>
+			)}
 		</form>
 	);
 };
