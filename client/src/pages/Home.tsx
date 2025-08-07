@@ -11,7 +11,15 @@ import { ReactLenis } from "lenis/react";
 const Home = () => {
 	return (
 		<>
-			<ReactLenis root>
+			<ReactLenis
+				root
+				options={{
+					lerp: 0.07,
+					duration: 1.5,
+					smoothWheel: true,
+					syncTouch: true,
+				}}
+			>
 				<div className="relative mx-auto h-full max-w-screen-2xl overflow-hidden text-white">
 					<div className="3xl:h-[700px] relative z-50 h-svh max-h-svh min-h-svh w-full overflow-hidden bg-[#01031a00]">
 						<Navbar />
