@@ -14,14 +14,15 @@ const Home = () => {
 			<ReactLenis
 				root
 				options={{
-					lerp: 0.07,
-					duration: 1.5,
+					lerp: 0.035,
+					duration: 1.7,
 					smoothWheel: true,
-					syncTouch: true,
+					touchMultiplier: 1.4,
+					wheelMultiplier: 1.2,
 				}}
 			>
-				<div className="relative mx-auto h-full max-w-screen-2xl overflow-hidden text-white">
-					<div className="3xl:h-[700px] relative z-50 h-svh max-h-svh min-h-svh w-full overflow-hidden bg-[#01031a00]">
+				<div className="relative mx-auto h-full max-w-screen-2xl overflow-hidden text-white will-change-transform motion-reduce:transform-none">
+					<div className="3xl:h-[700px] relative z-50 h-svh max-h-svh min-h-svh w-full overflow-hidden bg-[#01031a00] will-change-transform">
 						<Navbar />
 						<Hero />
 					</div>
