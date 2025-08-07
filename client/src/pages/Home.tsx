@@ -14,11 +14,11 @@ const Home = () => {
 			<ReactLenis
 				root
 				options={{
-					lerp: 0.035,
-					duration: 1.7,
+					lerp: 0.05,
+					duration: 1.5,
+					wheelMultiplier: 1,
+					touchMultiplier: 1.2,
 					smoothWheel: true,
-					touchMultiplier: 1.4,
-					wheelMultiplier: 1.2,
 				}}
 			>
 				<div className="relative mx-auto h-full max-w-screen-2xl overflow-hidden text-white will-change-transform motion-reduce:transform-none">

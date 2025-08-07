@@ -150,3 +150,11 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
 	background: gray;
 }
+html.lenis {
+	height: auto;
+	overscroll-behavior: none;
+	scroll-behavior: auto !important;
+}
+body.lenis {
+	overflow: hidden;
+}
