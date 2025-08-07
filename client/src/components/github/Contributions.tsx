@@ -14,8 +14,8 @@ const Contributions: React.FC = () => {
 					username="avijit07x"
 					blockSize={10}
 					theme={{
-						light: ["#050817", "#2e3355", "#6d73aa", "#a2a8d8", "#a2a8d8"],
-						dark: ["#050817", "#2e3355", "#6d73aa", "#a2a8d8", "#a2a8d8"],
+						light: ["#050817", "#2e3355", "#6d73aa", "#a2a8d8", "#b2b9ff"],
+						dark: ["#050817", "#2e3355", "#6d73aa", "#a2a8d8", "#b2b9ff"],
 					}}
 				/>
 			</div>
