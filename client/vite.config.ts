@@ -22,8 +22,6 @@ export default defineConfig({
 		},
 	},
 	build: {
-		chunkSizeWarningLimit: 1000, // warning threshold ko 1MB kar diya
-
 		rollupOptions: {
 			output: {
 				manualChunks: {
