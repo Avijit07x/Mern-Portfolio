@@ -21,7 +21,6 @@
 		"@radix-ui/react-label": "^2.1.7",
 		"@radix-ui/react-slot": "^1.2.3",
 		"@reduxjs/toolkit": "^2.8.2",
-		"@tailwindcss/vite": "^4.1.11",
 		"axios": "^1.11.0",
 		"babel-plugin-react-compiler": "^19.1.0-rc.2",
 		"class-variance-authority": "^0.7.1",
@@ -35,12 +34,12 @@
 		"react-router": "^7.8.0",
 		"sonner": "^2.0.7",
 		"tailwind-merge": "^3.3.1",
-		"tailwindcss": "^4.1.11",
 		"tailwindcss-animate": "^1.0.7",
 		"zod": "^4.0.16"
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.33.0",
+		"@tailwindcss/vite": "^4.1.11",
 		"@types/node": "^24.2.1",
 		"@types/react": "^19.1.9",
 		"@types/react-dom": "^19.1.7",
@@ -51,6 +50,7 @@
 		"globals": "^16.3.0",
 		"prettier": "^3.6.2",
 		"prettier-plugin-tailwindcss": "^0.6.14",
+		"tailwindcss": "^4.1.11",
 		"typescript": "~5.9.2",
 		"typescript-eslint": "^8.39.0",
 		"vite": "^7.1.1"
