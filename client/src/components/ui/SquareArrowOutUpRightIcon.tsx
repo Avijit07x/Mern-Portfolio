@@ -1,0 +1,116 @@
+"use client";
+
+import { cn } from "@/lib/utils";
+import type { HTMLMotionProps, Variants } from "motion/react";
+import { motion, useAnimation } from "motion/react";
+import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
+
+export interface SquareArrowOutUpRightIconHandle {
+	startAnimation: () => void;
+	stopAnimation: () => void;
+}
+
+interface SquareArrowOutUpRightIconProps extends HTMLMotionProps<"div"> {
+	size?: number;
+}
+
+const SquareArrowOutUpRightIcon = forwardRef<
+	SquareArrowOutUpRightIconHandle,
+	SquareArrowOutUpRightIconProps
+>(({ className, size = 28, ...props }, ref) => {
+	const boxControls = useAnimation();
+	const arrowControls = useAnimation();
+	const isControlled = useRef(false);
+
+	useImperativeHandle(ref, () => {
+		isControlled.current = true;
+		return {
+			startAnimation: () => {
+				boxControls.start("animate");
+				arrowControls.start("animate");
+			},
+			stopAnimation: () => {
+				boxControls.start("normal");
+				arrowControls.start("normal");
+			},
+		};
+	});
+
+	const handleEnter = useCallback(() => {
+		if (!isControlled.current) {
+			boxControls.start("animate");
+			arrowControls.start("animate");
+		}
+	}, [boxControls, arrowControls]);
+
+	const handleLeave = useCallback(() => {
+		if (!isControlled.current) {
+			boxControls.start("normal");
+			arrowControls.start("normal");
+		}
+	}, [boxControls, arrowControls]);
+
+	const boxVariants: Variants = {
+		normal: { pathLength: 1, opacity: 1 },
+		animate: {
+			pathLength: [0, 1],
+			opacity: [0.6, 1],
+			transition: { duration: 0.8, ease: "easeInOut" },
+		},
+	};
+
+	const arrowVariants: Variants = {
+		normal: { x: 0, y: 0, opacity: 1 },
+		animate: {
+			x: [0, 3, 0],
+			y: [0, -3, 0],
+			opacity: [1, 1, 1],
+			transition: { duration: 0.6, ease: "easeInOut" },
+		},
+	};
+
+	return (
+		<motion.div
+			className={cn("inline-flex", className)}
+			onMouseEnter={handleEnter}
+			onMouseLeave={handleLeave}
+			{...props}
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width={size}
+				height={size}
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth="2"
+				strokeLinecap="round"
+				strokeLinejoin="round"
+			>
+				<motion.path
+					d="M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6"
+					variants={boxVariants}
+					initial="normal"
+					animate={boxControls}
+				/>
+
+				<motion.path
+					d="m21 3-9 9"
+					variants={arrowVariants}
+					initial="normal"
+					animate={arrowControls}
+				/>
+
+				<motion.path
+					d="M15 3h6v6"
+					variants={arrowVariants}
+					initial="normal"
+					animate={arrowControls}
+				/>
+			</svg>
+		</motion.div>
+	);
+});
+
+SquareArrowOutUpRightIcon.displayName = "SquareArrowOutUpRightIcon";
+export { SquareArrowOutUpRightIcon };

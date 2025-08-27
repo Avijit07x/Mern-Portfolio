@@ -1,14 +1,23 @@
-import { ExternalLink, Github } from "lucide-react";
+import { useRef } from "react";
+import { Link } from "react-router";
+import { GithubIcon, GithubIconHandle } from "../ui/GithubIcon";
+import {
+	SquareArrowOutUpRightIcon,
+	SquareArrowOutUpRightIconHandle,
+} from "../ui/SquareArrowOutUpRightIcon";
 
 type Props = {
 	project: IProject;
 };
 
 const ProjectCard: React.FC<Props> = ({ project }) => {
+	const linkRef = useRef<SquareArrowOutUpRightIconHandle>(null);
+	const githubRef = useRef<GithubIconHandle>(null);
+
 	return (
 		<div className="flex w-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-white/[0.1] bg-[#0f132e] shadow-lg transition-all duration-300 hover:scale-[1.01] lg:flex-row-reverse">
 			{/* Image Section */}
-			<div className="h-52 w-full lg:w-[45%] lg:h-60">
+			<div className="h-52 w-full lg:h-60 lg:w-[45%]">
 				<img
 					src={project.image.url}
 					alt={project.title}
@@ -39,24 +48,28 @@ const ProjectCard: React.FC<Props> = ({ project }) => {
 
 				<div className="mt-2 flex items-center gap-4">
 					{project.live_link && (
-						<a
-							href={project.live_link}
+						<Link
+							to={project.live_link}
 							target="_blank"
 							rel="noopener noreferrer"
 							className="flex items-center gap-1 text-sm text-indigo-400 hover:text-indigo-300"
+							onMouseEnter={() => linkRef.current?.startAnimation()}
+							onMouseLeave={() => linkRef.current?.stopAnimation()}
 						>
-							Live <ExternalLink size={14} />
-						</a>
+							Live <SquareArrowOutUpRightIcon ref={linkRef} size={14} />
+						</Link>
 					)}
 					{project.github_link && (
-						<a
-							href={project.github_link}
+						<Link
+							to={project.github_link}
 							target="_blank"
 							rel="noopener noreferrer"
 							className="flex items-center gap-1 text-sm text-gray-400 hover:text-white"
+							onMouseEnter={() => githubRef.current?.startAnimation()}
+							onMouseLeave={() => githubRef.current?.stopAnimation()}
 						>
-							GitHub <Github size={14} />
-						</a>
+							GitHub <GithubIcon ref={githubRef} size={14} />
+						</Link>
 					)}
 				</div>
 			</div>
