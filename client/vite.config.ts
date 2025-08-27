@@ -43,7 +43,7 @@ export default defineConfig({
 						"zod",
 						"@hookform/resolvers",
 					],
-					vercel: ["@vercel/analytics", "@vercel/speed-insights"],
+					vercel: ["@vercel/analytics"],
 				},
 			},
 		},
