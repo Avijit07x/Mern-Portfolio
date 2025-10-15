@@ -18,17 +18,17 @@
 		"compression": "^1.8.1",
 		"cookie-parser": "^1.4.7",
 		"cors": "^2.8.5",
-		"dotenv": "^17.2.2",
+		"dotenv": "^17.2.3",
 		"envalid": "^8.1.0",
 		"express": "^5.1.0",
 		"express-rate-limit": "^8.1.0",
 		"helmet": "^8.1.0",
 		"jsonwebtoken": "^9.0.2",
-		"mongoose": "^8.18.1",
+		"mongoose": "^8.19.1",
 		"morgan": "^1.10.1",
 		"multer": "^2.0.2",
-		"nodemailer": "^7.0.6",
-		"zod": "^4.1.8"
+		"nodemailer": "^7.0.9",
+		"zod": "^4.1.12"
 	},
 	"devDependencies": {
 		"@types/compression": "^1.8.1",
@@ -38,9 +38,9 @@
 		"@types/jsonwebtoken": "^9.0.10",
 		"@types/morgan": "^1.9.10",
 		"@types/multer": "^2.0.0",
-		"@types/node": "^24.3.3",
-		"@types/nodemailer": "^7.0.1",
-		"tsx": "^4.20.5",
-		"typescript": "^5.9.2"
+		"@types/node": "^24.7.2",
+		"@types/nodemailer": "^7.0.2",
+		"tsx": "^4.20.6",
+		"typescript": "^5.9.3"
 	}
 }
