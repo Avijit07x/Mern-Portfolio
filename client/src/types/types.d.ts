@@ -1,5 +1,3 @@
-
-
 interface IProjectTool {
 	id: string;
 	text: string;
@@ -47,4 +45,3 @@ interface ILanyardEvent {
 		heartbeat_interval: number;
 	};
 }
-

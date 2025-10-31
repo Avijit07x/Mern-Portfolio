@@ -1,13 +1,13 @@
 import React from "react";
+import Duration from "./Duration";
 
 type Props = {
 	activity: IActivity;
-	duration: string;
 };
 
-const ActiveCard: React.FC<Props> = ({ activity, duration }) => {
+const ActiveCard: React.FC<Props> = ({ activity }) => {
 	return (
-		<div className="flex w-fit justify-center gap-2.5 rounded-lg border border-white/[0.1] bg-[#0f132e] p-4 text-start text-sm font-medium text-white drop-shadow-md">
+		<div className="flex w-fit justify-center gap-2.5 rounded-lg border border-white/10 bg-[#0f132e] p-4 text-start text-sm font-medium text-white drop-shadow-md">
 			<div className="relative size-18">
 				<img
 					className="h-full w-full rounded-md"
@@ -24,7 +24,7 @@ const ActiveCard: React.FC<Props> = ({ activity, duration }) => {
 				<p className="text-base font-bold">{activity.name}</p>
 				<p>{activity.details || "No details"}</p>
 				<p>
-					<span className="text-green-600">{duration}</span>
+					<Duration activity={activity} />
 				</p>
 			</div>
 		</div>

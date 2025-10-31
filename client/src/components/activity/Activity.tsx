@@ -5,7 +5,6 @@ const ActiveCard = lazy(() => import("./ActiveCard"));
 
 const Activity = () => {
 	const [activity, setActivity] = useState<IActivity | null>(null);
-	const [duration, setDuration] = useState<string>("");
 	const [isReady, setIsReady] = useState<boolean>(false);
 	useEffect(() => {
 		let ws: WebSocket;
@@ -69,27 +68,6 @@ const Activity = () => {
 		};
 	}, []);
 
-	useEffect(() => {
-		if (!activity?.timestamps?.start) return;
-
-		const updateDuration = () => {
-			const now = Date.now();
-			const start = activity.timestamps!.start;
-			const durationMs = now - start;
-
-			const totalSeconds = Math.floor(durationMs / 1000);
-			const hours = Math.floor(totalSeconds / 3600);
-			const minutes = Math.floor((totalSeconds % 3600) / 60);
-			const seconds = totalSeconds % 60;
-
-			setDuration(`${hours}h ${minutes}m ${seconds}s`);
-		};
-
-		updateDuration();
-		const timer = setInterval(updateDuration, 1000);
-		return () => clearInterval(timer);
-	}, [activity]);
-
 	return (
 		<div className="mx-auto mt-8 flex max-w-screen-2xl flex-col items-center justify-center px-3 text-center md:px-10">
 			<h2 className="text-2xl font-semibold text-white lg:text-3xl">
@@ -106,11 +84,7 @@ const Activity = () => {
 				<ActivityLoader />
 			) : (
 				<Suspense fallback={<ActivityLoader />}>
-					{activity ? (
-						<ActiveCard activity={activity} duration={duration} />
-					) : (
-						<AfkCard />
-					)}
+					{activity ? <ActiveCard activity={activity} /> : <AfkCard />}
 				</Suspense>
 			)}
 		</div>
