@@ -31,7 +31,7 @@ app.use(helmet());
 // CORS Configuration
 app.use(
 	cors({
-		origin: [env.CLIENT_URL, env.ADMIN_URL],
+		origin: [env.CLIENT_URL, env.ADMIN_URL, env.PROD_URL],
 		methods: ["GET", "POST", "PUT", "DELETE"],
 		credentials: true,
 	})
