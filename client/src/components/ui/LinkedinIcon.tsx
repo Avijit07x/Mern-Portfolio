@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import type { HTMLMotionProps, Variants } from "motion/react";
-import { motion, useAnimation } from "motion/react";
+import { motion, useAnimation, useReducedMotion } from "motion/react";
 import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
 
 export interface LinkedInIconHandle {
@@ -12,35 +12,59 @@ export interface LinkedInIconHandle {
 
 interface LinkedInIconProps extends HTMLMotionProps<"div"> {
 	size?: number;
+	duration?: number;
+	isAnimated?: boolean;
 }
 
 const LinkedInIcon = forwardRef<LinkedInIconHandle, LinkedInIconProps>(
-	({ onMouseEnter, onMouseLeave, className, size = 28, ...props }, ref) => {
+	(
+		{
+			onMouseEnter,
+			onMouseLeave,
+			className,
+			size = 24,
+			duration = 1,
+			isAnimated = true,
+			...props
+		},
+		ref,
+	) => {
 		const controls = useAnimation();
+		const reduced = useReducedMotion();
 		const isControlled = useRef(false);
 
 		useImperativeHandle(ref, () => {
 			isControlled.current = true;
 			return {
-				startAnimation: () => controls.start("animate"),
+				startAnimation: () =>
+					reduced ? controls.start("normal") : controls.start("animate"),
 				stopAnimation: () => controls.start("normal"),
 			};
 		});
 
-		const handleEnter = useCallback(() => {
-			if (!isControlled.current) controls.start("animate");
-		}, [controls]);
+		const handleEnter = useCallback(
+			(e?: React.MouseEvent<HTMLDivElement>) => {
+				if (!isAnimated || reduced) return;
+				if (!isControlled.current) controls.start("animate");
+				else onMouseEnter?.(e as any);
+			},
+			[controls, reduced, isAnimated, onMouseEnter],
+		);
 
-		const handleLeave = useCallback(() => {
-			if (!isControlled.current) controls.start("normal");
-		}, [controls]);
+		const handleLeave = useCallback(
+			(e?: React.MouseEvent<HTMLDivElement>) => {
+				if (!isControlled.current) controls.start("normal");
+				else onMouseLeave?.(e as any);
+			},
+			[controls, onMouseLeave],
+		);
 
 		const iconVariants: Variants = {
 			normal: { scale: 1, rotate: 0 },
 			animate: {
 				scale: [1, 1.08, 0.95, 1],
 				rotate: [0, -3, 3, 0],
-				transition: { duration: 1.3, ease: "easeInOut", repeat: 0 },
+				transition: { duration: 1.3 * duration, ease: "easeInOut", repeat: 0 },
 			},
 		};
 
@@ -49,13 +73,13 @@ const LinkedInIcon = forwardRef<LinkedInIconHandle, LinkedInIconProps>(
 			animate: {
 				pathLength: [0, 1],
 				opacity: [0.7, 1],
-				transition: { duration: 1.5, ease: "easeInOut", repeat: 0 },
+				transition: { duration: 1.5 * duration, ease: "easeInOut", repeat: 0 },
 			},
 		};
 
 		return (
 			<motion.div
-				className={cn("inline-flex", className)}
+				className={cn("inline-flex items-center justify-center", className)}
 				onMouseEnter={handleEnter}
 				onMouseLeave={handleLeave}
 				{...props}

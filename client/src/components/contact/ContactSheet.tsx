@@ -75,9 +75,9 @@ const ContactSheet: React.FC<Props> = ({ open, setOpen }) => {
 							<div className="space-y-6 px-7 py-6">
 								<ContactForm />
 								<div className="flex items-center gap-5">
-									<div className="h-px w-full bg-white/[0.1]"></div>
+									<div className="h-px w-full bg-white/10"></div>
 									<span>or</span>
-									<div className="h-px w-full bg-white/[0.1]"></div>
+									<div className="h-px w-full bg-white/10"></div>
 								</div>
 								<Socials />
 							</div>

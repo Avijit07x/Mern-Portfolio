@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import type { HTMLMotionProps, Variants } from "motion/react";
-import { motion, useAnimation } from "motion/react";
+import { motion, useAnimation, useReducedMotion } from "motion/react";
 import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
 
 export interface FacebookIconHandle {
@@ -12,39 +12,62 @@ export interface FacebookIconHandle {
 
 interface FacebookIconProps extends HTMLMotionProps<"div"> {
 	size?: number;
+	duration?: number;
+	isAnimated?: boolean;
 }
 
 const FacebookIcon = forwardRef<FacebookIconHandle, FacebookIconProps>(
-	({ onMouseEnter, onMouseLeave, className, size = 28, ...props }, ref) => {
+	(
+		{
+			onMouseEnter,
+			onMouseLeave,
+			className,
+			size = 24,
+			duration = 1,
+			isAnimated = true,
+			...props
+		},
+		ref,
+	) => {
 		const controls = useAnimation();
+		const reduced = useReducedMotion();
 		const isControlled = useRef(false);
 
 		useImperativeHandle(ref, () => {
 			isControlled.current = true;
 			return {
-				startAnimation: () => {
-					controls.start("animate");
-				},
-				stopAnimation: () => {
-					controls.start("normal");
-				},
+				startAnimation: () =>
+					reduced ? controls.start("normal") : controls.start("animate"),
+				stopAnimation: () => controls.start("normal"),
 			};
 		});
 
-		const handleEnter = useCallback(() => {
-			if (!isControlled.current) controls.start("animate");
-		}, [controls]);
+		const handleEnter = useCallback(
+			(e?: React.MouseEvent<HTMLDivElement>) => {
+				if (!isAnimated || reduced) return;
+				if (!isControlled.current) controls.start("animate");
+				else onMouseEnter?.(e as any);
+			},
+			[controls, reduced, isAnimated, onMouseEnter],
+		);
 
-		const handleLeave = useCallback(() => {
-			if (!isControlled.current) controls.start("normal");
-		}, [controls]);
+		const handleLeave = useCallback(
+			(e: React.MouseEvent<HTMLDivElement>) => {
+				if (!isControlled.current) {
+					controls.start("normal");
+				} else {
+					onMouseLeave?.(e as any);
+				}
+			},
+			[controls, onMouseLeave],
+		);
 
 		const svgVariants: Variants = {
 			normal: { scale: 1, rotate: 0 },
 			animate: {
 				scale: [1, 1.1, 0.95, 1],
 				rotate: [0, -2, 2, 0],
-				transition: { duration: 1.2, repeat: 0, ease: "easeInOut" },
+				transition: { duration: 1.2 * duration, repeat: 0, ease: "easeInOut" },
 			},
 		};
 
@@ -52,7 +75,7 @@ const FacebookIcon = forwardRef<FacebookIconHandle, FacebookIconProps>(
 			normal: { pathLength: 1 },
 			animate: {
 				pathLength: [0, 1],
-				transition: { duration: 1.5, ease: "easeInOut", repeat: 0 },
+				transition: { duration: 1.5 * duration, ease: "easeInOut", repeat: 0 },
 			},
 		};
 

@@ -77,7 +77,7 @@ const Activity = () => {
 			<p className="mt-2 mb-6 text-gray-200 max-lg:text-sm lg:mt-1">
 				Whether I’m writing code, editing a code file, or just staring at my
 				screen — it all shows up here. <br className="max-md:hidden" /> And yes,
-				it’s actually live. 🛰️
+				it’s actually live.
 			</p>
 
 			{!isReady ? (

@@ -14,7 +14,7 @@ const Socials: React.FC = () => {
 				aria-label="X/Twitter"
 				className="text-muted-foreground flex items-center justify-center hover:text-white"
 			>
-				<TwitterIcon size={18} />
+				<TwitterIcon size={17} />
 			</Link>
 			<Link
 				to="https://www.linkedin.com/in/avijit07x/"
@@ -23,7 +23,7 @@ const Socials: React.FC = () => {
 				aria-label="LinkedIn"
 				className="text-muted-foreground flex items-center justify-center hover:text-white"
 			>
-				<LinkedInIcon size={18} />
+				<LinkedInIcon size={18} duration={0.7} />
 			</Link>
 			<Link
 				to="https://www.facebook.com/Avijit07x/"
@@ -32,7 +32,7 @@ const Socials: React.FC = () => {
 				aria-label="Facebook"
 				className="text-muted-foreground flex items-center justify-center hover:text-white"
 			>
-				<FacebookIcon size={18} />
+				<FacebookIcon size={18} duration={0.7} />
 			</Link>
 			<Link
 				to="https://github.com/Avijit07x"
