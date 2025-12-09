@@ -37,9 +37,9 @@ const Home = () => {
 					smoothWheel: true,
 				}}
 			>
-				<div className="relative mx-auto h-full max-w-screen-2xl overflow-hidden text-white will-change-transform motion-reduce:transform-none">
+				<Navbar />
+				<div className="mx-auto h-full max-w-screen-2xl overflow-hidden text-white will-change-transform motion-reduce:transform-none">
 					<div className="3xl:h-[700px] relative z-50 h-svh max-h-svh min-h-svh w-full overflow-hidden bg-[#01031a00] will-change-transform">
-						<Navbar />
 						<Hero />
 					</div>
 					<Tools />

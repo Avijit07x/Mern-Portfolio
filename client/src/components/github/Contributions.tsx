@@ -1,8 +1,6 @@
-import GitHubCalendar from "react-github-calendar";
+import { GitHubCalendar } from "react-github-calendar";
 
 const Contributions: React.FC = () => {
-
-
 	return (
 		<div>
 			<h2 className="mt-5 w-full text-center text-2xl font-semibold lg:text-3xl">

@@ -28,8 +28,8 @@ const Navbar = () => {
 		}
 	};
 	return (
-		<>
-			<nav className="fixed top-0 z-[150] mx-auto flex h-14 w-full max-w-screen-2xl items-center justify-between bg-[#01031a]/30 backdrop-blur-sm backdrop-filter lg:px-8">
+		<header>
+			<nav className="fixed top-0 z-150 mx-auto flex h-14 w-full max-w-screen-2xl items-center justify-between bg-[#01031a]/30 backdrop-blur-sm backdrop-filter lg:px-8">
 				<Link to="/">
 					<img className="w-14 md:w-16" src="/logo.webp" alt="logo" />
 				</Link>
@@ -103,7 +103,7 @@ const Navbar = () => {
 					</ul>
 				</SheetContent>
 			</Sheet>
-		</>
+		</header>
 	);
 };
 
