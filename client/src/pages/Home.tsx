@@ -7,8 +7,24 @@ import Navbar from "@/components/navbar/Navbar";
 import Projects from "@/components/projects/Project";
 import Tools from "@/components/tools/Tools";
 import { ReactLenis } from "lenis/react";
+import { motion } from "motion/react";
 
 const Home = () => {
+	const blobPositions = [
+		{
+			top: `${120 + Math.random() * 60}vh`,
+			left: `${-10 + Math.random() * 40}vw`,
+		},
+		{
+			top: `${140 + Math.random() * 60}vh`,
+			right: `${-10 + Math.random() * 40}vw`,
+		},
+		{
+			top: `${160 + Math.random() * 60}vh`,
+			left: `${20 + Math.random() * 40}vw`,
+		},
+	];
+
 	return (
 		<>
 			<ReactLenis
@@ -32,6 +48,22 @@ const Home = () => {
 					<Activity />
 					<Contact />
 					<Footer />
+
+					{blobPositions.map((pos, index) => (
+						<motion.div
+							key={index}
+							initial={{ opacity: 0, scale: 0.6 }}
+							animate={{ opacity: 1, scale: 1 }}
+							transition={{
+								duration: 1.5,
+								delay: 2,
+								repeat: Infinity,
+								repeatType: "reverse",
+							}}
+							className="absolute -z-10 h-80 w-80 rounded-full bg-[#0a0f40a9] blur-3xl"
+							style={pos}
+						/>
+					))}
 				</div>
 			</ReactLenis>
 		</>

@@ -11,7 +11,7 @@ const Hero = () => {
 
 	return (
 		<>
-			<div className="relative z-[100] flex h-full w-full flex-col items-center justify-center gap-4 lg:gap-5">
+			<div className="relative z-100 flex h-full w-full flex-col items-center justify-center gap-4 lg:gap-5">
 				<div className="relative z-112 mx-auto w-fit flex-col items-center justify-center gap-4 lg:gap-5">
 					<div className="flex items-center justify-center text-lg tracking-widest uppercase lg:text-2xl">
 						<span>HELLO</span>
