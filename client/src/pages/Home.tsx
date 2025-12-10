@@ -12,7 +12,7 @@ import { motion } from "motion/react";
 const Home = () => {
 	const blobPositions = [
 		{
-			top: `${120 + Math.random() * 60}vh`,
+			top: `${110 + Math.random() * 60}vh`,
 			left: `${-10 + Math.random() * 40}vw`,
 		},
 		{
@@ -20,7 +20,7 @@ const Home = () => {
 			right: `${-10 + Math.random() * 40}vw`,
 		},
 		{
-			top: `${160 + Math.random() * 60}vh`,
+			top: `${180 + Math.random() * 60}vh`,
 			left: `${20 + Math.random() * 40}vw`,
 		},
 	];
