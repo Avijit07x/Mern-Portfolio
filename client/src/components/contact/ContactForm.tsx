@@ -62,7 +62,7 @@ const ContactForm: React.FC = () => {
 						type="text"
 						id="name"
 						{...register("name")}
-						className="border border-white/[0.1] focus:border-transparent focus:ring-2 focus:ring-offset-0 max-sm:text-sm"
+						className="border border-white/10 focus:border-transparent focus:ring-2 focus:ring-offset-0 max-sm:text-sm"
 						placeholder="Your name"
 					/>
 					{errors.name && (
@@ -75,7 +75,7 @@ const ContactForm: React.FC = () => {
 						type="email"
 						id="email"
 						{...register("email")}
-						className="border border-white/[0.1] focus:border-transparent focus:ring-2 focus:ring-offset-0 max-sm:text-sm"
+						className="border border-white/10 focus:border-transparent focus:ring-2 focus:ring-offset-0 max-sm:text-sm"
 						placeholder="email@example.com"
 					/>
 					{errors.email && (
@@ -89,7 +89,7 @@ const ContactForm: React.FC = () => {
 				<Textarea
 					id="message"
 					{...register("message")}
-					className="custom-scrollbar h-30 w-full resize-none overflow-y-auto border border-white/[0.1] focus:border-transparent focus:ring-2 focus:ring-offset-0 max-sm:text-sm"
+					className="custom-scrollbar h-30 w-full resize-none overflow-y-auto border border-white/10 focus:border-transparent focus:ring-2 focus:ring-offset-0 max-sm:text-sm"
 					placeholder="Let’s talk about your vision"
 				/>
 				{errors.message && (

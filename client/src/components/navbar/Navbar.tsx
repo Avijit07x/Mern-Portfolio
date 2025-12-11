@@ -58,7 +58,7 @@ const Navbar = () => {
 			</nav>
 
 			<Sheet open={open} onOpenChange={setOpen}>
-				<SheetContent className="border-[#01031a] bg-[#01031a] px-6">
+				<SheetContent className="z-160! border-[#01031a] bg-[#01031a] px-6">
 					<SheetHeader>
 						<SheetTitle className="hidden">Sidebar</SheetTitle>
 						<SheetDescription className="hidden">

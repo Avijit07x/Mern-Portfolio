@@ -6,7 +6,7 @@ const AnimatedTools = ({ tools }: { tools: Tool[] }) => {
 			{tools.map((tool) => (
 				<div
 					key={tool._id}
-					className="grid size-20 cursor-pointer place-items-center rounded-md border border-white/[0.1] bg-[#0f132e] text-lg drop-shadow-md transition-transform duration-150 hover:scale-80"
+					className="grid size-20 cursor-pointer place-items-center rounded-md border border-white/10 bg-[#0f132e5d] text-lg drop-shadow-md backdrop-blur-3xl transition-transform duration-150 hover:scale-80"
 				>
 					<img
 						className="aspect-auto size-11.5 object-contain"

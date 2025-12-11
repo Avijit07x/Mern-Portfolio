@@ -11,7 +11,7 @@ const Contact: React.FC = () => {
 			<div className="mx-auto max-w-6xl">
 				<div className="flex items-center justify-center">
 					<InteractiveHoverButton
-						className="bg-white/5 !text-sm backdrop-blur-3xl"
+						className="bg-[#0f132e5d] text-sm! backdrop-blur-3xl"
 						onClick={() => setOpen(true)}
 					>
 						Let's Connect

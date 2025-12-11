@@ -60,7 +60,7 @@ const Home = () => {
 								repeat: Infinity,
 								repeatType: "reverse",
 							}}
-							className="absolute -z-10 h-80 w-80 rounded-full bg-[#0a0f40a9] blur-3xl"
+							className="absolute -z-10 h-100 w-100 rounded-full bg-[#0a0f40a9] blur-3xl"
 							style={pos}
 						/>
 					))}

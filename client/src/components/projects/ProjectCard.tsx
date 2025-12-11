@@ -15,7 +15,7 @@ const ProjectCard: React.FC<Props> = ({ project }) => {
 	const githubRef = useRef<GithubIconHandle>(null);
 
 	return (
-		<div className="flex w-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-white/[0.1] bg-[#0f132e] shadow-lg transition-all duration-300 hover:scale-[1.01] lg:flex-row-reverse">
+		<div className="blur- flex w-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0f132e5d] shadow-lg transition-all duration-300 hover:scale-[1.01] lg:flex-row-reverse">
 			{/* Image Section */}
 			<div className="h-52 w-full lg:h-60 lg:w-[45%]">
 				<img
@@ -26,7 +26,7 @@ const ProjectCard: React.FC<Props> = ({ project }) => {
 			</div>
 
 			{/* Content Section */}
-			<div className="flex w-full flex-col justify-between p-6 lg:w-[55%]">
+			<div className="flex w-full flex-col justify-between p-6 backdrop-blur-3xl lg:w-[55%]">
 				<div>
 					<h3 className="mb-2 line-clamp-1 text-lg font-semibold text-white capitalize lg:text-xl">
 						{project.title}

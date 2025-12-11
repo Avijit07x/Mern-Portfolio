@@ -7,15 +7,15 @@ type Props = {
 
 const ActiveCard: React.FC<Props> = ({ activity }) => {
 	return (
-		<div className="flex w-fit justify-center gap-2.5 rounded-xl border border-white/10 bg-[#0f132e] p-4 text-start text-sm font-medium text-white drop-shadow-md">
-			<div className="relative size-18">
+		<div className="flex w-fit justify-center gap-2.5 rounded-xl border border-white/10 bg-[#0f132e5d] p-4 text-start text-sm font-medium text-white drop-shadow-md backdrop-blur-3xl">
+			<div className="relative size-18 drop-shadow-2xl backdrop-blur-3xl">
 				<img
 					className="h-full w-full rounded-md"
 					src={`https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets?.large_image}.png?size=160`}
 					alt=""
 				/>
 				<img
-					className="absolute -right-1.5 -bottom-1.5 z-10 size-7 rounded-full border-3 border-gray-900"
+					className="absolute -right-1.5 -bottom-1.5 z-10 size-7 rounded-full border-3 border-[#0f132e5d]"
 					src={`https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets?.small_image}.png?size=160`}
 					alt=""
 				/>
