@@ -6,7 +6,7 @@ const ToolsLoader = () => {
 				.map((_, index) => (
 					<div
 						key={index}
-						className="grid size-20 place-items-center rounded-md border border-white/10 bg-[#0f132e5d] drop-shadow-md backdrop-blur-3xl"
+						className="grid size-20 place-items-center rounded-md border border-white/10 bg-[#0f132e5d] drop-shadow-md"
 						title="Loading..."
 					>
 						<img

@@ -59,7 +59,7 @@ const ContactSheet: React.FC<Props> = ({ open, setOpen }) => {
 						initial={{ y: "100%" }}
 						animate={{ y: 0 }}
 						exit={{ y: "100%" }}
-						transition={{ type: "spring", damping: 30, stiffness: 350 }}
+						transition={{ type: "tween", damping: 30, stiffness: 350 }}
 						className="fixed inset-x-0 bottom-0 z-100 flex w-full justify-center sm:mx-auto sm:w-fit"
 					>
 						<motion.div

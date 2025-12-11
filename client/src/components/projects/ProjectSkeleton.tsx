@@ -4,7 +4,7 @@ const ProjectSkeleton: React.FC = () => {
 			{Array.from({ length: 2 }).map((_, i) => (
 				<div
 					key={i}
-					className="flex w-full max-w-3xl animate-pulse flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0f132e5d] shadow-lg backdrop-blur-3xl md:flex-row-reverse"
+					className="flex w-full max-w-3xl animate-pulse flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0f132e5d] shadow-lg md:flex-row-reverse"
 				>
 					{/* Image Skeleton */}
 					<div className="h-52 w-full bg-gray-700/30 md:h-auto md:w-[45%] lg:h-60" />

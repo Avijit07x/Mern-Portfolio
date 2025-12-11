@@ -52,7 +52,6 @@ const ContactForm: React.FC = () => {
 			setIsLoading(false);
 		}
 	};
-
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} noValidate>
 			<div className="flex items-start gap-3 max-sm:flex-col">

@@ -26,7 +26,7 @@ const ProjectCard: React.FC<Props> = ({ project }) => {
 			</div>
 
 			{/* Content Section */}
-			<div className="flex w-full flex-col justify-between p-6 backdrop-blur-3xl lg:w-[55%]">
+			<div className="flex w-full flex-col justify-between p-6 lg:w-[55%]">
 				<div>
 					<h3 className="mb-2 line-clamp-1 text-lg font-semibold text-white capitalize lg:text-xl">
 						{project.title}
