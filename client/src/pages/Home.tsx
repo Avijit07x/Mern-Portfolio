@@ -6,10 +6,12 @@ import Hero from "@/components/hero/Hero";
 import Navbar from "@/components/navbar/Navbar";
 import Projects from "@/components/projects/Project";
 import Tools from "@/components/tools/Tools";
+import { useWindowWidth } from "@react-hook/window-size/throttled";
 import { ReactLenis } from "lenis/react";
 import { motion } from "motion/react";
 
 const Home = () => {
+	const windowWidth = useWindowWidth();
 	const blobPositions = [
 		{
 			top: `${110 + Math.random() * 60}vh`,
@@ -48,22 +50,22 @@ const Home = () => {
 					<Activity />
 					<Contact />
 					<Footer />
-
-					{blobPositions.map((pos, index) => (
-						<motion.div
-							key={index}
-							initial={{ opacity: 0, scale: 0.6 }}
-							animate={{ opacity: 1, scale: 1 }}
-							transition={{
-								duration: 1.5,
-								delay: 2,
-								repeat: Infinity,
-								repeatType: "reverse",
-							}}
-							className="absolute -z-10 h-100 w-100 rounded-full bg-[#0a0f40a9] blur-3xl"
-							style={pos}
-						/>
-					))}
+					{windowWidth >= 768 &&
+						blobPositions.map((pos, index) => (
+							<motion.div
+								key={index}
+								initial={{ opacity: 0, scale: 0.6 }}
+								animate={{ opacity: 1, scale: 1 }}
+								transition={{
+									duration: 1.5,
+									delay: 2,
+									repeat: Infinity,
+									repeatType: "reverse",
+								}}
+								className="absolute -z-10 size-80 rounded-full bg-[#0a0f40a9] blur-3xl lg:size-100"
+								style={pos}
+							/>
+						))}
 				</div>
 			</ReactLenis>
 		</>

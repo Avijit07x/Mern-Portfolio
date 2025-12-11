@@ -43,8 +43,8 @@ const Hero = () => {
 				{windowWidth > 425 && process.env.NODE_ENV === "production" && (
 					<InteractiveGridPattern
 						className={cn(
-							"z-111 [mask-image:radial-gradient(400px_circle_at_center,white,transparent)]",
-							"lg:[mask-image:radial-gradient(700px_circle_at_center,white,transparent)]",
+							"z-111 mask-[radial-gradient(400px_circle_at_center,white,transparent)]",
+							"lg:mask-[radial-gradient(700px_circle_at_center,white,transparent)]",
 							"inset-x-0 inset-y-[-30%] h-[200%] skew-y-12 max-lg:-top-1/2",
 						)}
 					/>
@@ -63,7 +63,7 @@ const Hero = () => {
 							[10, 15],
 						]}
 						className={cn(
-							"[mask-image:radial-gradient(400px_circle_at_center,white,transparent)]",
+							"mask-[radial-gradient(400px_circle_at_center,white,transparent)]",
 							"inset-x-0 inset-y-[-30%] h-[200%] skew-y-12 max-xl:-top-1/2",
 						)}
 					/>
