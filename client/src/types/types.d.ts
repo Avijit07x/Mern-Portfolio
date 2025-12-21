@@ -45,3 +45,10 @@ interface ILanyardEvent {
 		heartbeat_interval: number;
 	};
 }
+
+interface ITool {
+	_id: string;
+	name: string;
+	image: { url: string; public_id: string };
+	public_id: string;
+}

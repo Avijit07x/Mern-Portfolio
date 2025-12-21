@@ -1,45 +1,31 @@
 import api from "@/lib/api";
-import { lazy, Suspense, useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { lazy, Suspense } from "react";
 import ToolsLoader from "./ToolsLoader";
 
-// lazy component
 const AnimatedTools = lazy(() => import("./AnimatedTools"));
 
-export type Tool = {
-	_id: string;
-	name: string;
-	image: { url: string; public_id: string };
-	public_id: string;
+const fetchTools = async (): Promise<ITool[]> => {
+	const response = await api.get("admin/tool/get-tools");
+	return response.data.tools;
 };
 
 const Tools = () => {
-	const [tools, setTools] = useState<Tool[]>([]);
-	const [isLoading, setIsLoading] = useState<boolean>(false);
-
-	const fetchTools = async () => {
-		try {
-			setIsLoading(true);
-			const response = await api.get("admin/tool/get-tools");
-			const data = response.data.tools;
-			setTools(data);
-		} catch (error) {
-			console.error("Error fetching tools:", error);
-		} finally {
-			setIsLoading(false);
-		}
-	};
-
-	useEffect(() => {
-		fetchTools();
-	}, []);
+	const {
+		data: tools = [],
+		isLoading,
+		isError,
+	} = useQuery({
+		queryKey: ["tools"],
+		queryFn: fetchTools,
+	});
 
 	return (
 		<div className="min-h-[400px] py-10">
 			<div className="flex w-full flex-col items-center gap-5 overflow-hidden">
 				<div className="px-3 text-center lg:w-1/2">
 					<h2 className="w-full text-center text-2xl font-semibold lg:text-3xl">
-						<span className="text-primary"></span>Languages &amp; Tools
-						<span className="text-primary"></span>
+						Languages &amp; Tools
 					</h2>
 					<p className="mt-5 text-gray-200 max-lg:text-sm">
 						I possess a strong command of various programming languages and
@@ -51,9 +37,13 @@ const Tools = () => {
 				</div>
 			</div>
 
-			{isLoading ? (
-				<ToolsLoader />
-			) : (
+			{isLoading && <ToolsLoader />}
+
+			{isError && (
+				<p className="mt-6 text-center text-red-400">Failed to load tools</p>
+			)}
+
+			{!isLoading && !isError && (
 				<Suspense fallback={<ToolsLoader />}>
 					<AnimatedTools tools={tools} />
 				</Suspense>

@@ -1,30 +1,27 @@
 import RefContext, { IRefContext } from "@/context/RefContext";
 import api from "@/lib/api";
-import React, { lazy, Suspense, useContext, useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import React, { lazy, Suspense, useContext } from "react";
 import ProjectSkeleton from "./ProjectSkeleton";
 
 const ProjectCard = lazy(() => import("./ProjectCard"));
 
+const fetchProjects = async (): Promise<IProject[]> => {
+	const res = await api("admin/project/get-projects");
+	return res.data.projects;
+};
+
 const Projects: React.FC = () => {
-	const [projects, setProjects] = useState<IProject[]>([]);
-	const [loading, setLoading] = useState<boolean>(true);
 	const { projectRef } = useContext<IRefContext>(RefContext);
 
-	useEffect(() => {
-		const fetchProjects = async () => {
-			try {
-				const res = await api("admin/project/get-projects");
-				const data = res.data.projects;
-				setProjects(data);
-			} catch (error) {
-				console.error("Failed to fetch projects:", error);
-			} finally {
-				setLoading(false);
-			}
-		};
-
-		fetchProjects();
-	}, []);
+	const {
+		data: projects = [],
+		isLoading,
+		isError,
+	} = useQuery({
+		queryKey: ["projects"],
+		queryFn: fetchProjects,
+	});
 
 	return (
 		<section
@@ -45,13 +42,15 @@ const Projects: React.FC = () => {
 
 				<div className="flex flex-wrap items-center justify-center gap-8">
 					<Suspense fallback={<ProjectSkeleton />}>
-						{loading ? (
-							<ProjectSkeleton />
-						) : (
+						{isLoading && <ProjectSkeleton />}
+
+						{isError && <p className="text-red-400">Failed to load projects</p>}
+
+						{!isLoading &&
+							!isError &&
 							projects.map((project) => (
 								<ProjectCard project={project} key={project._id} />
-							))
-						)}
+							))}
 					</Suspense>
 				</div>
 			</div>
