@@ -1,6 +1,4 @@
-import { Tool } from "./Tools";
-
-const AnimatedTools = ({ tools }: { tools: Tool[] }) => {
+const AnimatedTools = ({ tools }: { tools: ITool[] }) => {
 	return (
 		<div className="mx-auto mt-5 flex max-w-screen-2xl flex-wrap items-center justify-center gap-4 px-4 lg:mt-10 xl:px-36">
 			{tools.map((tool) => (
