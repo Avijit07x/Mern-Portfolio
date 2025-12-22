@@ -1,5 +1,6 @@
 import api from "@/lib/api";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { Loader, Send } from "lucide-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -11,11 +12,16 @@ import { Textarea } from "../ui/textarea";
 
 const contactFormSchema = z.object({
 	name: z.string().min(1, "Name is required"),
-	email: z.string().email("Invalid email"),
+	email: z.email("Invalid email"),
 	message: z.string().min(5, "Message must be at least 5 characters"),
 });
 
 type ContactFormData = z.infer<typeof contactFormSchema>;
+
+const sendMessage = async (data: ContactFormData) => {
+	const res = await api.post("admin/email/send-email", data);
+	return res.data;
+};
 
 const ContactForm: React.FC = () => {
 	const {
@@ -27,31 +33,38 @@ const ContactForm: React.FC = () => {
 		resolver: zodResolver(contactFormSchema),
 	});
 
-	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const [errorMessage, setErrorMessage] = useState<string>("");
-	const [successMessage, setSuccessMessage] = useState<string>("");
+	const [errorMessage, setErrorMessage] = useState("");
+	const [successMessage, setSuccessMessage] = useState("");
 
-	const onSubmit = async (data: ContactFormData) => {
-		try {
-			setIsLoading(true);
+	const mutation = useMutation({
+		mutationFn: sendMessage,
+		retry: (failureCount, error: any) => {
+			if (error?.status === 429) return false;
+			return failureCount < 1;
+		},
+
+		onSuccess: () => {
+			setSuccessMessage("Message sent successfully!");
 			setErrorMessage("");
+			reset();
+		},
+		onError: (error: any) => {
 			setSuccessMessage("");
-			const res = await api.post("admin/email/send-email", data);
-			if (res?.data?.success) {
-				setSuccessMessage("Message sent successfully!");
-				reset();
-			}
-		} catch (error: any) {
-			console.log(error);
-			if (error.status === 429) {
+			const status = error?.response?.status;
+			if (status === 429) {
 				setErrorMessage(
 					"Looks like you've reached the message limit. Try again later!",
 				);
+			} else {
+				setErrorMessage("Something went wrong. Please try again.");
 			}
-		} finally {
-			setIsLoading(false);
-		}
+		},
+	});
+
+	const onSubmit = (data: ContactFormData) => {
+		mutation.mutate(data);
 	};
+
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} noValidate>
 			<div className="flex items-start gap-3 max-sm:flex-col">
@@ -102,20 +115,17 @@ const ContactForm: React.FC = () => {
 			<Button
 				type="submit"
 				className="mt-4 w-full bg-blue-500 hover:bg-blue-500/90"
+				disabled={mutation.isPending}
 			>
 				<>
-					{isLoading ? (
+					{mutation.isPending ? (
 						<>
-							<span>
-								<Loader className="animate-spin" />
-							</span>
+							<Loader className="animate-spin" />
 							<span>Sending message</span>
 						</>
 					) : (
 						<>
-							<span>
-								<Send />
-							</span>
+							<Send />
 							<span>Send message</span>
 						</>
 					)}
