@@ -4,7 +4,7 @@ import {
 	handleImageUpload,
 } from "../../controllers/admin/image.controller";
 import { upload } from "../../helpers/cloudinary";
-import authMiddleware from "../../middlewares/authMiddleware";
+import authMiddleware from "../../middlewares/auth.middleware";
 
 const router: Router = express.Router();
 

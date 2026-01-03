@@ -8,7 +8,7 @@ const tagSchema = zod.object({
 const projectSchema = zod.object({
 	title: zod.string().min(1, "Name is required"),
 	image: zod.object({
-		url: zod.string().url().min(1, "Image url is required"),
+		url: zod.url().min(1, "Image url is required"),
 		public_id: zod.string(),
 	}),
 	description: zod

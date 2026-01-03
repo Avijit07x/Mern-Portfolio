@@ -3,7 +3,7 @@ import { loginUser, logoutUser } from "../../controllers/auth/auth.controller";
 import { loginLimiter } from "../../helpers/rateLimit";
 import authMiddleware, {
 	CustomRequest,
-} from "../../middlewares/authMiddleware";
+} from "../../middlewares/auth.middleware";
 
 const router: Router = express.Router();
 
@@ -15,9 +15,11 @@ router.get(
 	authMiddleware,
 	(req: CustomRequest, res: Response) => {
 		const user = req.user;
-		res
-			.status(200)
-			.json({ success: true, message: "Authenticated user", user });
+		res.status(200).json({
+			success: true,
+			message: "Authenticated user",
+			user,
+		});
 		return;
 	}
 );

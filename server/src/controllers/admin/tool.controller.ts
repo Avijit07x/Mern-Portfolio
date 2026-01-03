@@ -1,130 +1,112 @@
-import { Request, RequestHandler, Response } from "express";
+import { RequestHandler } from "express";
 import mongoose from "mongoose";
+import z from "zod";
 import { ImageDeleteUtil } from "../../helpers/cloudinary";
 import Tool from "../../models/tools";
+import { AppError } from "../../utils/AppError";
+import asyncHandler from "../../utils/asyncHandler";
 import { toolSchema, updateToolSchema } from "../../validations/toolValidation";
 
-const getTools: RequestHandler = async (req: Request, res: Response) => {
-	try {
-		const tools = await Tool.find()
-			.sort({ order: 1 })
-			.select("-image.public_id");
-		res.status(200).json({ success: true, message: "Tools fetched", tools });
-	} catch (error) {
-		res.status(500).json({ success: false, message: "Something went wrong" });
+const getTools: RequestHandler = asyncHandler(async (req, res) => {
+	const tools = await Tool.find()
+		.sort({ order: 1 })
+		.select("-image.public_id");
+	res.status(200).json({
+		success: true,
+		message: "Tools fetched",
+		tools,
+	});
+});
+
+const addTool: RequestHandler = asyncHandler(async (req, res) => {
+	const { error, success, data } = toolSchema.safeParse(req.body);
+
+	if (!success || error) {
+		throw new AppError("Validation failed", 400, z.flattenError(error));
 	}
-};
 
-const addTool: RequestHandler = async (req: Request, res: Response) => {
-	try {
-		const { error, success, data } = toolSchema.safeParse(req.body);
+	const toolData = {
+		name: data.name,
+		image: data.image,
+	};
 
-		if (!success || error) {
-			res.status(400).json({ success, error: error.flatten().fieldErrors });
-			return;
-		}
+	const newTool = new Tool(toolData);
+	await newTool.save();
+	res.status(200).json({ success: true, message: "Tool added" });
+});
 
-		const toolData = {
-			name: data.name,
-			image: data.image,
-		};
+const updateTool: RequestHandler = asyncHandler(async (req, res) => {
+	const { id } = req.params;
 
-		const newTool = new Tool(toolData);
-		await newTool.save();
-		res.status(200).json({ success: true, message: "Tool added" });
-	} catch (error) {
-		res.status(500).json({ success: false, message: "Something went wrong" });
+	if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+		throw new AppError("Tool id is required", 400);
 	}
-};
 
-const updateTool: RequestHandler = async (req: Request, res: Response) => {
-	try {
-		const { id } = req.params;
+	const { data, success, error } = updateToolSchema.safeParse(req.body);
 
-		if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-			res.status(400).json({ success: false, message: "Tool id is required" });
-			return;
-		}
-
-		const { data, success, error } = updateToolSchema.safeParse(req.body);
-
-		if (!success || error) {
-			res.status(400).json({ success, error: error.flatten().fieldErrors });
-			return;
-		}
-
-		const tool = await Tool.findById(id);
-
-		if (!tool) {
-			res.status(404).json({ success: false, message: "Tool not found" });
-			return;
-		}
-
-		// Delete old image if a new one is provided
-		if (data.image?.url && tool.image?.public_id) {
-			await ImageDeleteUtil(tool.image.public_id);
-		}
-
-		// Update fields
-		tool.name = data.name || tool.name;
-		tool.image = data.image?.url ? data.image : tool.image;
-
-		await tool.save();
-
-		res
-			.status(200)
-			.json({ success: true, message: "Tool updated successfully" });
-	} catch (error) {
-		res.status(500).json({ success: false, message: "Something went wrong" });
+	if (!success || error) {
+		throw new AppError("Validation failed", 400, z.flattenError(error));
 	}
-};
 
-const deleteTool: RequestHandler = async (req: Request, res: Response) => {
-	try {
-		const { id } = req.params;
-		if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-			res.status(400).json({ success: false, message: "Tool id is required" });
-			return;
-		}
-		const tool = await Tool.findById(id);
-		if (!tool) {
-			res.status(400).json({ success: false, message: "Tool not found" });
-			return;
-		}
+	const tool = await Tool.findById(id);
+
+	if (!tool) {
+		throw new AppError("Tool not found", 404);
+	}
+
+	// Delete old image if a new one is provided
+	if (data.image?.url && tool.image?.public_id) {
 		await ImageDeleteUtil(tool.image.public_id);
-		await Tool.deleteOne({ _id: id });
-		res.status(200).json({ success: true, message: "Tool deleted" });
-	} catch (error) {
-		res.status(500).json({ success: false, message: "Something went wrong" });
 	}
-};
 
-const reorderTools: RequestHandler = async (req: Request, res: Response) => {
-	try {
-		const { tools } = req.body ?? {};
+	// Update fields
+	tool.name = data.name || tool.name;
+	tool.image = data.image?.url ? data.image : tool.image;
 
-		if (!tools || !Array.isArray(tools)) {
-			res.status(400).json({ success: false, message: "Invalid tools data" });
-			return;
-		}
+	await tool.save();
 
-		const bulkOperations = tools.map((id, index) => ({
-			updateOne: {
-				filter: { _id: id },
-				update: { $set: { order: index } },
-			},
-		}));
+	res.status(200).json({
+		success: true,
+		message: "Tool updated successfully",
+	});
+});
 
-		await Tool.bulkWrite(bulkOperations);
-
-		res.status(200).json({
-			success: true,
-			message: "Tools reordered successfully",
-		});
-	} catch (error) {
-		console.error("Reorder Tools Error:", error);
-		res.status(500).json({ success: false, message: "Something went wrong" });
+const deleteTool: RequestHandler = asyncHandler(async (req, res) => {
+	const { id } = req.params;
+	if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+		throw new AppError("Tool id is required", 400);
 	}
-};
+	const tool = await Tool.findById(id);
+
+	if (!tool) {
+		throw new AppError("Tool not found", 404);
+	}
+
+	await ImageDeleteUtil(tool.image.public_id);
+	await Tool.deleteOne({ _id: id });
+	res.status(200).json({ success: true, message: "Tool deleted" });
+});
+
+const reorderTools: RequestHandler = asyncHandler(async (req, res) => {
+	const { tools } = req.body ?? {};
+
+	if (!tools || !Array.isArray(tools)) {
+		throw new AppError("Invalid tools data", 400);
+	}
+
+	const bulkOperations = tools.map((id, index) => ({
+		updateOne: {
+			filter: { _id: id },
+			update: { $set: { order: index } },
+		},
+	}));
+
+	await Tool.bulkWrite(bulkOperations);
+
+	res.status(200).json({
+		success: true,
+		message: "Tools reordered successfully",
+	});
+});
 
 export { addTool, deleteTool, getTools, reorderTools, updateTool };
