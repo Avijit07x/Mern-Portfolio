@@ -14,7 +14,11 @@ export default defineConfig({
 			},
 		}),
 		tailwindcss(),
-		Sitemap({ hostname: "https://avijit07x.vercel.app" }),
+		Sitemap({
+			hostname: "https://avijit07x.dev",
+			priority: 1,
+			changefreq: "weekly",
+		}),
 	],
 	resolve: {
 		alias: {
