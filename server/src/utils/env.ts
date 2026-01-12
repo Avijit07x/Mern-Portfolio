@@ -16,6 +16,7 @@ const env = cleanEnv(process.env, {
 	ADMIN_URL: url(),
 	CLIENT_URL: url(),
 	PROD_URL: url(),
+	PROD_S_URL: url(),
 	MONGO_URI: url(),
 	NODE_ENV: str({ choices: ["development", "production"] }),
 });
