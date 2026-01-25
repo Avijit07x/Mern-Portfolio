@@ -52,7 +52,12 @@ const Navbar = () => {
 						</button>
 					</li>
 					<li className="mx-5 text-white">
-						<Link to="/resume">Resume</Link>
+						<Link
+							to="https://drive.google.com/file/d/1QnNdukpCDByhncBodr4AHpMw45Gi0q6i/view?usp=drive_link"
+							target="_blank"
+						>
+							Resume
+						</Link>
 					</li>
 				</ul>
 			</nav>
@@ -98,7 +103,12 @@ const Navbar = () => {
 								backgroundColor: "rgba(17, 25, 40, 0.75)",
 							}}
 						>
-							<Link to="/resume">Resume</Link>
+							<Link
+								to="https://drive.google.com/file/d/1QnNdukpCDByhncBodr4AHpMw45Gi0q6i/view?usp=drive_link"
+								target="_blank"
+							>
+								Resume
+							</Link>
 						</li>
 					</ul>
 				</SheetContent>
