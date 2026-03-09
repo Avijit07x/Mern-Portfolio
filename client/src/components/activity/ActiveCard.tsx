@@ -64,7 +64,7 @@ const ActiveCard: React.FC<Props> = ({ activity }) => {
 					)}
 				</div>
 
-				<div className="flex pl-6">
+				<div className="flex lg:pl-6">
 					<div className="inline-flex items-center gap-3 rounded-full border border-white/5 bg-white/3 px-5 py-2.5 text-[10px] font-bold tracking-[0.2em] text-white/50 uppercase backdrop-blur-sm transition-colors hover:border-white/10 hover:bg-white/5">
 						<span className="relative flex size-2.5">
 							<span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500/40 opacity-75"></span>

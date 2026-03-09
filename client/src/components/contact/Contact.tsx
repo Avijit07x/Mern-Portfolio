@@ -89,7 +89,7 @@ const Contact: React.FC = () => {
 								transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as any },
 							},
 						}}
-						className="flex w-full items-start pl-6"
+						className="flex w-full items-start lg:pl-6"
 					>
 						<motion.button
 							whileHover={{ scale: 1.05 }}
