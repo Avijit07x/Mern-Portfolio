@@ -1,0 +1,40 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="black"/>
+  
+  <!-- Grid Pattern -->
+  <defs>
+    <!-- Major Grid -->
+    <pattern id="grid_major" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M 80 0 L 0 0 0 80" fill="none" stroke="white" stroke-width="1" stroke-opacity="0.1"/>
+    </pattern>
+    <!-- Minor Grid -->
+    <pattern id="grid_minor" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="white" stroke-width="0.5" stroke-opacity="0.03"/>
+    </pattern>
+    <radialGradient id="glow" cx="50%" cy="50%" r="60%" fx="50%" fy="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.12"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  
+  <rect width="1200" height="630" fill="url(#grid_minor)"/>
+  <rect width="1200" height="630" fill="url(#grid_major)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Main Name -->
+  <text x="50%" y="45%" text-anchor="middle" fill="white" style="font-family: 'Inter', system-ui, sans-serif; font-weight: 800; font-size: 130px; letter-spacing: -0.06em;">
+    Avijit Dey<tspan fill="#666">.</tspan>
+  </text>
+  
+  <!-- Tagline / Keywords -->
+  <g transform="translate(600, 360)">
+    <!-- Subtle separator dot styling -->
+    <text text-anchor="middle" fill="white" fill-opacity="0.5" style="font-family: 'Inter', system-ui, sans-serif; font-weight: 400; font-size: 28px; letter-spacing: 0.2em; text-transform: uppercase;">
+      Full Stack <tspan fill="white" fill-opacity="0.2">•</tspan> UI / UX <tspan fill="white" fill-opacity="0.2">•</tspan> Problem Solver
+    </text>
+  </g>
+
+  <!-- Bottom Accent -->
+  <rect x="550" y="420" width="100" height="1" fill="white" fill-opacity="0.2"/>
+</svg>
