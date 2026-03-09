@@ -1,28 +1,4 @@
-# SEO Optimized robots.txt
-
 User-agent: *
 Allow: /
-Disallow: /admin/
-Disallow: /config/
-Disallow: /private/
-Disallow: /backups/
-Disallow: /database/
-Disallow: /temp/
-Disallow: /login/
-Disallow: /signup/
-Disallow: /server-status
-Disallow: /api/
 
-# Prevent crawling of unnecessary file types
-Disallow: /*.php$
-Disallow: /*.sql$
-Disallow: /*.env$
-Disallow: /*.log$
-Disallow: /*.bak$
-Disallow: /*.zip$
-
-# Block query strings
-Disallow: /*?*
-
-# Provide sitemap location
-Sitemap: https://avijit07x.vercel.app/sitemap.xml
+Sitemap: https://avijit07x.dev/sitemap.xml
