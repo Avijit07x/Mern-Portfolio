@@ -66,76 +66,117 @@ const ContactForm: React.FC = () => {
 	};
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)} noValidate>
-			<div className="flex items-start gap-3 max-sm:flex-col">
-				<div className="w-full space-y-3">
-					<Label htmlFor="name">Name</Label>
-					<Input
-						type="text"
-						id="name"
-						{...register("name")}
-						className="border border-white/10 focus:border-transparent focus:ring-2 focus:ring-offset-0 max-sm:text-sm"
-						placeholder="Your name"
-					/>
-					{errors.name && (
-						<p className="text-sm text-red-500">{errors.name.message}</p>
+		<form onSubmit={handleSubmit(onSubmit)} noValidate className="w-full">
+			<div className="grid grid-cols-1 border border-white/10 bg-white/2">
+				{/* Top Row: Name and Email */}
+				<div className="grid grid-cols-1 sm:grid-cols-2">
+					<div className="group relative border-b border-white/10 sm:border-r sm:border-b-0">
+						<div className="flex h-full flex-col p-3 pt-2.5">
+							<Label
+								htmlFor="name"
+								className="mb-1 text-[8px] font-bold uppercase tracking-[0.2em] text-white/30 transition-colors group-focus-within:text-white/60"
+							>
+								01 // Name
+							</Label>
+							<Input
+								type="text"
+								id="name"
+								{...register("name")}
+								className="h-6 border-none bg-transparent p-0 text-sm shadow-none focus-visible:ring-0 placeholder:text-white/5"
+								placeholder="..."
+							/>
+						</div>
+						{errors.name && (
+							<p className="absolute bottom-1 right-3 text-[9px] font-medium text-red-500/80 uppercase tracking-tighter">
+								{errors.name.message}
+							</p>
+						)}
+					</div>
+
+					<div className="group relative border-t border-white/10 sm:border-t-0">
+						<div className="flex h-full flex-col p-3 pt-2.5">
+							<Label
+								htmlFor="email"
+								className="mb-1 text-[8px] font-bold uppercase tracking-[0.2em] text-white/30 transition-colors group-focus-within:text-white/60"
+							>
+								02 // Email
+							</Label>
+							<Input
+								type="email"
+								id="email"
+								{...register("email")}
+								className="h-6 border-none bg-transparent p-0 text-sm shadow-none focus-visible:ring-0 placeholder:text-white/5"
+								placeholder="..."
+							/>
+						</div>
+						{errors.email && (
+							<p className="absolute bottom-1 right-3 text-[9px] font-medium text-red-500/80 uppercase tracking-tighter">
+								{errors.email.message}
+							</p>
+						)}
+					</div>
+				</div>
+
+				{/* Middle Row: Message */}
+				<div className="group relative border-t border-white/10">
+					<div className="flex flex-col p-3 pt-2.5">
+						<Label
+							htmlFor="message"
+							className="mb-1.5 text-[8px] font-bold uppercase tracking-[0.2em] text-white/30 transition-colors group-focus-within:text-white/60"
+						>
+							03 // Message
+						</Label>
+						<Textarea
+							id="message"
+							{...register("message")}
+							className="custom-scrollbar min-h-24 w-full resize-none border-none bg-transparent p-0 text-sm shadow-none focus-visible:ring-0 placeholder:text-white/5"
+							placeholder="..."
+						/>
+					</div>
+					{errors.message && (
+						<p className="absolute bottom-2 right-4 text-[9px] font-medium text-red-500/80 uppercase tracking-tighter">
+							{errors.message.message}
+						</p>
 					)}
 				</div>
-				<div className="w-full space-y-3">
-					<Label htmlFor="email">Email</Label>
-					<Input
-						type="email"
-						id="email"
-						{...register("email")}
-						className="border border-white/10 focus:border-transparent focus:ring-2 focus:ring-offset-0 max-sm:text-sm"
-						placeholder="email@example.com"
-					/>
-					{errors.email && (
-						<p className="text-sm text-red-500">{errors.email.message}</p>
-					)}
+
+				{/* Bottom Row: Submit Button */}
+				<div className="border-t border-white/10">
+					<Button
+						type="submit"
+						className="group flex h-14 w-full items-center justify-between rounded-none bg-white px-6 text-[10px] font-bold uppercase tracking-[0.3em] text-black transition-all hover:bg-white/90 disabled:opacity-50"
+						disabled={mutation.isPending}
+					>
+						{mutation.isPending ? (
+							<div className="flex items-center gap-3">
+								<Loader className="size-3 animate-spin" />
+								<span>PROCESSING...</span>
+							</div>
+						) : (
+							<>
+								<span>SUBMIT INQUIRY</span>
+								<div className="flex items-center gap-2 overflow-hidden">
+									<Send className="size-3 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+								</div>
+							</>
+						)}
+					</Button>
 				</div>
 			</div>
 
-			<div className="mt-3 w-full space-y-3">
-				<Label htmlFor="message">Message</Label>
-				<Textarea
-					id="message"
-					{...register("message")}
-					className="custom-scrollbar h-30 w-full resize-none overflow-y-auto border border-white/10 focus:border-transparent focus:ring-2 focus:ring-offset-0 max-sm:text-sm"
-					placeholder="Let’s talk about your vision"
-				/>
-				{errors.message && (
-					<p className="text-sm text-red-500">{errors.message.message}</p>
+			{/* System Messages */}
+			<div className="mt-4 min-h-4 text-center">
+				{errorMessage && (
+					<p className="text-[10px] font-medium tracking-widest text-red-500 uppercase">
+						{errorMessage}
+					</p>
+				)}
+				{successMessage && (
+					<p className="text-[10px] font-medium tracking-widest text-emerald-500 uppercase">
+						{successMessage}
+					</p>
 				)}
 			</div>
-			{errorMessage && (
-				<p className="mt-3 text-center text-sm text-red-500">{errorMessage}</p>
-			)}
-
-			<Button
-				type="submit"
-				className="mt-4 w-full bg-blue-500 hover:bg-blue-500/90"
-				disabled={mutation.isPending}
-			>
-				<>
-					{mutation.isPending ? (
-						<>
-							<Loader className="animate-spin" />
-							<span>Sending message</span>
-						</>
-					) : (
-						<>
-							<Send />
-							<span>Send message</span>
-						</>
-					)}
-				</>
-			</Button>
-			{successMessage && (
-				<p className="mt-3 text-center text-sm text-green-500">
-					{successMessage}
-				</p>
-			)}
 		</form>
 	);
 };

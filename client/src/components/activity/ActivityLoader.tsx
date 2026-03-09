@@ -1,12 +1,19 @@
 const ActivityLoader: React.FC = () => {
 	return (
-		<div className="flex w-fit justify-center gap-2.5 rounded-xl border border-white/10 bg-[#0f132e5d] p-4 text-start text-sm font-medium text-white drop-shadow-md backdrop-blur-3xl">
-			<div className="relative size-18">
-				<div className="h-full w-full animate-pulse rounded-md bg-[#1c1f3a]" />
+		<div className="mt-10 flex w-full animate-pulse flex-col items-start gap-8 md:flex-row md:items-center">
+			<div className="relative size-28 shrink-0 md:size-32">
+				<div className="h-full w-full rounded-2xl bg-white/5" />
 			</div>
-			<div className="space-y-2 py-1">
-				<div className="h-4 w-24 animate-pulse rounded bg-[#1c1f3a]" />
-				<div className="h-3 w-40 animate-pulse rounded bg-[#1c1f3a]" />
+
+			<div className="flex w-full flex-col space-y-4 text-left">
+				<div className="relative space-y-3 pl-6 before:absolute before:inset-y-1 before:left-0 before:w-px before:bg-white/10 py-1">
+					<div className="h-8 w-48 rounded-lg bg-white/10 md:h-10 md:w-64" />
+					<div className="h-5 w-64 rounded bg-white/5 md:w-80" />
+					<div className="h-3 w-40 rounded bg-white/5 md:w-48" />
+				</div>
+				<div className="flex pl-6">
+					<div className="h-10 w-40 rounded-full bg-white/5" />
+				</div>
 			</div>
 		</div>
 	);

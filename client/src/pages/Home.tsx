@@ -6,27 +6,9 @@ import Hero from "@/components/hero/Hero";
 import Navbar from "@/components/navbar/Navbar";
 import Projects from "@/components/projects/Project";
 import Tools from "@/components/tools/Tools";
-import { useWindowWidth } from "@react-hook/window-size/throttled";
 import { ReactLenis } from "lenis/react";
-import { motion } from "motion/react";
 
 const Home = () => {
-	const windowWidth = useWindowWidth();
-	const blobPositions = [
-		{
-			top: `${110 + Math.random() * 60}vh`,
-			left: `${-10 + Math.random() * 40}vw`,
-		},
-		{
-			top: `${140 + Math.random() * 60}vh`,
-			right: `${-10 + Math.random() * 40}vw`,
-		},
-		{
-			top: `${180 + Math.random() * 60}vh`,
-			left: `${20 + Math.random() * 40}vw`,
-		},
-	];
-
 	return (
 		<>
 			<ReactLenis
@@ -40,8 +22,12 @@ const Home = () => {
 				}}
 			>
 				<Navbar />
-				<div className="mx-auto h-full max-w-screen-2xl overflow-hidden text-white will-change-transform motion-reduce:transform-none">
-					<div className="3xl:h-[700px] relative z-50 h-svh max-h-svh min-h-svh w-full overflow-hidden bg-[#01031a00] will-change-transform">
+				<div className="mx-auto h-full max-w-screen-2xl bg-black text-white selection:bg-white/20 relative">
+					{/* Decorative vertical lines */}
+					<div className="pointer-events-none absolute inset-y-0 left-6 z-0 w-px bg-white/10 lg:left-12" />
+					<div className="pointer-events-none absolute inset-y-0 right-6 z-0 w-px bg-white/10 lg:right-12" />
+
+					<div className="min-h-svh w-full max-h-svh h-svh flex items-center justify-center">
 						<Hero />
 					</div>
 					<Tools />
@@ -50,22 +36,6 @@ const Home = () => {
 					<Activity />
 					<Contact />
 					<Footer />
-					{windowWidth >= 768 &&
-						blobPositions.map((pos, index) => (
-							<motion.div
-								key={index}
-								initial={{ opacity: 0, scale: 0.6 }}
-								animate={{ opacity: 1, scale: 1 }}
-								transition={{
-									duration: 1.5,
-									delay: 2,
-									repeat: Infinity,
-									repeatType: "reverse",
-								}}
-								className="absolute -z-10 size-80 rounded-full bg-[#0a0f40a9] blur-3xl lg:size-100"
-								style={pos}
-							/>
-						))}
 				</div>
 			</ReactLenis>
 		</>

@@ -63,7 +63,7 @@ const AddToolForm: React.FC<Props> = ({
 				dispatch(fetchTools());
 			}
 		} catch (error) {
-			console.log(error);
+			// Error handled by unwrap or global handler
 		} finally {
 			setIsLoading(false);
 			dispatch(setToolFormData({}));

@@ -1,19 +1,15 @@
 const ToolsLoader = () => {
 	return (
-		<div className="mx-auto mt-5 flex max-w-screen-2xl flex-wrap items-center justify-center gap-4 lg:mt-10 xl:px-36">
+		<div className="mx-auto mt-5 grid grid-cols-4 gap-4 sm:grid-cols-6 md:grid-cols-8 lg:mt-10 lg:grid-cols-10">
 			{Array(24)
 				.fill(0)
 				.map((_, index) => (
 					<div
 						key={index}
-						className="grid size-20 place-items-center rounded-md border border-white/10 bg-[#0f132e5d] drop-shadow-md"
+						className="group flex aspect-square items-center justify-center border border-white/10 bg-white/5"
 						title="Loading..."
 					>
-						<img
-							className="size-8 object-contain opacity-80 lg:animate-pulse"
-							src="/fallback.svg"
-							alt="fallback"
-						/>
+						<div className="size-8 animate-pulse rounded-sm bg-white/10" />
 					</div>
 				))}
 		</div>

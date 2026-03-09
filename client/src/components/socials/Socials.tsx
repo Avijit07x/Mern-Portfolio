@@ -12,7 +12,7 @@ const Socials: React.FC = () => {
 				target="_blank"
 				rel="noopener noreferrer"
 				aria-label="X/Twitter"
-				className="text-muted-foreground flex items-center justify-center hover:text-white"
+				className="flex items-center justify-center text-white/50 transition-colors hover:text-white"
 			>
 				<TwitterIcon size={17} />
 			</Link>
@@ -21,7 +21,7 @@ const Socials: React.FC = () => {
 				target="_blank"
 				rel="noopener noreferrer"
 				aria-label="LinkedIn"
-				className="text-muted-foreground flex items-center justify-center hover:text-white"
+				className="flex items-center justify-center text-white/50 transition-colors hover:text-white"
 			>
 				<LinkedInIcon size={18} duration={0.7} />
 			</Link>
@@ -30,7 +30,7 @@ const Socials: React.FC = () => {
 				target="_blank"
 				rel="noopener noreferrer"
 				aria-label="Facebook"
-				className="text-muted-foreground flex items-center justify-center hover:text-white"
+				className="flex items-center justify-center text-white/50 transition-colors hover:text-white"
 			>
 				<FacebookIcon size={18} duration={0.7} />
 			</Link>
@@ -39,7 +39,7 @@ const Socials: React.FC = () => {
 				target="_blank"
 				rel="noopener noreferrer"
 				aria-label="GitHub"
-				className="text-muted-foreground flex items-center justify-center hover:text-white"
+				className="flex items-center justify-center text-white/50 transition-colors hover:text-white"
 			>
 				<GithubIcon size={18} />
 			</Link>

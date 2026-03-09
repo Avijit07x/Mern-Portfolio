@@ -1,5 +1,6 @@
 import { AnimatePresence, motion, useMotionValue } from "motion/react";
 import React, { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import Socials from "../socials/Socials";
 import ContactForm from "./ContactForm";
 
@@ -42,7 +43,7 @@ const ContactSheet: React.FC<Props> = ({ open, setOpen }) => {
 		window.removeEventListener("pointerup", handlePointerUp);
 	};
 
-	return (
+	return createPortal(
 		<AnimatePresence>
 			{open && (
 				<>
@@ -51,7 +52,7 @@ const ContactSheet: React.FC<Props> = ({ open, setOpen }) => {
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
 						transition={{ duration: 0.2 }}
-						className="fixed inset-0 z-90 bg-black/20 backdrop-blur-sm"
+						className="fixed inset-0 z-200 bg-black/60 backdrop-blur-sm"
 						onClick={() => setOpen(false)}
 					/>
 
@@ -59,33 +60,51 @@ const ContactSheet: React.FC<Props> = ({ open, setOpen }) => {
 						initial={{ y: "100%" }}
 						animate={{ y: 0 }}
 						exit={{ y: "100%" }}
-						transition={{ type: "tween", damping: 30, stiffness: 350 }}
-						className="fixed inset-x-0 bottom-0 z-100 flex w-full justify-center sm:mx-auto sm:w-fit"
+						transition={{ type: "spring", damping: 25, stiffness: 200 }}
+						className="pointer-events-none fixed inset-x-0 bottom-0 z-210 flex w-full justify-center sm:px-6"
 					>
 						<motion.div
-							className="w-full touch-none rounded-t-xl bg-white/5 shadow-lg backdrop-blur-2xl md:w-lg"
+							className="pointer-events-auto w-full touch-none rounded-none border-x border-t border-white/10 bg-black shadow-[0_-10px_50px_rgba(0,0,0,0.8)] backdrop-blur-3xl md:w-lg"
 							style={{ y }}
 							drag={false}
 							onPointerDown={handlePointerDown}
 						>
-							{/* Drag Handle */}
-							<div className="mx-auto my-2 h-1.5 w-12 cursor-grabbing rounded-full bg-gray-300" />
+							{/* Drag Handle Container */}
+							<div className="flex h-12 w-full items-center justify-center border-b border-white/5">
+								<div className="h-1 w-12 rounded-full bg-white/10" />
+							</div>
 
 							{/* Content */}
-							<div className="space-y-6 px-7 py-6">
-								<ContactForm />
-								<div className="flex items-center gap-5">
-									<div className="h-px w-full bg-white/10"></div>
-									<span>or</span>
-									<div className="h-px w-full bg-white/10"></div>
+							<div className="space-y-6 px-8 py-8 pb-12">
+								<div className="space-y-1 text-center">
+									<h2 className="bg-linear-to-b from-white to-white/60 bg-clip-text text-2xl font-bold tracking-tighter text-transparent">
+										Work with me<span className="text-white/20">.</span>
+									</h2>
+									<p className="text-[10px] font-light tracking-widest text-white/40 uppercase">
+										Segmented inquiry // 04.24
+									</p>
 								</div>
-								<Socials />
+
+								<ContactForm />
+
+								<div className="flex items-center gap-6 opacity-20">
+									<div className="h-px w-full bg-linear-to-r from-transparent to-white"></div>
+									<span className="text-[8px] font-bold tracking-[0.2em] text-white uppercase">
+										OR
+									</span>
+									<div className="h-px w-full bg-linear-to-l from-transparent to-white"></div>
+								</div>
+
+								<div className="flex scale-90 justify-center opacity-60 transition-opacity hover:opacity-100">
+									<Socials />
+								</div>
 							</div>
 						</motion.div>
 					</motion.div>
 				</>
 			)}
-		</AnimatePresence>
+		</AnimatePresence>,
+		document.body,
 	);
 };
 

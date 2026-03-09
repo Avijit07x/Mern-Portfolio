@@ -1,75 +1,109 @@
-import { cn } from "@/lib/utils";
-import { useWindowWidth } from "@react-hook/window-size/throttled";
 import { ChevronDown } from "lucide-react";
-import { BlurFade } from "../magicui/blur-fade";
-import { GridPattern } from "../magicui/grid-pattern";
-import { HyperText } from "../magicui/hyper-text";
-import { InteractiveGridPattern } from "../magicui/interactive-grid-pattern";
+import { motion } from "motion/react";
 
 const Hero = () => {
-	const windowWidth = useWindowWidth();
+	const containerVariants = {
+		hidden: { opacity: 0 },
+		visible: {
+			opacity: 1,
+			transition: {
+				staggerChildren: 0.15,
+				delayChildren: 0.3,
+			},
+		},
+	};
+
+	const itemVariants = {
+		hidden: { opacity: 0, y: 30 },
+		visible: {
+			opacity: 1,
+			y: 0,
+			transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as any },
+		},
+	};
 
 	return (
-		<>
-			<div className="relative z-100 flex h-full w-full flex-col items-center justify-center gap-4 lg:gap-5">
-				<div className="relative z-112 mx-auto w-fit flex-col items-center justify-center gap-4 lg:gap-5">
-					<div className="flex items-center justify-center text-lg tracking-widest uppercase lg:text-2xl">
-						<span>HELLO</span>
-						<span>👋</span>
-						<span>, I'M</span>
-					</div>
-					<BlurFade className="text-6xl font-semibold tracking-normal lg:text-8xl">
-						Avijit Dey
-					</BlurFade>
-					<HyperText
-						animateOnHover={true}
-						className={
-							"mt-2 cursor-default p-0 text-center text-base tracking-wide md:text-2xl lg:p-2"
-						}
-					>
-						Full Stack Developer
-					</HyperText>
-					<div className="flex items-center justify-center gap-2 tracking-widest">
-						React | Next.js
-					</div>
-				</div>
-				<div className="3xl:hidden absolute bottom-0 flex flex-col items-center gap-2">
-					<p>Scroll Down</p>
-					<div className="animate-bounce">
-						<ChevronDown className="text-white" />
-					</div>
-				</div>
+		<motion.section
+			variants={containerVariants}
+			initial="hidden"
+			animate="visible"
+			className="relative flex h-full w-full flex-col justify-center overflow-hidden px-8 lg:px-20"
+		>
+			{/* Premium CSS Grid Background */}
+			<div
+				className="absolute inset-0 z-0 opacity-[0.15]"
+				style={{
+					backgroundImage: `
+						repeating-linear-gradient(0deg, transparent, transparent 38px, rgba(255,255,255,0.2) 39px, rgba(255,255,255,0.2) 40px),
+						repeating-linear-gradient(90deg, transparent, transparent 38px, rgba(255,255,255,0.2) 39px, rgba(255,255,255,0.2) 40px)
+					`,
+					maskImage:
+						"radial-gradient(circle at 30% 50%, black, transparent 100%)",
+					WebkitMaskImage:
+						"radial-gradient(circle at 30% 50%, black, transparent 100%)",
+				}}
+			/>
 
-				{windowWidth > 425 && process.env.NODE_ENV === "production" && (
-					<InteractiveGridPattern
-						className={cn(
-							"z-111 mask-[radial-gradient(400px_circle_at_center,white,transparent)]",
-							"lg:mask-[radial-gradient(700px_circle_at_center,white,transparent)]",
-							"inset-x-0 inset-y-[-30%] h-[200%] skew-y-12 max-lg:-top-1/2",
-						)}
-					/>
-				)}
-				{windowWidth <= 425 && (
-					<GridPattern
-						squares={[
-							[4, 9],
-							[5, 1],
-							[8, 2],
-							[5, 3],
-							[5, 5],
-							[10, 10],
-							[12, 15],
-							[15, 10],
-							[10, 15],
-						]}
-						className={cn(
-							"mask-[radial-gradient(400px_circle_at_center,white,transparent)]",
-							"inset-x-0 inset-y-[-30%] h-[200%] skew-y-12 max-xl:-top-1/2",
-						)}
-					/>
-				)}
+			{/* Suble Background Watermark */}
+			<motion.div
+				initial={{ opacity: 0, x: 50 }}
+				animate={{ opacity: 0.013, x: 0 }}
+				transition={{ duration: 1.5, ease: "easeOut", delay: 1 }}
+				className="pointer-events-none absolute top-1/2 -right-10 -translate-y-1/2 text-[15vw] font-black tracking-tighter text-white uppercase select-none"
+			>
+				Engineer
+			</motion.div>
+
+			<div className="relative z-10 flex w-full flex-col items-start gap-6">
+				<motion.div
+					variants={itemVariants}
+					className="inline-flex items-center gap-2 border border-white/10 bg-white/5 px-4 py-1.5 text-[10px] font-bold tracking-[0.2em] text-white/50 uppercase"
+				>
+					<span className="relative flex size-1.5">
+						<span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500/40 opacity-75"></span>
+						<span className="relative inline-flex size-1.5 rounded-full bg-green-500"></span>
+					</span>
+					Available for work
+				</motion.div>
+
+				<motion.h1
+					variants={itemVariants}
+					className="bg-linear-to-r from-white via-white/90 to-white/40 bg-clip-text py-4 text-6xl font-bold tracking-tighter text-transparent md:text-8xl lg:text-[11rem] lg:leading-[1.1]"
+				>
+					Avijit Dey<span className="text-white/30">.</span>
+				</motion.h1>
+
+				<motion.div
+					variants={itemVariants}
+					className="relative pl-8 before:absolute before:inset-y-1 before:left-0 before:w-px before:bg-linear-to-b before:from-transparent before:via-white/20 before:to-transparent"
+				>
+					<p className="max-w-2xl text-lg leading-relaxed font-light tracking-tight text-white/50 md:text-xl lg:text-2xl">
+						Software Engineer building robust and scalable web applications.
+						Passionate about{" "}
+						<span className="text-white/80">clean architecture</span> and{" "}
+						<span className="text-white/80">minimalist design</span>.
+					</p>
+				</motion.div>
 			</div>
-		</>
+
+			<motion.div
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 1 }}
+				transition={{ delay: 1.5, duration: 1 }}
+				className="absolute bottom-12 left-8 flex items-center gap-4 text-[10px] font-bold tracking-[0.3em] text-white/20 uppercase lg:left-20"
+			>
+				<div className="relative flex flex-col items-center">
+					<motion.div
+						animate={{ y: [0, 4, 0] }}
+						transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+					>
+						<ChevronDown className="size-4" />
+					</motion.div>
+					<div className="h-12 w-px bg-linear-to-b from-white/20 to-transparent" />
+				</div>
+				<span className="mb-8">Explore</span>
+			</motion.div>
+		</motion.section>
 	);
 };
 

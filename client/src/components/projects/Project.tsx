@@ -13,7 +13,6 @@ const fetchProjects = async (): Promise<IProject[]> => {
 
 const Projects: React.FC = () => {
 	const { projectRef } = useContext<IRefContext>(RefContext);
-
 	const {
 		data: projects = [],
 		isLoading,
@@ -25,22 +24,42 @@ const Projects: React.FC = () => {
 
 	return (
 		<section
+			id="projects"
 			ref={projectRef}
-			className="scroll-mt-[30px] px-4 pt-5 pb-10 text-white"
+			className="relative z-10 scroll-mt-20 overflow-hidden border-t border-white/10 px-8 py-24 text-white lg:px-20"
 		>
-			<div className="mx-auto max-w-6xl">
-				<div className="mx-auto mb-10 flex flex-col items-center justify-center text-center md:w-[70%]">
-					<h2 className="mb-5 text-center text-2xl font-semibold lg:text-3xl">
-						My Projects
+			{/* Technical Diagonal Hatch Background */}
+			<div
+				className="absolute inset-0 z-0 opacity-[0.05]"
+				style={{
+					backgroundImage: `repeating-linear-gradient(45deg, rgba(255,255,255,0.1) 0px, rgba(255,255,255,0.1) 1px, transparent 1px, transparent 15px)`,
+					maskImage:
+						"radial-gradient(circle at 70% 30%, black, transparent 80%)",
+					WebkitMaskImage:
+						"radial-gradient(circle at 70% 30%, black, transparent 80%)",
+				}}
+			/>
+
+			{/* Suble Background Watermark */}
+			<div className="pointer-events-none absolute top-1/2 -left-10 -translate-y-1/2 text-[20vw] font-black tracking-tighter text-white/1 uppercase select-none">
+				Works
+			</div>
+
+			<div className="relative z-10 mx-auto w-full">
+				<div className="mb-20 space-y-4">
+					<h2 className="bg-clip-text text-4xl font-bold tracking-tighter text-white md:text-5xl lg:text-7xl">
+						Projects<span className="text-white/30!">.</span>
 					</h2>
-					<p className="text-gray-20 max-lg:text-sm">
-						Each of these projects highlights a unique aspect of what I can do,
-						from problem-solving to creative design. I am always eager to take
-						on new challenges and expand my horizons.
-					</p>
+					<div className="relative pl-6 before:absolute before:inset-y-1 before:left-0 before:w-px before:bg-linear-to-b before:from-transparent before:via-white/20 before:to-transparent">
+						<p className="max-w-2xl text-lg leading-relaxed font-light text-white/50 md:text-xl">
+							A selection of my recent works focusing on{" "}
+							<span className="text-white/80">clean architecture</span>,
+							performance, and minimalist design.
+						</p>
+					</div>
 				</div>
 
-				<div className="flex flex-wrap items-center justify-center gap-8">
+				<div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:gap-16">
 					<Suspense fallback={<ProjectSkeleton />}>
 						{isLoading && <ProjectSkeleton />}
 

@@ -1,20 +1,51 @@
+import { motion } from "motion/react";
+
 const AnimatedTools = ({ tools }: { tools: ITool[] }) => {
+	const containerVariants = {
+		hidden: { opacity: 0 },
+		visible: {
+			opacity: 1,
+			transition: {
+				staggerChildren: 0.05,
+			},
+		},
+	};
+
+	const itemVariants = {
+		hidden: { opacity: 0, scale: 0.8, y: 20 },
+		visible: {
+			opacity: 1,
+			scale: 1,
+			y: 0,
+			transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as any },
+		},
+	};
+
 	return (
-		<div className="mx-auto mt-5 flex max-w-screen-2xl flex-wrap items-center justify-center gap-4 px-4 lg:mt-10 xl:px-36">
+		<motion.div
+			variants={containerVariants}
+			initial="hidden"
+			whileInView="visible"
+			viewport={{ once: true, margin: "-100px" }}
+			className="grid grid-cols-4 gap-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10"
+		>
 			{tools.map((tool) => (
-				<div
+				<motion.div
 					key={tool._id}
-					className="grid size-20 cursor-pointer place-items-center rounded-md border border-white/10 bg-[#0f132e5d] text-lg drop-shadow-md transition-transform duration-150 hover:scale-80"
+					variants={itemVariants}
+					whileHover={{ y: -5, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
+					className="group flex aspect-square cursor-pointer items-center justify-center border border-white/10 bg-white/5 transition-colors"
+					title={tool.name}
 				>
 					<img
-						className="aspect-auto size-11.5 object-contain"
+						className="size-8 object-contain opacity-50 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0 md:size-10"
 						src={tool.image.url}
 						alt={tool.name}
 						onError={(e) => (e.currentTarget.src = "/fallback.svg")}
 					/>
-				</div>
+				</motion.div>
 			))}
-		</div>
+		</motion.div>
 	);
 };
 

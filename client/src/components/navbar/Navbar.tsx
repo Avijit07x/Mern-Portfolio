@@ -29,30 +29,45 @@ const Navbar = () => {
 	};
 	return (
 		<header>
-			<nav className="fixed top-0 z-150 mx-auto flex h-14 w-full max-w-screen-2xl items-center justify-between bg-[#01031a]/30 backdrop-blur-sm backdrop-filter lg:px-8">
-				<Link to="/">
-					<img className="w-14 md:w-16" src="/logo.webp" alt="logo" />
+			<nav className="fixed top-0 left-1/2 z-150 mx-auto flex h-16 w-full max-w-screen-2xl -translate-x-1/2 items-center justify-between border-b border-white/10 bg-black/80 px-8 backdrop-blur-md lg:px-20">
+				{/* Decorative vertical lines to match Home layout */}
+				<div className="pointer-events-none absolute inset-y-0 left-6 w-px bg-white/10 lg:left-12" />
+				<div className="pointer-events-none absolute inset-y-0 right-6 w-px bg-white/10 lg:right-12" />
+
+				<Link to="/" className="flex items-center gap-2">
+					<img
+						src="/logo.webp"
+						alt="Logo"
+						className="h-14 w-auto transition-opacity hover:opacity-80"
+					/>
 				</Link>
 				<button
 					onClick={() => setOpen(true)}
-					className="pr-3 hover:bg-transparent lg:hidden"
+					className="text-white/70 transition-colors hover:text-white lg:hidden"
 				>
-					<Menu className="text-white" />
+					<Menu className="size-6" />
 					<span className="sr-only">Open menu</span>
 				</button>
-				<ul className="hidden items-center justify-center lg:flex">
-					<li className="mx-5 text-white">
-						<button onClick={() => handleScrollToSection("projectRef")}>
+				<ul className="hidden items-center justify-center gap-8 text-sm font-medium text-white/70 lg:flex">
+					<li>
+						<button
+							className="transition-colors hover:text-white"
+							onClick={() => handleScrollToSection("projectRef")}
+						>
 							Projects
 						</button>
 					</li>
-					<li className="mx-5 text-white">
-						<button onClick={() => handleScrollToSection("contactRef")}>
+					<li>
+						<button
+							className="transition-colors hover:text-white"
+							onClick={() => handleScrollToSection("contactRef")}
+						>
 							Contact
 						</button>
 					</li>
-					<li className="mx-5 text-white">
+					<li>
 						<Link
+							className="transition-colors hover:text-white"
 							to="https://drive.google.com/file/d/1QnNdukpCDByhncBodr4AHpMw45Gi0q6i/view?usp=drive_link"
 							target="_blank"
 						>
@@ -63,47 +78,33 @@ const Navbar = () => {
 			</nav>
 
 			<Sheet open={open} onOpenChange={setOpen}>
-				<SheetContent className="z-160! border-[#01031a] bg-[#01031a] px-6">
+				<SheetContent className="z-160! border-white/10 bg-black px-6">
 					<SheetHeader>
 						<SheetTitle className="hidden">Sidebar</SheetTitle>
 						<SheetDescription className="hidden">
 							This is a sidebar
 						</SheetDescription>
 					</SheetHeader>
-					<ul className="mt-14 flex flex-col items-center justify-center gap-5">
-						<li
-							className="flex w-full items-center justify-center rounded-xl border border-[#FFFFFF20] py-2 text-white shadow-2xl"
-							style={{
-								backdropFilter: "blur(16px) saturate(180%)",
-								backgroundColor: "rgba(17, 25, 40, 0.75)",
-							}}
-						>
+					<ul className="mt-20 flex flex-col items-start gap-8 text-2xl font-medium text-white/70">
+						<li>
 							<button
+								className="transition-colors hover:text-white"
 								onClick={() => handleScrollToSection("projectRef")}
-								className="w-full"
 							>
 								Projects
 							</button>
 						</li>
-						<li
-							className="flex w-full items-center justify-center rounded-xl border border-[#FFFFFF20] py-2 text-white shadow-2xl"
-							style={{
-								backdropFilter: "blur(16px) saturate(180%)",
-								backgroundColor: "rgba(17, 25, 40, 0.75)",
-							}}
-						>
-							<button onClick={() => handleScrollToSection("contactRef")}>
+						<li>
+							<button
+								className="transition-colors hover:text-white"
+								onClick={() => handleScrollToSection("contactRef")}
+							>
 								Contact
 							</button>
 						</li>
-						<li
-							className="flex w-full items-center justify-center rounded-xl border border-[#FFFFFF20] py-2 text-white shadow-2xl"
-							style={{
-								backdropFilter: "blur(16px) saturate(180%)",
-								backgroundColor: "rgba(17, 25, 40, 0.75)",
-							}}
-						>
+						<li>
 							<Link
+								className="transition-colors hover:text-white"
 								to="https://drive.google.com/file/d/1QnNdukpCDByhncBodr4AHpMw45Gi0q6i/view?usp=drive_link"
 								target="_blank"
 							>

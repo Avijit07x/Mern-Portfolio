@@ -60,7 +60,6 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 			});
 
 			if (response.data) {
-				console.log("Image uploaded successfully");
 				setUploadedImageUrl(response.data.result);
 			}
 		} catch (error: any) {
@@ -86,7 +85,6 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 					inputRef.current.value = "";
 				}
 				setUploadedImageUrl("");
-				console.log("Image deleted successfully");
 			}
 		} catch (error: any) {
 			console.error(error.response?.data || error.message);

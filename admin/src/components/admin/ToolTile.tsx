@@ -48,7 +48,7 @@ const ToolTile: React.FC<Props> = ({ tool, setOpenAddToolDialog }) => {
 			toast.success(message);
 			dispatch(fetchTools());
 		} catch (error) {
-			console.log(error);
+			// Error handled by toast/parent
 		} finally {
 			setIsLoading(false);
 			setIsDeleting(false);

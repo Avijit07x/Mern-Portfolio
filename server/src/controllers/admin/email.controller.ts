@@ -31,7 +31,7 @@ const sendEmail: RequestHandler = asyncHandler(async (req, res) => {
 	};
 
 	const info = await transport.sendMail(mailOptions);
-	console.log({ info });
+
 
 	if (!info.accepted.length) {
 		throw new AppError("Failed to send email", 400);

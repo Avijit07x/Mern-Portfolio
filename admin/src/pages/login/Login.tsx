@@ -45,7 +45,6 @@ const Login = () => {
 				toast.error("Login failed!");
 			}
 		} catch (err: any) {
-			console.log("Error:", err);
 			setError("Login failed!");
 		} finally {
 			setIsLoading(false);
