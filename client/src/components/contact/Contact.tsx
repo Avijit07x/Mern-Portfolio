@@ -1,4 +1,5 @@
 import RefContext, { IRefContext } from "@/context/RefContext";
+import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 import { useContext, useState } from "react";
 import ContactSheet from "./ContactSheet";
@@ -34,6 +35,15 @@ const Contact: React.FC = () => {
 		},
 	};
 
+	const fadeUp = {
+		hidden: { opacity: 0, y: 24 },
+		visible: {
+			opacity: 1,
+			y: 0,
+			transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
+		},
+	};
+
 	return (
 		<motion.section
 			ref={contactRef}
@@ -45,10 +55,10 @@ const Contact: React.FC = () => {
 		>
 			{/* Diamonds */}
 			<div className="pointer-events-none absolute top-[-6.5px] left-6 z-50 flex size-3 -translate-x-1/2 items-center justify-center lg:left-12">
-				<div className="size-1.5 rotate-45 border border-white/20 bg-black" />
+				<div className="size-1.5 rotate-45 border border-white/30 bg-black" />
 			</div>
 			<div className="pointer-events-none absolute top-[-6.5px] right-6 z-50 flex size-3 translate-x-1/2 items-center justify-center lg:right-12">
-				<div className="size-1.5 rotate-45 border border-white/20 bg-black" />
+				<div className="size-1.5 rotate-45 border border-white/30 bg-black" />
 			</div>
 
 			{/* Mesh bg */}
@@ -73,7 +83,7 @@ const Contact: React.FC = () => {
 					<div className="flex flex-col space-y-4">
 						<motion.h2
 							variants={titleVariants}
-							className="text-4xl font-bold tracking-tighter text-white md:text-5xl lg:text-7xl"
+							className="bg-linear-to-b from-white to-white/60 bg-clip-text text-4xl font-bold tracking-tighter text-transparent md:text-5xl lg:text-7xl"
 						>
 							Get in Touch<span className="text-white/30">.</span>
 						</motion.h2>
@@ -99,14 +109,28 @@ const Contact: React.FC = () => {
 						}}
 						className="flex w-full items-start lg:pl-6"
 					>
-						<motion.button
-							whileHover={{ scale: 1.05 }}
-							whileTap={{ scale: 0.98 }}
-							onClick={() => setOpen(true)}
-							className="group relative inline-flex w-full items-center justify-center bg-white px-10 py-4 text-sm font-bold tracking-widest text-black uppercase shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-300 hover:bg-white/90 hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] sm:w-auto"
-						>
-							Send a Message
-						</motion.button>
+						<motion.div variants={fadeUp} className="w-full sm:w-auto">
+							<motion.button
+								whileTap={{ scale: 0.97 }}
+								onClick={() => setOpen(true)}
+								className="group relative inline-flex w-full items-center justify-center gap-4 overflow-hidden border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold tracking-[0.15em] text-white uppercase backdrop-blur-sm transition-all duration-500 hover:border-white/25 hover:bg-white/10 sm:w-auto"
+							>
+								<span className="relative z-10">Send a Message</span>
+								<motion.div className="relative z-10 flex h-5 w-5 items-center justify-center overflow-hidden">
+									<ArrowRight
+										size={14}
+										className="transition-transform duration-300 group-hover:translate-x-5"
+									/>
+									<ArrowRight
+										size={14}
+										className="absolute -translate-x-5 transition-transform duration-300 group-hover:translate-x-0"
+									/>
+								</motion.div>
+
+								{/* Shine sweep on hover */}
+								<span className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/5 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+							</motion.button>
+						</motion.div>
 					</motion.div>
 				</div>
 				<ContactSheet open={open} setOpen={setOpen} />

@@ -31,10 +31,10 @@ const Footer = () => {
 		>
 			{/* Intersections (Diamond) */}
 			<div className="pointer-events-none absolute top-[-6.5px] left-6 z-50 flex size-3 -translate-x-1/2 items-center justify-center lg:left-12">
-				<div className="size-1.5 rotate-45 border border-white/20 bg-black" />
+				<div className="size-1.5 rotate-45 border border-white/30 bg-black" />
 			</div>
 			<div className="pointer-events-none absolute top-[-6.5px] right-6 z-50 flex size-3 translate-x-1/2 items-center justify-center lg:right-12">
-				<div className="size-1.5 rotate-45 border border-white/20 bg-black" />
+				<div className="size-1.5 rotate-45 border border-white/30 bg-black" />
 			</div>
 
 			<div className="mx-auto w-full max-w-screen-2xl px-6 py-8 md:px-14 lg:px-20">

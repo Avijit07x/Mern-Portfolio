@@ -42,10 +42,10 @@ const Contributions: React.FC = () => {
 		>
 			{/* Intersections (Diamond) */}
 			<div className="pointer-events-none absolute top-[-6.5px] left-6 z-50 flex size-3 -translate-x-1/2 items-center justify-center lg:left-12">
-				<div className="size-1.5 rotate-45 border border-white/20 bg-black" />
+				<div className="size-1.5 rotate-45 border border-white/30 bg-black" />
 			</div>
 			<div className="pointer-events-none absolute top-[-6.5px] right-6 z-50 flex size-3 translate-x-1/2 items-center justify-center lg:right-12">
-				<div className="size-1.5 rotate-45 border border-white/20 bg-black" />
+				<div className="size-1.5 rotate-45 border border-white/30 bg-black" />
 			</div>
 
 			{/* Technical Pulse Waveform Background */}
@@ -70,7 +70,7 @@ const Contributions: React.FC = () => {
 					<div className="flex flex-col space-y-4">
 						<motion.h2
 							variants={titleVariants}
-							className="text-4xl font-bold tracking-tighter text-white md:text-5xl lg:text-7xl"
+							className="bg-linear-to-b from-white to-white/60 bg-clip-text text-4xl font-bold tracking-tighter text-transparent md:text-5xl lg:text-7xl"
 						>
 							Contributions<span className="text-white/30">.</span>
 						</motion.h2>

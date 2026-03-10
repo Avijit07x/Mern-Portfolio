@@ -30,10 +30,10 @@ const Projects: React.FC = () => {
 		>
 			{/* Diamonds */}
 			<div className="pointer-events-none absolute top-[-6.5px] left-6 z-50 flex size-3 -translate-x-1/2 items-center justify-center lg:left-12">
-				<div className="size-1.5 rotate-45 border border-white/20 bg-black" />
+				<div className="size-1.5 rotate-45 border border-white/30 bg-black" />
 			</div>
 			<div className="pointer-events-none absolute top-[-6.5px] right-6 z-50 flex size-3 translate-x-1/2 items-center justify-center lg:right-12">
-				<div className="size-1.5 rotate-45 border border-white/20 bg-black" />
+				<div className="size-1.5 rotate-45 border border-white/30 bg-black" />
 			</div>
 
 			{/* Hatch bg */}
@@ -55,7 +55,7 @@ const Projects: React.FC = () => {
 
 			<div className="relative z-10 mx-auto w-full">
 				<div className="mb-20 space-y-4">
-					<h2 className="bg-clip-text text-4xl font-bold tracking-tighter text-white md:text-5xl lg:text-7xl">
+					<h2 className="bg-linear-to-b from-white to-white/60 bg-clip-text text-4xl font-bold tracking-tighter text-transparent md:text-5xl lg:text-7xl">
 						Projects<span className="text-white/30!">.</span>
 					</h2>
 					<div className="relative pl-6 before:absolute before:inset-y-1 before:left-0 before:w-px before:bg-linear-to-b before:from-transparent before:via-white/20 before:to-transparent">
@@ -89,7 +89,7 @@ const Projects: React.FC = () => {
 								>
 									{/* Diamonds */}
 									<div className="pointer-events-none absolute right-[-6.5px] bottom-[-6.5px] z-20 hidden size-3 items-center justify-center opacity-0 transition-opacity group-hover:opacity-100 md:flex">
-										<div className="size-1.5 rotate-45 border border-white/20 bg-black" />
+										<div className="size-1.5 rotate-45 border border-white/30 bg-black" />
 									</div>
 
 									<ProjectCard project={project} />

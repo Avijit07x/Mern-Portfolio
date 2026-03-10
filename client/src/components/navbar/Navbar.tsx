@@ -36,10 +36,10 @@ const Navbar = () => {
 
 				{/* Diamonds */}
 				<div className="pointer-events-none absolute bottom-[-6.5px] left-6 z-50 flex size-3 -translate-x-1/2 items-center justify-center lg:left-12">
-					<div className="size-1.5 rotate-45 border border-white/20 bg-black" />
+					<div className="size-1.5 rotate-45 border border-white/30 bg-black" />
 				</div>
 				<div className="pointer-events-none absolute right-6 bottom-[-6.5px] z-50 flex size-3 translate-x-1/2 items-center justify-center lg:right-12">
-					<div className="size-1.5 rotate-45 border border-white/20 bg-black" />
+					<div className="size-1.5 rotate-45 border border-white/30 bg-black" />
 				</div>
 
 				<Link to="/" className="flex items-center gap-2">
@@ -76,7 +76,7 @@ const Navbar = () => {
 					<li>
 						<Link
 							className="transition-colors hover:text-white"
-							to="https://drive.google.com/file/d/1QnNdukpCDByhncBodr4AHpMw45Gi0q6i/view?usp=drive_link"
+							to="https://drive.google.com/file/d/15hPPneXEVkyxVQCIgHtAmbLbliItCRCl/view?usp=sharing"
 							target="_blank"
 						>
 							Resume
@@ -113,7 +113,7 @@ const Navbar = () => {
 						<li>
 							<Link
 								className="transition-colors hover:text-white"
-								to="https://drive.google.com/file/d/1QnNdukpCDByhncBodr4AHpMw45Gi0q6i/view?usp=drive_link"
+								to="https://drive.google.com/file/d/15hPPneXEVkyxVQCIgHtAmbLbliItCRCl/view?usp=sharing"
 								target="_blank"
 							>
 								Resume
