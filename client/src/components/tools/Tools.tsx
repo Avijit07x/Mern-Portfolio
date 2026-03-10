@@ -1,3 +1,4 @@
+import { Plus } from "lucide-react";
 import api from "@/lib/api";
 import { useQuery } from "@tanstack/react-query";
 import { lazy, Suspense } from "react";
@@ -21,7 +22,12 @@ const Tools = () => {
 	});
 
 	return (
-		<section className="relative z-10 overflow-hidden border-t border-white/10 px-8 py-24 text-white lg:px-20">
+		<section className="relative z-10 border-t border-white/10 px-8 py-24 text-white lg:px-20">
+
+			{/* Intersections (Plus icons) */}
+			<Plus strokeWidth={1} className="pointer-events-none absolute -top-2.5 left-6 size-5 -translate-x-1/2 text-white/40 lg:left-12" />
+			<Plus strokeWidth={1} className="pointer-events-none absolute -top-2.5 right-6 size-5 translate-x-1/2 text-white/40 lg:right-12" />
+
 			{/* Technical Cross Pattern Background */}
 			<div
 				className="absolute inset-x-0 top-0 z-0 h-1/2 opacity-[0.08]"
