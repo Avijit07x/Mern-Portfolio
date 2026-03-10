@@ -7,7 +7,7 @@ import ProjectSkeleton from "./ProjectSkeleton";
 const ProjectCard = lazy(() => import("./ProjectCard"));
 
 const fetchProjects = async (): Promise<IProject[]> => {
-	const res = await api("admin/project/get-projects");
+	const res = await api.get("admin/project/get-projects");
 	return res.data.projects;
 };
 
