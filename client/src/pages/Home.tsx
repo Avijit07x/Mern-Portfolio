@@ -24,8 +24,8 @@ const Home = () => {
 				<Navbar />
 				<div className="mx-auto h-full max-w-screen-2xl overflow-x-hidden bg-black text-white selection:bg-white/20 relative">
 					{/* Decorative vertical lines */}
-					<div className="pointer-events-none absolute inset-y-0 left-6 z-0 w-px bg-white/10 lg:left-12" />
-					<div className="pointer-events-none absolute inset-y-0 right-6 z-0 w-px bg-white/10 lg:right-12" />
+					<div className="pointer-events-none absolute inset-y-0 left-6 z-0 w-px -translate-x-1/2 bg-white/10 lg:left-12" />
+					<div className="pointer-events-none absolute inset-y-0 right-6 z-0 w-px translate-x-1/2 bg-white/10 lg:right-12" />
 					<div className="min-h-svh w-full max-h-svh h-svh flex items-center justify-center">
 						<Hero />
 					</div>

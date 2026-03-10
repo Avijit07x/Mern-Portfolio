@@ -106,10 +106,10 @@ const Activity = () => {
 			className="relative z-10 border-t border-white/10 px-8 py-24 text-white lg:px-20"
 		>
 			{/* Diamonds */}
-			<div className="pointer-events-none absolute -top-1.5 left-6 z-50 flex size-3 -translate-x-1/2 items-center justify-center lg:left-12">
+			<div className="pointer-events-none absolute top-[-6.5px] left-6 z-50 flex size-3 -translate-x-1/2 items-center justify-center lg:left-12">
 				<div className="size-1.5 rotate-45 border border-white/20 bg-black" />
 			</div>
-			<div className="pointer-events-none absolute -top-1.5 right-6 z-50 flex size-3 translate-x-1/2 items-center justify-center lg:right-12">
+			<div className="pointer-events-none absolute top-[-6.5px] right-6 z-50 flex size-3 translate-x-1/2 items-center justify-center lg:right-12">
 				<div className="size-1.5 rotate-45 border border-white/20 bg-black" />
 			</div>
 			{/* Pulse bg */}
