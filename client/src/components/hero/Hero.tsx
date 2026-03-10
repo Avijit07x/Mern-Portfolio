@@ -22,7 +22,7 @@ const Hero = () => {
 		},
 	};
 
-	// Coordinates snapped to the 40x40 background grid spacing
+	// Grid alignment
 	const animatedBoxes = [
 		{ x: 120, y: 80, delay: 0, duration: 4 },
 		{ x: 280, y: 200, delay: 1.5, duration: 5 },
@@ -48,7 +48,7 @@ const Hero = () => {
 			animate="visible"
 			className="relative flex h-full w-full flex-col justify-center overflow-hidden px-8 lg:px-20"
 		>
-			{/* CSS Grid Background */}
+			{/* Grid bg */}
 			<div
 				className="absolute inset-0 z-0 opacity-[0.15]"
 				style={{
@@ -63,7 +63,7 @@ const Hero = () => {
 				}}
 			/>
 
-			{/* Animated Grid Boxes */}
+			{/* Animated boxes */}
 			<div
 				className="pointer-events-none absolute inset-0 z-0"
 				style={{
@@ -82,7 +82,7 @@ const Hero = () => {
 							width="40"
 							height="40"
 							fill="rgba(255,255,255,0.02)"
-							stroke="rgba(255,255,255,0.08)"
+							stroke="rgba(255,255,255,0.10)"
 							strokeWidth="1"
 							initial={{
 								strokeDasharray: "160",
@@ -105,7 +105,7 @@ const Hero = () => {
 				</svg>
 			</div>
 
-			{/* Suble Background Watermark */}
+			{/* Text bg */}
 			<motion.div
 				initial={{ opacity: 0, x: 50 }}
 				animate={{ opacity: 0.013, x: 0 }}

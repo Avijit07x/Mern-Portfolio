@@ -103,9 +103,16 @@ const Activity = () => {
 			initial="hidden"
 			whileInView="visible"
 			viewport={{ once: true, amount: 0.3 }}
-			className="relative z-10 overflow-hidden border-t border-white/10 px-8 py-24 text-white lg:px-20"
+			className="relative z-10 border-t border-white/10 px-8 py-24 text-white lg:px-20"
 		>
-			{/* Technical Pulse Waveform Background */}
+			{/* Diamonds */}
+			<div className="pointer-events-none absolute -top-1.5 left-6 z-50 flex size-3 -translate-x-1/2 items-center justify-center lg:left-12">
+				<div className="size-1.5 rotate-45 border border-white/20 bg-black" />
+			</div>
+			<div className="pointer-events-none absolute -top-1.5 right-6 z-50 flex size-3 translate-x-1/2 items-center justify-center lg:right-12">
+				<div className="size-1.5 rotate-45 border border-white/20 bg-black" />
+			</div>
+			{/* Pulse bg */}
 			<div
 				className="absolute inset-0 z-0 opacity-[0.08]"
 				style={{
@@ -117,7 +124,7 @@ const Activity = () => {
 				}}
 			/>
 
-			{/* Suble Background Watermark */}
+			{/* Text bg */}
 			<div className="pointer-events-none absolute top-1/2 -right-20 -translate-y-1/2 text-[20vw] font-black tracking-tighter text-white/1 select-none">
 				LIVE
 			</div>

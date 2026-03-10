@@ -23,7 +23,6 @@ const ProjectCard: React.FC<Props> = ({ project }) => {
 			transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as any }}
 			className="group flex w-full flex-col gap-6"
 		>
-			{/* Image Section */}
 			<div className="relative aspect-video w-full overflow-hidden bg-white/5">
 				<div className="absolute inset-0 z-10 bg-black/20 transition-colors duration-500 group-hover:bg-transparent" />
 				<motion.img
@@ -35,7 +34,6 @@ const ProjectCard: React.FC<Props> = ({ project }) => {
 				/>
 			</div>
 
-			{/* Content Section */}
 			<div className="flex w-full flex-col justify-between">
 				<div className="flex w-full items-start justify-between gap-4">
 					<div className="flex flex-col gap-3">

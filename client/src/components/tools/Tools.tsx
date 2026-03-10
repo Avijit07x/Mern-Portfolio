@@ -1,4 +1,3 @@
-import { Plus } from "lucide-react";
 import api from "@/lib/api";
 import { useQuery } from "@tanstack/react-query";
 import { lazy, Suspense } from "react";
@@ -24,11 +23,15 @@ const Tools = () => {
 	return (
 		<section className="relative z-10 border-t border-white/10 px-8 py-24 text-white lg:px-20">
 
-			{/* Intersections (Plus icons) */}
-			<Plus strokeWidth={1} className="pointer-events-none absolute -top-2.5 left-6 size-5 -translate-x-1/2 text-white/40 lg:left-12" />
-			<Plus strokeWidth={1} className="pointer-events-none absolute -top-2.5 right-6 size-5 translate-x-1/2 text-white/40 lg:right-12" />
+			{/* Diamonds */}
+			<div className="pointer-events-none absolute -top-1.5 left-6 z-50 flex size-3 -translate-x-1/2 items-center justify-center lg:left-12">
+				<div className="size-1.5 rotate-45 border border-white/20 bg-black" />
+			</div>
+			<div className="pointer-events-none absolute -top-1.5 right-6 z-50 flex size-3 translate-x-1/2 items-center justify-center lg:right-12">
+				<div className="size-1.5 rotate-45 border border-white/20 bg-black" />
+			</div>
 
-			{/* Technical Cross Pattern Background */}
+			{/* Grid bg */}
 			<div
 				className="absolute inset-x-0 top-0 z-0 h-1/2 opacity-[0.08]"
 				style={{
@@ -41,7 +44,7 @@ const Tools = () => {
 				}}
 			/>
 
-			{/* Suble Background Watermark */}
+			{/* Text bg */}
 			<div className="pointer-events-none absolute top-1/2 -right-10 -translate-y-1/2 text-[20vw] font-black tracking-tighter text-white/1 uppercase select-none">
 				Stack
 			</div>

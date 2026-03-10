@@ -6,7 +6,7 @@ import {
 	SheetTitle,
 } from "@/components/ui/sheet";
 import RefContext, { IRefContext } from "@/context/RefContext";
-import { Menu, Plus } from "lucide-react";
+import { Menu } from "lucide-react";
 import { useContext, useState } from "react";
 import { Link } from "react-router";
 
@@ -30,19 +30,17 @@ const Navbar = () => {
 	return (
 		<header>
 			<nav className="fixed top-0 left-1/2 z-150 mx-auto flex h-16 w-full max-w-screen-2xl -translate-x-1/2 items-center justify-between border-b border-white/10 bg-black/80 px-8 backdrop-blur-md lg:px-20">
-				{/* Decorative vertical lines to match Home layout */}
+				{/* Lines */}
 				<div className="pointer-events-none absolute inset-y-0 left-6 w-px bg-white/10 lg:left-12" />
 				<div className="pointer-events-none absolute inset-y-0 right-6 w-px bg-white/10 lg:right-12" />
 
-				{/* Intersections (Plus icons) */}
-				<Plus
-					strokeWidth={1}
-					className="pointer-events-none absolute -bottom-2.5 left-6 size-5 -translate-x-1/2 text-white/40 lg:left-12"
-				/>
-				<Plus
-					strokeWidth={1}
-					className="pointer-events-none absolute -bottom-2.5 right-6 size-5 translate-x-1/2 text-white/40 lg:right-12"
-				/>
+				{/* Diamonds */}
+				<div className="pointer-events-none absolute -bottom-1.5 left-6 z-50 flex size-3 -translate-x-1/2 items-center justify-center lg:left-12">
+					<div className="size-1.5 rotate-45 border border-white/20 bg-black" />
+				</div>
+				<div className="pointer-events-none absolute -bottom-1.5 right-6 z-50 flex size-3 translate-x-1/2 items-center justify-center lg:right-12">
+					<div className="size-1.5 rotate-45 border border-white/20 bg-black" />
+				</div>
 
 				<Link to="/" className="flex items-center gap-2">
 					<img

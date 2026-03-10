@@ -38,8 +38,16 @@ const Contributions: React.FC = () => {
 			initial="hidden"
 			whileInView="visible"
 			viewport={{ once: true, amount: 0.3 }}
-			className="relative z-10 overflow-hidden border-t border-white/10 px-8 py-24 text-white lg:px-20"
+			className="relative z-10 border-t border-white/10 px-8 py-24 text-white lg:px-20"
 		>
+			{/* Intersections (Diamond) */}
+			<div className="pointer-events-none absolute -top-1.5 left-6 z-50 flex size-3 -translate-x-1/2 items-center justify-center lg:left-12">
+				<div className="size-1.5 rotate-45 border border-white/20 bg-black" />
+			</div>
+			<div className="pointer-events-none absolute -top-1.5 right-6 z-50 flex size-3 translate-x-1/2 items-center justify-center lg:right-12">
+				<div className="size-1.5 rotate-45 border border-white/20 bg-black" />
+			</div>
+
 			{/* Technical Pulse Waveform Background */}
 			<div
 				className="absolute inset-0 z-0 opacity-[0.08]"
@@ -125,9 +133,10 @@ const Contributions: React.FC = () => {
 					<div className="min-w-max px-4 text-white/80 transition-all duration-300 duration-500 hover:text-white">
 						<GitHubCalendar
 							username="avijit07x"
-							blockSize={16}
+							blockSize={15}
 							blockMargin={6}
 							fontSize={14}
+							blockRadius={0}
 							theme={{
 								light: ["#111111", "#27272a", "#52525b", "#a1a1aa", "#ffffff"],
 								dark: ["#111111", "#27272a", "#52525b", "#a1a1aa", "#ffffff"],

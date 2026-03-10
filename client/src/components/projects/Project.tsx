@@ -1,4 +1,3 @@
-import { Plus } from "lucide-react";
 import RefContext, { IRefContext } from "@/context/RefContext";
 import api from "@/lib/api";
 import { useQuery } from "@tanstack/react-query";
@@ -29,12 +28,15 @@ const Projects: React.FC = () => {
 			ref={projectRef}
 			className="relative z-10 scroll-mt-20 border-t border-white/10 px-8 py-24 text-white lg:px-20"
 		>
+			{/* Diamonds */}
+			<div className="pointer-events-none absolute -top-1.5 left-6 z-50 flex size-3 -translate-x-1/2 items-center justify-center lg:left-12">
+				<div className="size-1.5 rotate-45 border border-white/20 bg-black" />
+			</div>
+			<div className="pointer-events-none absolute -top-1.5 right-6 z-50 flex size-3 translate-x-1/2 items-center justify-center lg:right-12">
+				<div className="size-1.5 rotate-45 border border-white/20 bg-black" />
+			</div>
 
-			{/* Intersections (Plus icons) */}
-			<Plus strokeWidth={1} className="pointer-events-none absolute -top-2.5 left-6 size-5 -translate-x-1/2 text-white/40 lg:left-12" />
-			<Plus strokeWidth={1} className="pointer-events-none absolute -top-2.5 right-6 size-5 translate-x-1/2 text-white/40 lg:right-12" />
-
-			{/* Technical Diagonal Hatch Background */}
+			{/* Hatch bg */}
 			<div
 				className="absolute inset-0 z-0 opacity-[0.05]"
 				style={{
@@ -46,7 +48,7 @@ const Projects: React.FC = () => {
 				}}
 			/>
 
-			{/* Suble Background Watermark */}
+			{/* Text bg */}
 			<div className="pointer-events-none absolute top-1/2 -left-10 -translate-y-1/2 text-[20vw] font-black tracking-tighter text-white/1 uppercase select-none">
 				Works
 			</div>
@@ -77,18 +79,17 @@ const Projects: React.FC = () => {
 								<div
 									key={project._id}
 									className={`group relative p-8 transition-colors hover:bg-white/2 ${
-										index % 2 === 0
-											? "md:border-r border-white/10"
-											: ""
+										index % 2 === 0 ? "border-white/10 md:border-r" : ""
 									} ${
-										index < projects.length - (projects.length % 2 === 0 ? 2 : 1)
+										index <
+										projects.length - (projects.length % 2 === 0 ? 2 : 1)
 											? "border-b border-white/10"
 											: ""
 									}`}
 								>
-									{/* Intersection Crosses for inner grid */}
-									<div className="pointer-events-none absolute -bottom-2.5 -right-2.5 z-20 text-white/40 opacity-0 transition-opacity group-hover:opacity-100 hidden md:block">
-										<Plus strokeWidth={1} className="size-5" />
+									{/* Diamonds */}
+									<div className="pointer-events-none absolute -right-1.5 -bottom-1.5 z-20 hidden size-3 items-center justify-center opacity-0 transition-opacity group-hover:opacity-100 md:flex">
+										<div className="size-1.5 rotate-45 border border-white/20 bg-black" />
 									</div>
 
 									<ProjectCard project={project} />

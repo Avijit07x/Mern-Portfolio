@@ -1,5 +1,4 @@
 import Socials from "../socials/Socials";
-import { Plus } from "lucide-react";
 import { motion } from "motion/react";
 
 const Footer = () => {
@@ -30,9 +29,13 @@ const Footer = () => {
 			viewport={{ once: true }}
 			className="relative z-10 border-t border-white/10 dark:bg-black"
 		>
-			{/* Intersections (Plus icons) */}
-			<Plus strokeWidth={1} className="pointer-events-none absolute -top-2.5 left-6 size-5 -translate-x-1/2 text-white/40 lg:left-12" />
-			<Plus strokeWidth={1} className="pointer-events-none absolute -top-2.5 right-6 size-5 translate-x-1/2 text-white/40 lg:right-12" />
+			{/* Intersections (Diamond) */}
+			<div className="pointer-events-none absolute -top-1.5 left-6 z-50 flex size-3 -translate-x-1/2 items-center justify-center lg:left-12">
+				<div className="size-1.5 rotate-45 border border-white/20 bg-black" />
+			</div>
+			<div className="pointer-events-none absolute -top-1.5 right-6 z-50 flex size-3 translate-x-1/2 items-center justify-center lg:right-12">
+				<div className="size-1.5 rotate-45 border border-white/20 bg-black" />
+			</div>
 
 			<div className="mx-auto w-full max-w-screen-2xl px-6 py-8 md:px-14 lg:px-20">
 				<div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
