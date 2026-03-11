@@ -1,7 +1,8 @@
 import RefContext, { IRefContext } from "@/context/RefContext";
 import api from "@/lib/api";
 import { useQuery } from "@tanstack/react-query";
-import React, { lazy, Suspense, useContext } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import React, { lazy, Suspense, useContext, useState } from "react";
 import ProjectSkeleton from "./ProjectSkeleton";
 
 const ProjectCard = lazy(() => import("./ProjectCard"));
@@ -21,6 +22,8 @@ const Projects: React.FC = () => {
 		queryKey: ["projects"],
 		queryFn: fetchProjects,
 	});
+	const [isExpanded, setIsExpanded] = useState(false);
+	const displayedProjects = isExpanded ? projects : projects.slice(0, 2);
 
 	return (
 		<section
@@ -30,16 +33,15 @@ const Projects: React.FC = () => {
 		>
 			{/* Diamonds */}
 			<div className="pointer-events-none absolute top-0 left-1/2 z-50 hidden w-full max-w-7xl -translate-x-1/2 xl:flex">
-				<div className="absolute top-0 left-0 size-3 -translate-x-1/2 -translate-y-1/2 items-center justify-center flex">
+				<div className="absolute top-0 left-0 flex size-3 -translate-x-1/2 -translate-y-1/2 items-center justify-center">
 					<div className="size-1.5 rotate-45 border border-white/30 bg-black" />
 				</div>
-				<div className="absolute top-0 right-0 size-3 translate-x-1/2 -translate-y-1/2 items-center justify-center flex">
+				<div className="absolute top-0 right-0 flex size-3 translate-x-1/2 -translate-y-1/2 items-center justify-center">
 					<div className="size-1.5 rotate-45 border border-white/30 bg-black" />
 				</div>
 			</div>
 
 			<div className="relative mx-auto flex h-full w-full max-w-7xl flex-col justify-center px-8 lg:px-20">
-
 				{/* Hatch bg */}
 				<div
 					className="absolute inset-0 z-0 opacity-[0.05]"
@@ -53,7 +55,7 @@ const Projects: React.FC = () => {
 				/>
 
 				{/* Text bg */}
-				<div className="pointer-events-none absolute top-1/2 -right-10 -translate-y-1/2 text-[20vw] font-black tracking-tighter text-white/1 uppercase select-none">
+				<div className="pointer-events-none absolute top-1/2 -left-10 -translate-y-1/2 text-[20vw] font-black tracking-tighter text-white/1 uppercase select-none">
 					Works
 				</div>
 
@@ -79,18 +81,90 @@ const Projects: React.FC = () => {
 								<p className="text-red-400">Failed to load projects</p>
 							)}
 
-							{!isLoading &&
-								!isError &&
-								projects.map((project, idx) => (
-									<div
-										key={project._id}
-										className="group relative transition-colors hover:bg-white/2"
-									>
-										<ProjectCard project={project} index={idx} />
-									</div>
-								))}
+							<AnimatePresence mode="popLayout">
+								{!isLoading &&
+									!isError &&
+									displayedProjects.map((project, idx) => (
+										<motion.div
+											layout
+											key={project._id}
+											initial={{ opacity: 0, y: 30, scale: 0.98 }}
+											animate={{ opacity: 1, y: 0, scale: 1 }}
+											exit={{
+												opacity: 0,
+												scale: 0.98,
+												transition: { duration: 0.2 },
+											}}
+											transition={{
+												type: "spring",
+												stiffness: 150,
+												damping: 25,
+												mass: 1,
+												delay: isExpanded && idx >= 2 ? (idx - 2) * 0.1 : 0,
+											}}
+											className="group relative transition-colors hover:bg-white/2"
+										>
+											<ProjectCard project={project} index={idx} />
+										</motion.div>
+									))}
+							</AnimatePresence>
 						</Suspense>
 					</div>
+
+					{/* Data Connector Node Expansion Control */}
+					{!isLoading && !isError && projects.length > 2 && (
+						<motion.div layout className="mt-24 flex flex-col items-center">
+							<button
+								onClick={() => setIsExpanded(!isExpanded)}
+								className="group relative flex flex-col items-center"
+							>
+								<div className="relative flex h-12 items-center justify-center border border-white/20 bg-black px-10 transition-all duration-500 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.05)] hover:border-white/40">
+									<div className="relative z-10 flex items-center gap-4 overflow-hidden">
+										<span className="text-[10px] font-black tracking-[0.4em] text-white/40 uppercase transition-colors group-hover:text-white/80">
+											{isExpanded ? "COLLAPSE_SESSION" : "ACCESS_ARCHIVE"}
+										</span>
+									</div>
+								</div>
+
+								<div className="mt-4 flex flex-col items-center">
+									<div className="h-4 w-px bg-white/10" />
+									<motion.div
+										animate={{
+											y: [0, 6, 0],
+											rotate: isExpanded ? 180 : 0,
+										}}
+										transition={{
+											y: {
+												duration: 2,
+												repeat: Infinity,
+												ease: "easeInOut",
+											},
+											rotate: {
+												duration: 0.5,
+												ease: "easeInOut",
+											},
+										}}
+										className="mt-2 text-white/20 transition-colors group-hover:text-white/40"
+									>
+										<svg
+											width="16"
+											height="10"
+											viewBox="0 0 16 10"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M2 2L8 8L14 2"
+												stroke="currentColor"
+												strokeWidth="1.5"
+												strokeLinecap="square"
+											/>
+										</svg>
+									</motion.div>
+								</div>
+							</button>
+						</motion.div>
+					)}
 				</div>
 			</div>
 		</section>
