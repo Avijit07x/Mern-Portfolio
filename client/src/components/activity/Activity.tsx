@@ -103,84 +103,82 @@ const Activity = () => {
 			initial="hidden"
 			whileInView="visible"
 			viewport={{ once: true, amount: 0.3 }}
-			className="relative z-10 border-t border-white/10 px-8 py-24 text-white lg:px-20"
+			className="relative z-10 border-t border-white/10 py-24 text-white"
 		>
-			{/* Structural Spine Line */}
-			<div className="pointer-events-none absolute top-0 bottom-0 left-8 z-0 w-px bg-linear-to-b from-transparent via-white/10 to-transparent lg:left-20" />
-
-			{/* Top Boundary HUD Label */}
-			<div className="pointer-events-none absolute top-12 left-10 text-[9px] font-bold tracking-[0.3em] text-white/20 uppercase lg:left-24">
-				[ STATUS: 0x21_REALTIME_MONITORING ]
-			</div>
-
-			{/* Corner Accents framing the cards */}
-			<div className="pointer-events-none absolute inset-x-8 top-20 bottom-20 z-0 lg:inset-x-20">
-				<div className="absolute top-0 left-0 h-12 w-px bg-white/10" />
-				<div className="absolute top-0 left-0 h-px w-12 bg-white/10" />
-				<div className="absolute right-0 bottom-0 h-12 w-px bg-white/10" />
-				<div className="absolute right-0 bottom-0 h-px w-12 bg-white/10" />
-			</div>
-
-			{/* Supplementary Technical Label at bottom */}
-			<div className="pointer-events-none absolute right-8 bottom-12 text-[9px] font-bold tracking-[0.3em] text-white/20 uppercase lg:right-20">
-				COORD: 23_01_AV07X
-			</div>
-
 			{/* Diamonds */}
-			<div className="pointer-events-none absolute top-[-6.5px] left-6 z-50 flex size-3 -translate-x-1/2 items-center justify-center lg:left-12">
-				<div className="size-1.5 rotate-45 border border-white/30 bg-black" />
-			</div>
-			<div className="pointer-events-none absolute top-[-6.5px] right-6 z-50 flex size-3 translate-x-1/2 items-center justify-center lg:right-12">
-				<div className="size-1.5 rotate-45 border border-white/30 bg-black" />
-			</div>
-			{/* Pulse bg */}
-			<div
-				className="absolute inset-0 z-0 opacity-[0.08]"
-				style={{
-					backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(255,255,255,0.1) 81px, transparent 82px)`,
-					maskImage:
-						"linear-gradient(to right, transparent, black 20%, black 80%, transparent)",
-					WebkitMaskImage:
-						"linear-gradient(to right, transparent, black 20%, black 80%, transparent)",
-				}}
-			/>
-
-			{/* Text bg */}
-			<div className="pointer-events-none absolute top-1/2 -right-20 -translate-y-1/2 text-[20vw] font-black tracking-tighter text-white/1 select-none">
-				LIVE
+			<div className="pointer-events-none absolute top-0 left-1/2 z-50 hidden w-full max-w-7xl -translate-x-1/2 xl:flex">
+				<div className="absolute top-0 left-0 flex size-3 -translate-x-1/2 -translate-y-1/2 items-center justify-center">
+					<div className="size-1.5 rotate-45 border border-white/30 bg-black" />
+				</div>
+				<div className="absolute top-0 right-0 flex size-3 translate-x-1/2 -translate-y-1/2 items-center justify-center">
+					<div className="size-1.5 rotate-45 border border-white/30 bg-black" />
+				</div>
 			</div>
 
-			<div className="relative z-10 mx-auto w-full pl-6 lg:pl-10">
-				<div className="mb-10 flex flex-col space-y-4">
-					<motion.h2
-						variants={titleVariants}
-						className="bg-linear-to-b from-white to-white/60 bg-clip-text text-4xl font-bold tracking-tighter text-transparent md:text-5xl lg:text-7xl"
-					>
-						Activity<span className="text-white/30">.</span>
-					</motion.h2>
+			<div className="relative mx-auto flex h-full w-full max-w-7xl flex-col justify-center px-8 lg:px-20">
+				{/* Top Boundary HUD Label */}
+				<div className="pointer-events-none absolute -top-10 left-8 hidden text-[9px] font-bold tracking-[0.3em] text-white/20 uppercase lg:left-20 xl:block">
+					[ STATUS: 0x21_REALTIME_MONITORING ]
+				</div>
+
+				{/* Supplementary Technical Label at bottom */}
+				<div className="pointer-events-none absolute right-8 -bottom-10 hidden text-[9px] font-bold tracking-[0.3em] text-white/20 uppercase lg:right-20 xl:flex">
+					COORD: 23_01_AV07X
+				</div>
+
+				{/* Pulse bg */}
+				<div
+					className="absolute inset-0 z-0 opacity-[0.1]"
+					style={{
+						backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(255,255,255,0.1) 81px, transparent 82px)`,
+						maskImage:
+							"linear-gradient(to right, transparent, black 20%, black 80%, transparent)",
+						WebkitMaskImage:
+							"linear-gradient(to right, transparent, black 20%, black 80%, transparent)",
+					}}
+				/>
+
+				{/* Text bg */}
+				<div className="pointer-events-none absolute top-1/2 -right-20 -translate-y-1/2 text-[20vw] font-black tracking-tighter text-white/1 select-none">
+					LIVE
+				</div>
+
+				<div className="relative z-10 mx-auto w-full">
+					<div className="mb-10 flex flex-col space-y-4">
+						<motion.h2
+							variants={titleVariants}
+							className="3xl:text-6xl bg-linear-to-b from-white to-white/60 bg-clip-text text-4xl font-bold tracking-tighter text-transparent md:text-5xl"
+						>
+							Activity<span className="text-white/30">.</span>
+						</motion.h2>
+
+						<motion.div
+							variants={itemVariants}
+							className="relative pl-6 before:absolute before:inset-y-1 before:left-0 before:w-px before:bg-linear-to-b before:from-transparent before:via-white/20 before:to-transparent"
+						>
+							<p className="max-w-2xl text-base leading-relaxed font-light text-white/50">
+								Live peek into my world. Whether I’m writing code, editing a
+								file, or just staring at my screen, it all shows up here in
+								real-time.
+							</p>
+						</motion.div>
+					</div>
 
 					<motion.div
 						variants={itemVariants}
-						className="relative pl-6 before:absolute before:inset-y-1 before:left-0 before:w-px before:bg-linear-to-b before:from-transparent before:via-white/20 before:to-transparent"
+						className="flex w-full items-start"
 					>
-						<p className="max-w-2xl text-lg leading-relaxed font-light text-white/50 md:text-xl">
-							Live peek into my world. Whether I’m writing code, editing a file,
-							or just staring at my screen, it all shows up here in real-time.
-						</p>
+						<div className="w-full max-w-2xl">
+							{!isReady ? (
+								<ActivityLoader />
+							) : (
+								<Suspense fallback={<ActivityLoader />}>
+									{activity ? <ActiveCard activity={activity} /> : <AfkCard />}
+								</Suspense>
+							)}
+						</div>
 					</motion.div>
 				</div>
-
-				<motion.div variants={itemVariants} className="flex w-full items-start">
-					<div className="w-full max-w-2xl">
-						{!isReady ? (
-							<ActivityLoader />
-						) : (
-							<Suspense fallback={<ActivityLoader />}>
-								{activity ? <ActiveCard activity={activity} /> : <AfkCard />}
-							</Suspense>
-						)}
-					</div>
-				</motion.div>
 			</div>
 		</motion.section>
 	);

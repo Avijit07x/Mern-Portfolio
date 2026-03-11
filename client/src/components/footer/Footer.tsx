@@ -29,29 +29,27 @@ const Footer = () => {
 			viewport={{ once: true }}
 			className="relative z-10 border-t border-white/10 dark:bg-black"
 		>
-			{/* Intersections (Diamond) */}
-			<div className="pointer-events-none absolute top-[-6.5px] left-6 z-50 flex size-3 -translate-x-1/2 items-center justify-center lg:left-12">
-				<div className="size-1.5 rotate-45 border border-white/30 bg-black" />
-			</div>
-			<div className="pointer-events-none absolute top-[-6.5px] right-6 z-50 flex size-3 translate-x-1/2 items-center justify-center lg:right-12">
-				<div className="size-1.5 rotate-45 border border-white/30 bg-black" />
-			</div>
-
-			<div className="mx-auto w-full max-w-screen-2xl px-6 py-8 md:px-14 lg:px-20">
-				<div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
-					<motion.span
-						variants={itemVariants(-10)}
-						className="text-sm text-white/50"
-					>
-						© {new Date().getFullYear()} Avijit Dey. All rights reserved.
-					</motion.span>
-					<motion.div
-						variants={itemVariants(10)}
-						className="opacity-70 transition-opacity hover:opacity-100"
-					>
-						<Socials />
-					</motion.div>
+			<div className="relative mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-6 px-8 py-7 md:flex-row lg:px-20">
+				{/* Intersections (Diamond) */}
+				<div className="pointer-events-none absolute top-0 left-0 z-50 hidden size-3 -translate-x-1/2 -translate-y-1/2 items-center justify-center xl:flex">
+					<div className="size-1.5 rotate-45 border border-white/30 bg-black" />
 				</div>
+				<div className="pointer-events-none absolute top-0 right-0 z-50 hidden size-3 translate-x-1/2 -translate-y-1/2 items-center justify-center xl:flex">
+					<div className="size-1.5 rotate-45 border border-white/30 bg-black" />
+				</div>
+
+				<div className="flex flex-col items-center gap-6 md:flex-row">
+					<p className="text-xs font-light tracking-wider text-white/30">
+						© {new Date().getFullYear()} Avijit Dey. All rights reserved.
+					</p>
+				</div>
+
+				<motion.div
+					variants={itemVariants(10)}
+					className="opacity-70 transition-opacity hover:opacity-100"
+				>
+					<Socials />
+				</motion.div>
 			</div>
 		</motion.footer>
 	);
