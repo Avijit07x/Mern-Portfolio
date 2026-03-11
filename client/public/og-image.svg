@@ -1,40 +1,83 @@
 <svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1200" height="630" fill="black"/>
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#000000"/>
   
-  <!-- Grid Pattern -->
   <defs>
     <!-- Major Grid -->
-    <pattern id="grid_major" width="80" height="80" patternUnits="userSpaceOnUse">
-      <path d="M 80 0 L 0 0 0 80" fill="none" stroke="white" stroke-width="1" stroke-opacity="0.1"/>
+    <pattern id="grid_major" width="100" height="100" patternUnits="userSpaceOnUse">
+      <path d="M 100 0 L 0 0 0 100" fill="none" stroke="white" stroke-width="1" stroke-opacity="0.08"/>
     </pattern>
     <!-- Minor Grid -->
     <pattern id="grid_minor" width="20" height="20" patternUnits="userSpaceOnUse">
       <path d="M 20 0 L 0 0 0 20" fill="none" stroke="white" stroke-width="0.5" stroke-opacity="0.03"/>
     </pattern>
+    <!-- Central Glow -->
     <radialGradient id="glow" cx="50%" cy="50%" r="60%" fx="50%" fy="50%">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.12"/>
-      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.04"/>
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
     </radialGradient>
   </defs>
   
+  <!-- Patterns and Glow -->
   <rect width="1200" height="630" fill="url(#grid_minor)"/>
   <rect width="1200" height="630" fill="url(#grid_major)"/>
   <rect width="1200" height="630" fill="url(#glow)"/>
 
-  <!-- Main Name -->
-  <text x="50%" y="45%" text-anchor="middle" fill="white" style="font-family: 'Inter', system-ui, sans-serif; font-weight: 800; font-size: 130px; letter-spacing: -0.06em;">
-    Avijit Dey<tspan fill="#666">.</tspan>
-  </text>
-  
-  <!-- Tagline / Keywords -->
-  <g transform="translate(600, 360)">
-    <!-- Subtle separator dot styling -->
-    <text text-anchor="middle" fill="white" fill-opacity="0.5" style="font-family: 'Inter', system-ui, sans-serif; font-weight: 400; font-size: 28px; letter-spacing: 0.2em; text-transform: uppercase;">
-      Full Stack <tspan fill="white" fill-opacity="0.2">•</tspan> UI / UX <tspan fill="white" fill-opacity="0.2">•</tspan> Problem Solver
-    </text>
+  <!-- Technical Corner Accents -->
+  <!-- Top Left -->
+  <g transform="translate(60, 60)">
+    <path d="M 0 20 L 0 0 L 20 0" stroke="white" stroke-width="1.5" stroke-opacity="0.3"/>
+    <text x="30" y="10" fill="white" fill-opacity="0.2" style="font-family: 'Inter', sans-serif; font-weight: 700; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;">[ STATUS ]</text>
+    <text x="30" y="28" fill="white" fill-opacity="0.5" style="font-family: 'Inter', sans-serif; font-weight: 700; font-size: 10px; letter-spacing: 0.3em;">ONLINE_AVAILABLE</text>
+    <circle cx="0" cy="0" r="2" fill="white" fill-opacity="0.5"/>
   </g>
 
-  <!-- Bottom Accent -->
-  <rect x="550" y="420" width="100" height="1" fill="white" fill-opacity="0.2"/>
+  <!-- Top Right -->
+  <g transform="translate(1140, 60)">
+    <path d="M -20 0 L 0 0 L 0 20" stroke="white" stroke-width="1.5" stroke-opacity="0.3"/>
+    <text x="-30" y="10" text-anchor="end" fill="white" fill-opacity="0.2" style="font-family: 'Inter', sans-serif; font-weight: 700; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;">[ COORDINATES ]</text>
+    <text x="-30" y="28" text-anchor="end" fill="white" fill-opacity="0.5" style="font-family: 'Inter', sans-serif; font-weight: 700; font-size: 10px; letter-spacing: 0.3em;">22.57°N 88.36°E</text>
+    <circle cx="0" cy="0" r="2" fill="white" fill-opacity="0.5"/>
+  </g>
+
+  <!-- Bottom Left -->
+  <g transform="translate(60, 570)">
+    <path d="M 0 -20 L 0 0 L 20 0" stroke="white" stroke-width="1.5" stroke-opacity="0.3"/>
+    <text x="30" y="0" fill="white" fill-opacity="0.2" style="font-family: 'Inter', sans-serif; font-weight: 700; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;">[ SYSTEM ]</text>
+    <text x="30" y="-18" fill="white" fill-opacity="0.5" style="font-family: 'Inter', sans-serif; font-weight: 700; font-size: 10px; letter-spacing: 0.3em;">LINUX_MINT_V23</text>
+    <circle cx="0" cy="0" r="2" fill="white" fill-opacity="0.5"/>
+  </g>
+
+  <!-- Bottom Right -->
+  <g transform="translate(1140, 570)">
+    <path d="M -20 0 L 0 0 L 0 -20" stroke="white" stroke-width="1.5" stroke-opacity="0.3"/>
+    <text x="-30" y="0" text-anchor="end" fill="white" fill-opacity="0.2" style="font-family: 'Inter', sans-serif; font-weight: 700; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;">[ VERSION ]</text>
+    <text x="-30" y="-18" text-anchor="end" fill="white" fill-opacity="0.5" style="font-family: 'Inter', sans-serif; font-weight: 700; font-size: 10px; letter-spacing: 0.3em;">BUILD_2026.03.11</text>
+    <circle cx="0" cy="0" r="2" fill="white" fill-opacity="0.5"/>
+  </g>
+
+  <!-- Central Content -->
+  <g transform="translate(600, 315)">
+    <!-- Name -->
+    <text text-anchor="middle" fill="white" style="font-family: 'Inter', sans-serif; font-weight: 800; font-size: 120px; letter-spacing: -0.05em;">
+      Avijit Dey<tspan fill="white" fill-opacity="0.2">.</tspan>
+    </text>
+    
+    <!-- Tagline -->
+    <text y="80" text-anchor="middle" fill="white" fill-opacity="0.4" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 24px; letter-spacing: 0.4em; text-transform: uppercase;">
+      Full Stack <tspan fill="white" fill-opacity="0.1">•</tspan> UI / UX
+    </text>
+    
+    <!-- Decorative Center Line -->
+    <rect x="-100" y="110" width="200" height="1" fill="white" fill-opacity="0.1"/>
+    <rect x="-5" y="106" width="10" height="10" rx="1" transform="rotate(45)" fill="black" stroke="white" stroke-width="1" stroke-opacity="0.2"/>
+  </g>
+
+  <!-- Floating Diamond Nodes -->
+  <g transform="translate(300, 150) rotate(45)">
+    <rect width="6" height="6" fill="white" fill-opacity="0.1" stroke="white" stroke-width="0.5" stroke-opacity="0.2"/>
+  </g>
+  <g transform="translate(900, 480) rotate(45)">
+    <rect width="6" height="6" fill="white" fill-opacity="0.1" stroke="white" stroke-width="0.5" stroke-opacity="0.2"/>
+  </g>
 </svg>
