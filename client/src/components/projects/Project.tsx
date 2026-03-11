@@ -112,7 +112,7 @@ const Projects: React.FC = () => {
 					</div>
 
 					{/* Data Connector Node Expansion Control */}
-					{!isLoading && !isError && projects.length > 2 && (
+					{!isLoading && !isError && projects.length > 2 && !isExpanded && (
 						<motion.div layout className="mt-24 flex flex-col items-center">
 							<button
 								onClick={() => setIsExpanded(!isExpanded)}
@@ -121,7 +121,7 @@ const Projects: React.FC = () => {
 								<div className="relative flex h-12 items-center justify-center border border-white/20 bg-black px-10 transition-all duration-500 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.05)] hover:border-white/40">
 									<div className="relative z-10 flex items-center gap-4 overflow-hidden">
 										<span className="text-[10px] font-black tracking-[0.4em] text-white/40 uppercase transition-colors group-hover:text-white/80">
-											{isExpanded ? "COLLAPSE_SESSION" : "ACCESS_ARCHIVE"}
+											ACCESS_ARCHIVE
 										</span>
 									</div>
 								</div>
