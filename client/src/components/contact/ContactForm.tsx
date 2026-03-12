@@ -23,7 +23,11 @@ const sendMessage = async (data: ContactFormData) => {
 	return res.data;
 };
 
-const ContactForm: React.FC = () => {
+type ContactFormProps = {
+	onSuccess?: () => void;
+};
+
+const ContactForm: React.FC<ContactFormProps> = ({ onSuccess }) => {
 	const {
 		register,
 		handleSubmit,
@@ -47,6 +51,7 @@ const ContactForm: React.FC = () => {
 			setSuccessMessage("Message sent successfully!");
 			setErrorMessage("");
 			reset();
+			if (onSuccess) onSuccess();
 		},
 		onError: (error: any) => {
 			setSuccessMessage("");
@@ -75,7 +80,7 @@ const ContactForm: React.FC = () => {
 								htmlFor="name"
 								className="mb-1 text-[8px] font-bold tracking-[0.2em] text-white/30 uppercase transition-colors group-focus-within:text-white/60"
 							>
-								01
+								01 // NAME
 							</Label>
 							<Input
 								type="text"
@@ -98,7 +103,7 @@ const ContactForm: React.FC = () => {
 								htmlFor="email"
 								className="mb-1 text-[8px] font-bold tracking-[0.2em] text-white/30 uppercase transition-colors group-focus-within:text-white/60"
 							>
-								02
+								02 // EMAIL
 							</Label>
 							<Input
 								type="email"
@@ -122,7 +127,7 @@ const ContactForm: React.FC = () => {
 							htmlFor="message"
 							className="mb-1.5 text-[8px] font-bold tracking-[0.2em] text-white/30 uppercase transition-colors group-focus-within:text-white/60"
 						>
-							03
+							03 // MESSAGE
 						</Label>
 						<Textarea
 							id="message"
