@@ -68,26 +68,25 @@ const ContactForm: React.FC = () => {
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} noValidate className="w-full">
 			<div className="grid grid-cols-1 border border-white/10 bg-white/2">
-				{/* Top Row: Name and Email */}
 				<div className="grid grid-cols-1 sm:grid-cols-2">
 					<div className="group relative border-b border-white/10 sm:border-r sm:border-b-0">
 						<div className="flex h-full flex-col p-3 pt-2.5">
 							<Label
 								htmlFor="name"
-								className="mb-1 text-[8px] font-bold uppercase tracking-[0.2em] text-white/30 transition-colors group-focus-within:text-white/60"
+								className="mb-1 text-[8px] font-bold tracking-[0.2em] text-white/30 uppercase transition-colors group-focus-within:text-white/60"
 							>
-								01 // Name
+								01
 							</Label>
 							<Input
 								type="text"
 								id="name"
 								{...register("name")}
-								className="h-6 border-none bg-transparent p-0 text-sm shadow-none focus-visible:ring-0 placeholder:text-white/5"
+								className="h-6 border-none bg-transparent p-0 text-sm shadow-none placeholder:text-white/5 focus-visible:ring-0"
 								placeholder="..."
 							/>
 						</div>
 						{errors.name && (
-							<p className="absolute bottom-1 right-3 text-[9px] font-medium text-red-500/80 uppercase tracking-tighter">
+							<p className="absolute right-3 bottom-1 text-[9px] font-medium tracking-tighter text-red-500/80 uppercase">
 								{errors.name.message}
 							</p>
 						)}
@@ -97,54 +96,52 @@ const ContactForm: React.FC = () => {
 						<div className="flex h-full flex-col p-3 pt-2.5">
 							<Label
 								htmlFor="email"
-								className="mb-1 text-[8px] font-bold uppercase tracking-[0.2em] text-white/30 transition-colors group-focus-within:text-white/60"
+								className="mb-1 text-[8px] font-bold tracking-[0.2em] text-white/30 uppercase transition-colors group-focus-within:text-white/60"
 							>
-								02 // Email
+								02
 							</Label>
 							<Input
 								type="email"
 								id="email"
 								{...register("email")}
-								className="h-6 border-none bg-transparent p-0 text-sm shadow-none focus-visible:ring-0 placeholder:text-white/5"
+								className="h-6 border-none bg-transparent p-0 text-sm shadow-none placeholder:text-white/5 focus-visible:ring-0"
 								placeholder="..."
 							/>
 						</div>
 						{errors.email && (
-							<p className="absolute bottom-1 right-3 text-[9px] font-medium text-red-500/80 uppercase tracking-tighter">
+							<p className="absolute right-3 bottom-1 text-[9px] font-medium tracking-tighter text-red-500/80 uppercase">
 								{errors.email.message}
 							</p>
 						)}
 					</div>
 				</div>
 
-				{/* Middle Row: Message */}
 				<div className="group relative border-t border-white/10">
 					<div className="flex flex-col p-3 pt-2.5">
 						<Label
 							htmlFor="message"
-							className="mb-1.5 text-[8px] font-bold uppercase tracking-[0.2em] text-white/30 transition-colors group-focus-within:text-white/60"
+							className="mb-1.5 text-[8px] font-bold tracking-[0.2em] text-white/30 uppercase transition-colors group-focus-within:text-white/60"
 						>
-							03 // Message
+							03
 						</Label>
 						<Textarea
 							id="message"
 							{...register("message")}
-							className="custom-scrollbar min-h-24 w-full resize-none border-none bg-transparent p-0 text-sm shadow-none focus-visible:ring-0 placeholder:text-white/5"
+							className="custom-scrollbar min-h-24 w-full resize-none border-none bg-transparent p-0 text-sm shadow-none placeholder:text-white/5 focus-visible:ring-0"
 							placeholder="..."
 						/>
 					</div>
 					{errors.message && (
-						<p className="absolute bottom-2 right-4 text-[9px] font-medium text-red-500/80 uppercase tracking-tighter">
+						<p className="absolute right-4 bottom-2 text-[9px] font-medium tracking-tighter text-red-500/80 uppercase">
 							{errors.message.message}
 						</p>
 					)}
 				</div>
 
-				{/* Bottom Row: Submit Button */}
 				<div className="border-t border-white/10">
 					<Button
 						type="submit"
-						className="group flex h-14 w-full items-center justify-between rounded-none bg-white px-6 text-[10px] font-bold uppercase tracking-[0.3em] text-black transition-all hover:bg-white/90 disabled:opacity-50"
+						className="group flex h-14 w-full items-center justify-between rounded-none bg-white px-6 text-[10px] font-bold tracking-[0.3em] text-black uppercase transition-all hover:bg-white/90 disabled:opacity-50"
 						disabled={mutation.isPending}
 					>
 						{mutation.isPending ? (
@@ -164,7 +161,6 @@ const ContactForm: React.FC = () => {
 				</div>
 			</div>
 
-			{/* System Messages */}
 			<div className="mt-4 min-h-4 text-center">
 				{errorMessage && (
 					<p className="text-[10px] font-medium tracking-widest text-red-500 uppercase">

@@ -30,7 +30,6 @@ const Footer = () => {
 			className="relative z-10 border-t border-white/10 dark:bg-black"
 		>
 			<div className="relative mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-6 px-8 py-7 md:flex-row lg:px-20">
-				{/* Intersections (Diamond) */}
 				<div className="pointer-events-none absolute top-0 left-0 z-50 hidden size-3 -translate-x-1/2 -translate-y-1/2 items-center justify-center xl:flex">
 					<div className="size-1.5 rotate-45 border border-white/30 bg-black" />
 				</div>

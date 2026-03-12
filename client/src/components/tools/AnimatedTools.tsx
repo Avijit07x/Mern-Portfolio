@@ -36,7 +36,6 @@ const AnimatedTools = ({ tools }: { tools: ITool[] }) => {
 					whileHover={{ y: -5, backgroundColor: "rgba(255, 255, 255, 0.08)" }}
 					className="group relative flex aspect-square cursor-pointer flex-col items-center justify-center border border-white/5 bg-white/2 transition-all duration-300 hover:border-white/10"
 				>
-					{/* Corner Accents */}
 					<div className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
 						<div className="absolute top-0 left-0 h-2 w-px bg-white/20" />
 						<div className="absolute top-0 left-0 h-px w-2 bg-white/20" />
@@ -44,7 +43,6 @@ const AnimatedTools = ({ tools }: { tools: ITool[] }) => {
 						<div className="absolute right-0 bottom-0 h-px w-2 bg-white/20" />
 					</div>
 
-					{/* Technical Index */}
 					<div className="absolute top-2 left-2 text-[8px] font-bold tracking-widest text-white/10 uppercase transition-colors group-hover:text-white/30">
 						{idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
 					</div>
@@ -56,7 +54,6 @@ const AnimatedTools = ({ tools }: { tools: ITool[] }) => {
 						onError={(e) => (e.currentTarget.src = "/fallback.svg")}
 					/>
 
-					{/* Tool Name Overlay */}
 					<div className="absolute bottom-2 left-0 w-full px-1 text-center opacity-0 transition-all duration-300 group-hover:bottom-3 group-hover:opacity-100">
 						<span className="text-[8px] font-bold tracking-[0.2em] whitespace-nowrap text-white/40 uppercase">
 							{tool.name}

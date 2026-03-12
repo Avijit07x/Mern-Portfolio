@@ -12,7 +12,6 @@ const ActiveCard: React.FC<Props> = ({ activity }) => {
 			whileHover="hover"
 			className="group relative mt-10 flex w-full flex-col items-start gap-8 md:flex-row md:items-center"
 		>
-			{/* Background Sheen Effect */}
 			<motion.div
 				variants={{
 					hover: { scale: 1, opacity: 1 },

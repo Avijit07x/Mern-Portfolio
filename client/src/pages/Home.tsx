@@ -22,11 +22,10 @@ const Home = () => {
 				}}
 			>
 				<Navbar />
-				<div className="mx-auto h-full w-full overflow-x-hidden bg-black text-white selection:bg-white/20 relative">
-					{/* Decorative vertical lines wrapper */}
+				<div className="relative mx-auto h-full w-full overflow-x-hidden bg-black text-white selection:bg-white/20">
 					<div className="pointer-events-none absolute inset-x-0 inset-y-0 z-0 mx-auto hidden max-w-7xl border-x border-white/10 xl:block" />
-					
-					<div className="min-h-svh w-full max-h-svh h-svh flex items-center justify-center">
+
+					<div className="flex h-svh max-h-svh min-h-svh w-full items-center justify-center">
 						<Hero />
 					</div>
 					<Tools />

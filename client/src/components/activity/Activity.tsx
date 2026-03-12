@@ -29,7 +29,6 @@ const Activity = () => {
 			ws.onmessage = (event) => {
 				const data: ILanyardEvent = JSON.parse(event.data);
 
-				// Heartbeat
 				if (data.op === 1 && data.d?.heartbeat_interval) {
 					clearInterval(heartbeatInterval);
 					heartbeatInterval = setInterval(() => {
@@ -39,7 +38,6 @@ const Activity = () => {
 					}, data.d.heartbeat_interval);
 				}
 
-				// Activity
 				if (data.t === "INIT_STATE" || data.t === "PRESENCE_UPDATE") {
 					const latestActivity = data.d.activities.find(
 						(activity: IActivity) =>
@@ -56,7 +54,7 @@ const Activity = () => {
 			};
 
 			ws.onerror = () => {
-				ws.close(); // Force close so that onclose triggers reconnect
+				ws.close();
 			};
 		};
 
@@ -105,7 +103,6 @@ const Activity = () => {
 			viewport={{ once: true, amount: 0.3 }}
 			className="relative z-10 border-t border-white/10 py-24 text-white"
 		>
-			{/* Diamonds */}
 			<div className="pointer-events-none absolute top-0 left-1/2 z-50 hidden w-full max-w-7xl -translate-x-1/2 xl:flex">
 				<div className="absolute top-0 left-0 flex size-3 -translate-x-1/2 -translate-y-1/2 items-center justify-center">
 					<div className="size-1.5 rotate-45 border border-white/30 bg-black" />
@@ -116,17 +113,14 @@ const Activity = () => {
 			</div>
 
 			<div className="relative mx-auto flex h-full w-full max-w-7xl flex-col justify-center px-8 lg:px-20">
-				{/* Top Boundary HUD Label */}
 				<div className="pointer-events-none absolute -top-10 left-8 hidden text-[9px] font-bold tracking-[0.3em] text-white/20 uppercase lg:left-20 xl:block">
 					[ STATUS: 0x21_REALTIME_MONITORING ]
 				</div>
 
-				{/* Supplementary Technical Label at bottom */}
 				<div className="pointer-events-none absolute right-8 -bottom-10 hidden text-[9px] font-bold tracking-[0.3em] text-white/20 uppercase lg:right-20 xl:flex">
 					COORD: 23_01_AV07X
 				</div>
 
-				{/* Pulse bg */}
 				<div
 					className="absolute inset-0 z-0 opacity-[0.1]"
 					style={{
@@ -138,7 +132,6 @@ const Activity = () => {
 					}}
 				/>
 
-				{/* Text bg */}
 				<div className="pointer-events-none absolute top-1/2 -right-20 -translate-y-1/2 text-[20vw] font-black tracking-tighter text-white/1 select-none">
 					LIVE
 				</div>

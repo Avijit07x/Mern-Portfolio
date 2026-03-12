@@ -6,7 +6,7 @@ const ActivityLoader: React.FC = () => {
 			</div>
 
 			<div className="flex w-full flex-col space-y-4 text-left">
-				<div className="relative space-y-3 pl-6 before:absolute before:inset-y-1 before:left-0 before:w-px before:bg-white/10 py-1">
+				<div className="relative space-y-3 py-1 pl-6 before:absolute before:inset-y-1 before:left-0 before:w-px before:bg-white/10">
 					<div className="h-6 w-40 rounded-lg bg-white/10 md:h-7 md:w-56" />
 					<div className="h-4 w-60 rounded bg-white/5 md:w-72" />
 					<div className="h-3 w-40 rounded bg-white/5 md:w-48" />

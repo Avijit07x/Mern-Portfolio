@@ -40,7 +40,6 @@ const Contributions: React.FC = () => {
 			viewport={{ once: true, amount: 0.3 }}
 			className="relative z-10 border-t border-white/10 py-24 text-white"
 		>
-			{/* Intersections (Diamond) */}
 			<div className="pointer-events-none absolute top-0 left-1/2 z-50 hidden w-full max-w-7xl -translate-x-1/2 xl:flex">
 				<div className="absolute top-0 left-0 flex size-3 -translate-x-1/2 -translate-y-1/2 items-center justify-center">
 					<div className="size-1.5 rotate-45 border border-white/30 bg-black" />
@@ -51,7 +50,6 @@ const Contributions: React.FC = () => {
 			</div>
 
 			<div className="relative mx-auto flex h-full w-full max-w-7xl flex-col justify-center px-8 lg:px-20">
-				{/* Technical Pulse Waveform Background */}
 				<div
 					className="absolute inset-0 z-0 opacity-[0.08]"
 					style={{
@@ -63,7 +61,6 @@ const Contributions: React.FC = () => {
 					}}
 				/>
 
-				{/* Suble Background Watermark */}
 				<div className="pointer-events-none absolute top-1/2 -left-10 -translate-y-1/2 text-[20vw] font-black tracking-tighter text-white/1 uppercase select-none">
 					GitHub
 				</div>
@@ -128,9 +125,6 @@ const Contributions: React.FC = () => {
 					</div>
 
 					<div className="group relative">
-
-
-						{/* Diagnostic Labels */}
 						<div className="pointer-events-none absolute -top-6 left-0 flex items-center gap-4 text-[7px] font-bold tracking-[0.2em] text-white/10 uppercase">
 							<span>[ SCAN_START ]</span>
 							<div className="h-px w-10 bg-white/5" />

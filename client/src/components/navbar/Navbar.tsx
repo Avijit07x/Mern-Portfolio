@@ -30,12 +30,10 @@ const Navbar = () => {
 	return (
 		<header>
 			<nav className="fixed top-0 left-0 z-150 w-full border-b border-white/10 bg-black/80 backdrop-blur-md">
-				<div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-8 lg:px-12 relative">
-					{/* Decorative vertical lines - internal to centered container for perfect alignment */}
+				<div className="relative mx-auto flex h-16 max-w-7xl items-center justify-between px-8 lg:px-12">
 					<div className="pointer-events-none absolute inset-y-0 left-0 hidden w-px bg-white/10 xl:block" />
 					<div className="pointer-events-none absolute inset-y-0 right-0 hidden w-px bg-white/10 xl:block" />
 
-					{/* Diamonds */}
 					<div className="pointer-events-none absolute bottom-[-6.5px] left-0 z-50 hidden size-3 -translate-x-1/2 items-center justify-center xl:flex">
 						<div className="size-1.5 rotate-45 border border-white/30 bg-black" />
 					</div>
@@ -57,10 +55,10 @@ const Navbar = () => {
 						<Menu className="size-6" />
 						<span className="sr-only">Open menu</span>
 					</button>
-					<ul className="hidden items-center justify-center gap-8 text-[11px] font-bold uppercase tracking-widest text-white/50 lg:flex">
+					<ul className="hidden items-center justify-center gap-8 text-[11px] font-bold tracking-widest text-white/50 uppercase lg:flex">
 						<li>
 							<button
-								className="transition-colors hover:text-white uppercase"
+								className="uppercase transition-colors hover:text-white"
 								onClick={() => handleScrollToSection("projectRef")}
 							>
 								Projects
@@ -68,7 +66,7 @@ const Navbar = () => {
 						</li>
 						<li>
 							<button
-								className="transition-colors hover:text-white uppercase"
+								className="uppercase transition-colors hover:text-white"
 								onClick={() => handleScrollToSection("contactRef")}
 							>
 								Contact

@@ -53,19 +53,16 @@ const Contact: React.FC = () => {
 			viewport={{ once: true, amount: 0.3 }}
 			className="relative z-10 border-t border-white/10 py-24 text-white"
 		>
-			{/* Diamonds */}
 			<div className="pointer-events-none absolute top-0 left-1/2 z-50 hidden w-full max-w-7xl -translate-x-1/2 xl:flex">
-				<div className="absolute top-0 left-0 size-3 -translate-x-1/2 -translate-y-1/2 items-center justify-center flex">
+				<div className="absolute top-0 left-0 flex size-3 -translate-x-1/2 -translate-y-1/2 items-center justify-center">
 					<div className="size-1.5 rotate-45 border border-white/30 bg-black" />
 				</div>
-				<div className="absolute top-0 right-0 size-3 translate-x-1/2 -translate-y-1/2 items-center justify-center flex">
+				<div className="absolute top-0 right-0 flex size-3 translate-x-1/2 -translate-y-1/2 items-center justify-center">
 					<div className="size-1.5 rotate-45 border border-white/30 bg-black" />
 				</div>
 			</div>
 
 			<div className="relative mx-auto flex h-full w-full max-w-7xl flex-col justify-center px-8 lg:px-20">
-
-				{/* Mesh bg */}
 				<div
 					className="absolute inset-0 z-0 opacity-[0.12]"
 					style={{
@@ -77,7 +74,6 @@ const Contact: React.FC = () => {
 					}}
 				/>
 
-				{/* Text bg */}
 				<div className="pointer-events-none absolute top-1/2 -left-10 -translate-y-1/2 text-[18vw] font-black tracking-tighter text-white/1 select-none">
 					CONTACT
 				</div>
@@ -134,7 +130,6 @@ const Contact: React.FC = () => {
 										/>
 									</motion.div>
 
-									{/* Shine sweep on hover */}
 									<span className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/5 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
 								</motion.button>
 							</motion.div>

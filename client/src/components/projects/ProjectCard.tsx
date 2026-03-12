@@ -26,7 +26,6 @@ const ProjectCard: React.FC<Props> = ({ project, index }) => {
 			className="group flex w-full flex-col gap-6"
 		>
 			<div className="relative aspect-video w-full overflow-hidden bg-white/5">
-				{/* Corner Accents */}
 				<div className="pointer-events-none absolute inset-0 z-20">
 					<div className="absolute top-0 left-0 h-4 w-px bg-white/20" />
 					<div className="absolute top-0 left-0 h-px w-4 bg-white/20" />
@@ -34,7 +33,6 @@ const ProjectCard: React.FC<Props> = ({ project, index }) => {
 					<div className="absolute right-0 bottom-0 h-px w-4 bg-white/20" />
 				</div>
 
-				{/* HUD Label */}
 				<div className="absolute top-4 right-4 z-20 text-[9px] font-bold tracking-[0.2em] text-white/40 uppercase opacity-0 transition-opacity duration-500 group-hover:opacity-100">
 					[ ID: SERIAL_0{index + 1} ]
 				</div>

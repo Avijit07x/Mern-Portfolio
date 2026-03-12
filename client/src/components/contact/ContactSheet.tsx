@@ -69,19 +69,17 @@ const ContactSheet: React.FC<Props> = ({ open, setOpen }) => {
 							drag={false}
 							onPointerDown={handlePointerDown}
 						>
-							{/* Drag Handle Container */}
 							<div className="flex h-12 w-full items-center justify-center border-b border-white/5">
 								<div className="h-1 w-12 rounded-full bg-white/10" />
 							</div>
 
-							{/* Content */}
 							<div className="space-y-6 px-8 py-8 pb-12">
 								<div className="space-y-1 text-center">
 									<h2 className="bg-linear-to-b from-white to-white/60 bg-clip-text text-2xl font-bold tracking-tighter text-transparent">
 										Work with me<span className="text-white/20">.</span>
 									</h2>
 									<p className="text-[10px] font-light tracking-widest text-white/40 uppercase">
-										Segmented inquiry // 04.24
+										Segmented inquiry
 									</p>
 								</div>
 

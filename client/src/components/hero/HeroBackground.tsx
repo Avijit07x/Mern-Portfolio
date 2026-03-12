@@ -1,7 +1,6 @@
 import { motion } from "motion/react";
 
 const HeroBackground = () => {
-	// Grid alignment
 	const animatedBoxes = [
 		{ x: 120, y: 80, delay: 0, duration: 4 },
 		{ x: 280, y: 200, delay: 1.5, duration: 5 },
@@ -22,7 +21,6 @@ const HeroBackground = () => {
 
 	return (
 		<>
-			{/* Grid bg */}
 			<div
 				className="absolute inset-0 z-0 opacity-[0.15]"
 				style={{
@@ -37,7 +35,6 @@ const HeroBackground = () => {
 				}}
 			/>
 
-			{/* Animated boxes */}
 			<div
 				className="pointer-events-none absolute inset-0 z-0"
 				style={{
@@ -79,7 +76,6 @@ const HeroBackground = () => {
 				</svg>
 			</div>
 
-			{/* Scanning Line Animation */}
 			<div className="pointer-events-none absolute inset-0 z-0">
 				<motion.div
 					animate={{ top: ["-10%", "110%"] }}

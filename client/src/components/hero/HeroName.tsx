@@ -24,14 +24,12 @@ const HeroName = ({ variants: parentVariants }: HeroNameProps) => {
 			className="group relative cursor-default"
 			style={{ perspective: "1000px" }}
 		>
-			{/* Static Hover Trigger Layer */}
 			<div
 				className="absolute inset-x-0 top-1/2 z-50 h-full -translate-y-1/2"
 				onMouseEnter={() => setIsFlipped(true)}
 				onMouseLeave={() => setIsFlipped(false)}
 			/>
 
-			{/* Front Face: Full Name */}
 			<motion.div
 				variants={frontVariants}
 				initial="initial"
@@ -44,7 +42,6 @@ const HeroName = ({ variants: parentVariants }: HeroNameProps) => {
 				</h1>
 			</motion.div>
 
-			{/* Bottom Face: Username */}
 			<motion.div
 				variants={backVariants}
 				initial="initial"
@@ -57,7 +54,6 @@ const HeroName = ({ variants: parentVariants }: HeroNameProps) => {
 				</h2>
 			</motion.div>
 
-			{/* Header Corner Accents */}
 			<div className="pointer-events-none absolute -inset-4 z-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
 				<div className="absolute top-0 left-0 h-4 w-px bg-white/20" />
 				<div className="absolute top-0 left-0 h-px w-4 bg-white/20" />

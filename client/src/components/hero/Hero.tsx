@@ -1,8 +1,8 @@
 import { ChevronDown } from "lucide-react";
 import { motion } from "motion/react";
 import BackgroundText from "./BackgroundText";
-import HeroName from "./HeroName";
 import HeroBackground from "./HeroBackground";
+import HeroName from "./HeroName";
 
 const Hero = () => {
 	const containerVariants = {
@@ -30,18 +30,13 @@ const Hero = () => {
 			variants={containerVariants}
 			initial="hidden"
 			animate="visible"
-			className="relative flex h-full w-full flex-col justify-center overflow-hidden"
+			className="relative flex h-full w-full flex-col justify-center overflow-hidden select-none"
 		>
 			<div className="relative mx-auto flex h-full w-full max-w-7xl flex-col justify-center px-8 lg:px-20">
-				{/* Hero Background System */}
 				<HeroBackground />
 
-				{/* Text bg */}
 				<BackgroundText />
 
-				{/* Technical Side Metadata removed - moving to bottom right */}
-
-				{/* Technical Top-Left Status */}
 				<div className="pointer-events-none absolute top-12 left-8 hidden flex-col gap-2 text-[9px] font-bold tracking-[0.3em] text-white/10 uppercase lg:left-20 xl:flex">
 					<div className="flex flex-col gap-2">
 						<span className="text-white/20">[ AVAILABILITY ]</span>
@@ -58,7 +53,6 @@ const Hero = () => {
 				<div className="relative z-10 flex w-full flex-col items-start gap-6">
 					<HeroName variants={itemVariants} />
 
-
 					<motion.div
 						variants={itemVariants}
 						className="relative flex flex-col gap-6"
@@ -74,8 +68,6 @@ const Hero = () => {
 					</motion.div>
 				</div>
 
-
-				{/* Technical Bottom-Right Metadata */}
 				<div className="pointer-events-none absolute right-8 bottom-12 hidden flex-col gap-8 text-right text-[9px] font-bold tracking-[0.3em] text-white/10 uppercase lg:right-20 xl:flex">
 					<div className="flex flex-col gap-1">
 						<span className="text-white/20">[ LOCATION ]</span>
