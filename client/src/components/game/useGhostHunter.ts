@@ -49,34 +49,75 @@ export const useGhostHunter = () => {
 	const attackCount = useRef(0);
 	const lastMoveTime = useRef(Date.now());
 	const pendingImpacts = useRef<Set<number>>(new Set());
+	const introPlayed = useRef(false);
+
+	const spawnGhost = (edge?: ScreenEdge) => {
+		const edges: ScreenEdge[] = ["top", "bottom", "left", "right"];
+		const selectedEdge = edge || edges[Math.floor(Math.random() * 4)];
+		const pos = getEdgePosition(selectedEdge);
+		const id = Date.now() + Math.random();
+
+		const newGhost: Ghost = {
+			id,
+			...pos,
+			edge: selectedEdge,
+			state: "PROWLING",
+			revealed: false,
+		};
+
+		setGhosts((prev) => [...prev, newGhost]);
+		return id;
+	};
 
 	useEffect(() => {
-		const edges: ScreenEdge[] = ["bottom", "top", "left", "right"];
-		let spawnCount = 0;
-		const spawnInterval = setInterval(() => {
-			if (spawnCount < BASE_MAX_GHOSTS) {
-				const edge = edges[spawnCount % 4];
-				const pos = getEdgePosition(edge);
-				setGhosts((prev) => {
-					if (prev.length >= BASE_MAX_GHOSTS) return prev;
-					return [
-						...prev,
-						{
-							id: Date.now() + Math.random(),
-							...pos,
-							edge,
-							state: "PROWLING",
-							revealed: false,
-						},
-					];
-				});
-				spawnCount++;
-			} else {
-				clearInterval(spawnInterval);
-			}
-		}, 3000);
+		if (introPlayed.current) return;
+		introPlayed.current = true;
 
-		return () => clearInterval(spawnInterval);
+		const introEdge: ScreenEdge = (["top", "bottom", "left", "right"] as const)[
+			Math.floor(Math.random() * 4)
+		];
+		const scoutId = spawnGhost(introEdge);
+
+		setTimeout(() => {
+			setGhosts((prev) =>
+				prev.map((g) =>
+					g.id === scoutId
+						? {
+								...g,
+								x: window.innerWidth / 2 - 100 + Math.random() * 200,
+								y: window.innerHeight / 2 - 100 + Math.random() * 200,
+								dialogue: "Who's peeking into the void?",
+								revealed: true,
+							}
+						: g,
+				),
+			);
+		}, 1500);
+
+		setTimeout(() => {
+			setGhosts((prev) =>
+				prev.map((g) =>
+					g.id === scoutId ? { ...g, dialogue: "I'll call the others!" } : g,
+				),
+			);
+		}, 4500);
+
+		setTimeout(() => {
+			const pos = getEdgePosition(introEdge);
+			setGhosts((prev) =>
+				prev.map((g) =>
+					g.id === scoutId ? { ...g, ...pos, dialogue: undefined } : g,
+				),
+			);
+
+			setTimeout(() => {
+				setGhosts((prev) => prev.filter((g) => g.id !== scoutId));
+
+				for (let i = 0; i < BASE_MAX_GHOSTS; i++) {
+					spawnGhost();
+				}
+			}, 1000);
+		}, 7000);
 	}, []);
 
 	useEffect(() => {
@@ -269,40 +310,20 @@ export const useGhostHunter = () => {
 		setIsCombat(false);
 		setIsGameActive(false);
 		attackCount.current = 0;
-		setGhosts(() => {
-			const edges: ScreenEdge[] = ["bottom", "top", "left", "right"];
-			return Array.from({ length: BASE_MAX_GHOSTS }).map((_, i) => {
-				const edge = edges[i % 4];
-				const pos = getEdgePosition(edge);
-				return {
-					id: Date.now() + Math.random() + i,
-					...pos,
-					edge,
-					state: "PROWLING" as GhostState,
-					revealed: false,
-				};
-			});
-		});
+		setGhosts([]);
+		for (let i = 0; i < BASE_MAX_GHOSTS; i++) {
+			spawnGhost();
+		}
 	};
 
 	const startHunt = () => {
 		setIsGameActive(true);
 		setIsCombat(true);
-		setGhosts((prev) => {
-			if (prev.length > 0) return prev;
-			const edges: ScreenEdge[] = ["bottom", "top", "left", "right"];
-			return Array.from({ length: BASE_MAX_GHOSTS }).map((_, i) => {
-				const edge = edges[i % 4];
-				const pos = getEdgePosition(edge);
-				return {
-					id: Date.now() + Math.random() + i,
-					...pos,
-					edge,
-					state: "PROWLING" as GhostState,
-					revealed: false,
-				};
-			});
-		});
+		if (ghosts.length === 0) {
+			for (let i = 0; i < BASE_MAX_GHOSTS; i++) {
+				spawnGhost();
+			}
+		}
 	};
 
 	useEffect(() => {
