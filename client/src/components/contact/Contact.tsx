@@ -4,45 +4,46 @@ import { motion } from "motion/react";
 import { useContext, useState } from "react";
 import ContactSheet from "./ContactSheet";
 
+const containerVariants = {
+	hidden: { opacity: 0 },
+	visible: {
+		opacity: 1,
+		transition: {
+			staggerChildren: 0.1,
+		},
+	},
+};
+
+const itemVariants = {
+	hidden: { opacity: 0, y: 20 },
+	visible: {
+		opacity: 1,
+		y: 0,
+		transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as any },
+	},
+};
+
+const titleVariants = {
+	hidden: { opacity: 0, x: -20 },
+	visible: {
+		opacity: 1,
+		x: 0,
+		transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as any },
+	},
+};
+
+const fadeUp = {
+	hidden: { opacity: 0, y: 24 },
+	visible: {
+		opacity: 1,
+		y: 0,
+		transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
+	},
+};
+
 const Contact: React.FC = () => {
 	const { contactRef } = useContext<IRefContext>(RefContext);
 	const [open, setOpen] = useState<boolean>(false);
-	const containerVariants = {
-		hidden: { opacity: 0 },
-		visible: {
-			opacity: 1,
-			transition: {
-				staggerChildren: 0.1,
-			},
-		},
-	};
-
-	const itemVariants = {
-		hidden: { opacity: 0, y: 20 },
-		visible: {
-			opacity: 1,
-			y: 0,
-			transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as any },
-		},
-	};
-
-	const titleVariants = {
-		hidden: { opacity: 0, x: -20 },
-		visible: {
-			opacity: 1,
-			x: 0,
-			transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as any },
-		},
-	};
-
-	const fadeUp = {
-		hidden: { opacity: 0, y: 24 },
-		visible: {
-			opacity: 1,
-			y: 0,
-			transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
-		},
-	};
 
 	return (
 		<motion.section

@@ -24,9 +24,18 @@ const ContactSheet: React.FC<Props> = ({ open, setOpen }) => {
 	useEffect(() => {
 		if (open) {
 			y.set(0);
-			setIsSent(false);
+			setTimeout(() => {
+				setIsSent(false);
+			}, 0);
 		}
 	}, [open, y]);
+
+	useEffect(() => {
+		return () => {
+			window.removeEventListener("pointermove", handlePointerMove);
+			window.removeEventListener("pointerup", handlePointerUp);
+		};
+	}, []);
 
 	const handlePointerDown = (e: React.PointerEvent) => {
 		startY.current = e.clientY;

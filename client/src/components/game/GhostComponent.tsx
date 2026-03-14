@@ -1,7 +1,9 @@
 import { AnimatePresence, motion, MotionValue } from "motion/react";
+import { useMemo } from "react";
 import { gameAudio } from "./audio";
 import GhostEye from "./GhostEye";
 import { Ghost } from "./types";
+import { seededRandom } from "@/lib/utils";
 
 interface GhostComponentProps {
 	ghost: Ghost;
@@ -13,7 +15,17 @@ interface GhostComponentProps {
 
 const DeathParticles = ({ isLunging }: { isLunging: boolean }) => {
 	const particleCount = 28;
-	const particles = Array.from({ length: particleCount });
+	const particleData = useMemo(() => 
+		Array.from({ length: particleCount }).map((_, i) => ({
+			angle: (i / particleCount) * Math.PI * 2 + (seededRandom(i + 1) - 0.5) * 1.5,
+			velocity: 50 + seededRandom(i + 2) * 90,
+			isBar: seededRandom(i + 3) > 0.6,
+			size: seededRandom(i + 4) * 3 + 1,
+			delay: seededRandom(i + 5) * 0.1,
+			rotate: seededRandom(i + 6) * 720,
+			duration: 0.6 + seededRandom(i + 7) * 0.3,
+		})), []
+	);
 
 	return (
 		<div className="absolute inset-0 flex items-center justify-center">
@@ -24,15 +36,9 @@ const DeathParticles = ({ isLunging }: { isLunging: boolean }) => {
 				className={`absolute h-4 w-4 rounded-full blur-xl ${isLunging ? "bg-red-500" : "bg-cyan-400"}`}
 			/>
 
-			{particles.map((_, i) => {
-				const angle =
-					(i / particleCount) * Math.PI * 2 + (Math.random() - 0.5) * 1.5;
-				const velocity = 50 + Math.random() * 90;
-				const tx = Math.cos(angle) * velocity;
-				const ty = Math.sin(angle) * velocity;
-				const isBar = Math.random() > 0.6;
-				const size = Math.random() * 3 + 1;
-				const delay = Math.random() * 0.1;
+			{particleData.map((data, i) => {
+				const tx = Math.cos(data.angle) * data.velocity;
+				const ty = Math.sin(data.angle) * data.velocity;
 
 				return (
 					<motion.div
@@ -43,16 +49,16 @@ const DeathParticles = ({ isLunging }: { isLunging: boolean }) => {
 							y: [0, ty * 0.2, ty],
 							opacity: [1, 1, 0],
 							scale: [2, 1.5, 0],
-							rotate: Math.random() * 720,
+							rotate: data.rotate,
 						}}
 						transition={{
-							duration: 0.6 + Math.random() * 0.3,
+							duration: data.duration,
 							ease: [0.16, 1, 0.3, 1],
-							delay: delay,
+							delay: data.delay,
 						}}
 						style={{
-							width: isBar ? size * 4 : size,
-							height: isBar ? size / 2 : size,
+							width: data.isBar ? data.size * 4 : data.size,
+							height: data.isBar ? data.size / 2 : data.size,
 							left: "50%",
 							top: "50%",
 						}}
@@ -80,6 +86,7 @@ const GhostComponent = ({
 	onKill,
 }: GhostComponentProps) => {
 	const isDying = ghost.state === "DYING";
+	const prowlDuration = useMemo(() => 1.5 + seededRandom(ghost.id), [ghost.id]);
 
 	return (
 		<motion.div
@@ -112,11 +119,22 @@ const GhostComponent = ({
 				stiffness: 100,
 			}}
 			className={`group pointer-events-auto absolute ${isCombat ? "cursor-none" : "cursor-crosshair"}`}
+			role="button"
+			aria-label="Hunt ghost"
+			tabIndex={0}
 			onClick={(e) => {
 				e.stopPropagation();
 				if (isDying) return;
 				gameAudio.playKill();
 				onKill(ghost.id);
+			}}
+			onKeyDown={(e) => {
+				if (e.key === "Enter" || e.key === " ") {
+					e.preventDefault();
+					if (isDying) return;
+					gameAudio.playKill();
+					onKill(ghost.id);
+				}
 			}}
 		>
 			<div className="absolute inset-x-[-15px] inset-y-[-15px] z-10" />
@@ -134,7 +152,7 @@ const GhostComponent = ({
 							animate={ghost.state === "PROWLING" ? { y: [0, -3, 0] } : {}}
 							transition={{
 								repeat: Infinity,
-								duration: 1.5 + Math.random(),
+								duration: prowlDuration,
 							}}
 						/>
 						<GhostEye

@@ -21,9 +21,9 @@ const AddProjectSidebar: React.FC<Props> = ({
 	setOpenAddProjectDialog,
 }) => {
 	const [imageFile, setImageFile] = useState<File | null>(null);
-	const [uploadedImageUrl, setUploadedImageUrl] = useState<IUploadedImage | string>(
-		"",
-	);
+	const [uploadedImageUrl, setUploadedImageUrl] = useState<
+		IUploadedImage | string
+	>("");
 	const { currentEditingId } = useAppSelector((state) => state.project);
 
 	return (

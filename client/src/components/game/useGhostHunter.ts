@@ -1,5 +1,5 @@
 import { useMotionValue } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
 	BASE_MAX_GHOSTS,
 	GHOST_DIALOGUES,
@@ -47,9 +47,24 @@ export const useGhostHunter = () => {
 	const [isHit, setIsHit] = useState(false);
 	const [isGameActive, setIsGameActive] = useState(true);
 	const attackCount = useRef(0);
-	const lastMoveTime = useRef(Date.now());
+	const lastMoveTime = useRef(0);
 	const pendingImpacts = useRef<Set<number>>(new Set());
 	const introPlayed = useRef(false);
+	const timeouts = useRef<number[]>([]);
+	const dialogueInterval = useRef<number | null>(null);
+
+	const clearAllTimeouts = useCallback(() => {
+		timeouts.current.forEach(clearTimeout);
+		timeouts.current = [];
+	}, []);
+
+	useEffect(() => {
+		lastMoveTime.current = Date.now();
+		return () => {
+			clearAllTimeouts();
+			if (dialogueInterval.current) clearInterval(dialogueInterval.current);
+		};
+	}, [clearAllTimeouts]);
 
 	const spawnGhost = (edge?: ScreenEdge) => {
 		const edges: ScreenEdge[] = ["top", "bottom", "left", "right"];
@@ -76,9 +91,14 @@ export const useGhostHunter = () => {
 		const introEdge: ScreenEdge = (["top", "bottom", "left", "right"] as const)[
 			Math.floor(Math.random() * 4)
 		];
-		const scoutId = spawnGhost(introEdge);
+		
+		let scoutId: number;
+		const t1 = window.setTimeout(() => {
+			scoutId = spawnGhost(introEdge);
+		}, 0);
+		timeouts.current.push(t1);
 
-		setTimeout(() => {
+		const t2 = window.setTimeout(() => {
 			setGhosts((prev) =>
 				prev.map((g) =>
 					g.id === scoutId
@@ -93,16 +113,18 @@ export const useGhostHunter = () => {
 				),
 			);
 		}, 1500);
+		timeouts.current.push(t2);
 
-		setTimeout(() => {
+		const t3 = window.setTimeout(() => {
 			setGhosts((prev) =>
 				prev.map((g) =>
 					g.id === scoutId ? { ...g, dialogue: "I'll call the others!" } : g,
 				),
 			);
 		}, 4500);
+		timeouts.current.push(t3);
 
-		setTimeout(() => {
+		const t4 = window.setTimeout(() => {
 			const pos = getEdgePosition(introEdge);
 			setGhosts((prev) =>
 				prev.map((g) =>
@@ -110,14 +132,20 @@ export const useGhostHunter = () => {
 				),
 			);
 
-			setTimeout(() => {
+			const t5 = window.setTimeout(() => {
 				setGhosts((prev) => prev.filter((g) => g.id !== scoutId));
 
 				for (let i = 0; i < BASE_MAX_GHOSTS; i++) {
 					spawnGhost();
 				}
 			}, 1000);
+			timeouts.current.push(t5);
 		}, 7000);
+		timeouts.current.push(t4);
+
+		return () => {
+			introPlayed.current = false;
+		};
 	}, []);
 
 	useEffect(() => {
@@ -131,8 +159,9 @@ export const useGhostHunter = () => {
 				prev.map((g) => {
 					const dx = e.clientX - g.x;
 					const dy = e.clientY - g.y;
-					const dist = Math.sqrt(dx * dx + dy * dy);
-					if (dist < SPOTLIGHT_RADIUS) return { ...g, revealed: true };
+					const distSq = dx * dx + dy * dy;
+					if (distSq < SPOTLIGHT_RADIUS * SPOTLIGHT_RADIUS)
+						return { ...g, revealed: true };
 					return g;
 				}),
 			);
@@ -187,36 +216,9 @@ export const useGhostHunter = () => {
 			);
 		}, 1000);
 		return () => clearInterval(interval);
-	}, [isVisible, isGameActive]);
+	}, [isVisible, isGameActive, mouseX, mouseY]);
 
-	useEffect(() => {
-		ghosts.forEach((ghost) => {
-			if (ghost.state === "LUNGING" && !pendingImpacts.current.has(ghost.id)) {
-				pendingImpacts.current.add(ghost.id);
-				setTimeout(() => {
-					setGhosts((prev) => {
-						const g = prev.find((p) => p.id === ghost.id);
-						if (!g) {
-							pendingImpacts.current.delete(ghost.id);
-							return prev;
-						}
-
-						if (g.state === "LUNGING") {
-							handleImpact();
-						}
-						pendingImpacts.current.delete(ghost.id);
-
-						const pos = getEdgePosition(g.edge);
-						return prev.map((p) =>
-							p.id === ghost.id ? { ...p, ...pos, state: "PROWLING" } : p,
-						);
-					});
-				}, 600);
-			}
-		});
-	}, [ghosts]);
-
-	const handleImpact = () => {
+	const handleImpact = useCallback(() => {
 		if (!isGameActive) return;
 		attackCount.current += 1;
 		setCorruptionLevel((c) => {
@@ -247,7 +249,34 @@ export const useGhostHunter = () => {
 		if (attackCount.current >= 3 && !isCombat) {
 			setIsCombat(true);
 		}
-	};
+	}, [isGameActive, isCombat]);
+
+	useEffect(() => {
+		ghosts.forEach((ghost) => {
+			if (ghost.state === "LUNGING" && !pendingImpacts.current.has(ghost.id)) {
+				pendingImpacts.current.add(ghost.id);
+				setTimeout(() => {
+					setGhosts((prev) => {
+						const g = prev.find((p) => p.id === ghost.id);
+						if (!g) {
+							pendingImpacts.current.delete(ghost.id);
+							return prev;
+						}
+
+						if (g.state === "LUNGING") {
+							handleImpact();
+						}
+						pendingImpacts.current.delete(ghost.id);
+
+						const pos = getEdgePosition(g.edge);
+						return prev.map((p) =>
+							p.id === ghost.id ? { ...p, ...pos, state: "PROWLING" } : p,
+						);
+					});
+				}, 600);
+			}
+		});
+	}, [ghosts, handleImpact]);
 
 	const killGhost = (id: number) => {
 		let wasDying = false;
@@ -268,14 +297,15 @@ export const useGhostHunter = () => {
 			setGhosts((prev) => {
 				const remaining = prev.filter((g) => g.id !== id);
 				if (remaining.length === 0) {
-					setIsCombat(false);
-					if (isGameActive) {
-						setIsGameActive(false);
-						setCorruptionLevel(0);
-						setTimeout(() => {
-							resetToPassive();
-						}, 3000);
-					}
+					// Trigger side effects outside of the update function
+					setTimeout(() => {
+						setIsCombat(false);
+						if (isGameActive) {
+							setIsGameActive(false);
+							setCorruptionLevel(0);
+							setTimeout(resetToPassive, 3000);
+						}
+					}, 0);
 				}
 				return remaining;
 			});
@@ -327,7 +357,7 @@ export const useGhostHunter = () => {
 	};
 
 	useEffect(() => {
-		const interval = setInterval(() => {
+		dialogueInterval.current = window.setInterval(() => {
 			setGhosts((prev) => {
 				const prowlers = prev.filter((g) => g.state === "PROWLING");
 				if (prowlers.length === 0) return prev;
@@ -340,19 +370,22 @@ export const useGhostHunter = () => {
 					g.id === target.id ? { ...g, dialogue } : g,
 				);
 
-				setTimeout(() => {
+				const timer = window.setTimeout(() => {
 					setGhosts((current) =>
 						current.map((g) =>
 							g.id === target.id ? { ...g, dialogue: undefined } : g,
 						),
 					);
 				}, 3000);
+				timeouts.current.push(timer);
 
 				return updated;
 			});
 		}, 3500);
 
-		return () => clearInterval(interval);
+		return () => {
+			if (dialogueInterval.current) clearInterval(dialogueInterval.current);
+		};
 	}, []);
 
 	const giveUp = () => {
